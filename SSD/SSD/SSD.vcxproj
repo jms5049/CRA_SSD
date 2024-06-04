@@ -128,11 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="read.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="nand.txt" />
-    <Text Include="result.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
