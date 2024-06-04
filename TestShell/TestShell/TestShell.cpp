@@ -30,17 +30,17 @@ void TestShell::write(string input)
 
 void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string& strData)
 {
-	// °¢ ÀÔ·Â À§Ä¡¿Í ±æÀÌ È®ÀÎ
+	// ê° ì…ë ¥ ìœ„ì¹˜ì™€ ê¸¸ì´ í™•ì¸
 	if (spacePos == string::npos || spacePos == 0) throw InvalidCommandException();
 	if (strLba.length() > 2) throw InvalidCommandException();
 	if (strData.length() > 10) throw InvalidCommandException();
 
-	// LBA°¡ ¼ıÀÚ·Î ÀÔ·ÂµÆ´ÂÁö È®ÀÎ
+	// LBAê°€ ìˆ«ìë¡œ ì…ë ¥ëëŠ”ì§€ í™•ì¸
 	for (int i = 0; i < strLba.length(); i++) {
 		if (strLba[i] < '0' || strLba[i] > '9') throw InvalidCommandException();
 	}
 
-	// data°¡ ÃÖ´ë 16Áø¼öÀÎÁö È®ÀÎ
+	// dataê°€ ìµœëŒ€ 16ì§„ìˆ˜ì¸ì§€ í™•ì¸
 	if (strData[0] != '0' || strData[1] != 'x') throw InvalidCommandException();
 	for (int i = 2; i < strData.length(); i++) {
 		if (((strData[i] >= '0' && strData[i] <= '9')
