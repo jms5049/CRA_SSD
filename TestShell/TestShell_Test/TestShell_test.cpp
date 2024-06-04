@@ -1,7 +1,12 @@
 #pragma once
+#include "../TestShell/TestShell.cpp"
+#include "gtest/gtest.h"
 #include "gmock/gmock.h"
+using namespace testing;
 
-TEST(TestCaseName, TestName) {
-  EXPECT_EQ(1, 1);
-  EXPECT_TRUE(true);
+TEST(AppTest, Exit) {
+	TestShell* app = new TestShell();
+	EXPECT_TRUE(app != nullptr);
+	app->exitApp();
+	EXPECT_TRUE(app == nullptr);
 }
