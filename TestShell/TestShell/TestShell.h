@@ -10,4 +10,6 @@ public:
 
 private:
 	SsdApi* ssdApi;
+
+	void verifyWriteInput(int spacePos, std::string& strLba, std::string& strData);
 };

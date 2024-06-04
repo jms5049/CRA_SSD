@@ -9,14 +9,14 @@ using std::string;
 class SsdMock : public SsdApi {
 public:
 	MOCK_METHOD(int, read, (int lba), (override));
-	MOCK_METHOD(void, write, (int lba, int data), (override));
+	MOCK_METHOD(void, write, (int lba, string data), (override));
 };
 
 TEST(TestShellWrite, WriteSuccess) {
 	SsdMock ssd;
 	TestShell testShell(&ssd);
 	
-	EXPECT_CALL(ssd, write(3, 0xAAAABBBB))
+	EXPECT_CALL(ssd, write(3, "0xAAAABBBB"))
 		.Times(1);
 
 	testShell.write("3 0xAAAABBBB");
