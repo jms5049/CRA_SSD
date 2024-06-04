@@ -10,7 +10,7 @@ using std::string;
 TEST(AppTest, Help) {
 	TestShell* app = new TestShell();
 	app->help("write");
-	//Help는 TDD는 불필요하다고 생각됩니다. 
+	//do not need Test for Help function
 }
 
 TEST(AppTest, Exit) {
