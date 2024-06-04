@@ -2,7 +2,7 @@
 #include <stdexcept>
 using namespace std;
 
-int readindex(string input) {
+int readIndex(string input) {
 	if (input[0] != 'R') {
 		throw std::invalid_argument("Invalid Input Format! Must start with R");
 	}
@@ -15,8 +15,8 @@ int readindex(string input) {
 	return stoi(input.substr(2, 2));
 }
 
-string printresult(string input) {
-	int idx = readindex(input);
+string printResult(string input) {
+	int idx = readIndex(input);
 
 	return " ";
 }
