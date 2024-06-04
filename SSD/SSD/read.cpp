@@ -23,7 +23,7 @@ int readIndex(string input) {
 
 string printResult(string input) {
 	int idx = readIndex(input);
-	string filepath = "nand.txt";
+	string filepath = "result.txt";
 	ifstream file(filepath);
 	if (file.is_open()) {
 		cout << "File opened successfully!" << std::endl;
