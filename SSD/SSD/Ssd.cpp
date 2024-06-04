@@ -24,15 +24,17 @@ public:
 		resultFile.close();
 	}
 
-	string readSsd(int LBAIndex) {
+	string readResult() {
+		return readTxtData(resultFileName);
+	}
+
+	void readSsd(int LBAIndex) {
 		string nandData = readNandData();
 
-		if (nandData == ErrorMessage)  return ErrorMessage;
+		if (nandData == ErrorMessage)  return;
 
 		int startIndex = LBAIndex * 4 * 2;
-		string result = "0x" + nandData.substr(startIndex, 8);
-		updateReadResult(result);
-		return result;
+		updateReadResult("0x" + nandData.substr(startIndex, 8));
 	}
 
 	void writeSsd(int LBAIndex, string writeData) {
@@ -51,8 +53,8 @@ private:
 	string resultFileName = "../result.txt";
 	string ErrorMessage = "Nand file open error!";
 
-	string readNandData() {
-		ifstream file(nandFlieName);
+	string readTxtData(string filePath) {
+		ifstream file(filePath);
 		if (file.is_open() == false)  return ErrorMessage;
 
 		string line;
@@ -62,19 +64,23 @@ private:
 		return line;
 	}
 
-	void writeNandData(string changedNandData) {
-		ofstream file(nandFlieName);
+	void writeTxtData(string filePath, string writeData) {
+		ofstream file(filePath, ios::trunc);
 		if (file.is_open() == false)  return;
-		file << changedNandData;
+		file << writeData;
 
 		file.close();
 	}
 
-	void updateReadResult(string readData) {
-		ofstream file(resultFileName, ios::trunc);
-		if (file.is_open() == false)  return;
-		file << readData;
+	string readNandData() {
+		return readTxtData(nandFlieName);
+	}
 
-		file.close();
+	void writeNandData(string changedNandData) {
+		writeTxtData(nandFlieName, changedNandData);
+	}
+
+	void updateReadResult(string readData) {
+		writeTxtData(resultFileName, readData);
 	}
 };
