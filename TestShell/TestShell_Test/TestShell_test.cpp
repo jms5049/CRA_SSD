@@ -1,10 +1,20 @@
 #pragma once
+
+#include <string>
+
 #include "../TestShell/TestShell.cpp"
 #include "../TestShell/read.cpp"
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
+
 using namespace testing;
 using std::string;
+
+class SsdMock : public SsdApi {
+public:
+	MOCK_METHOD(int, read, (int lba), (override));
+	MOCK_METHOD(void, write, (int lba, string data), (override));
+};
 
 TEST(ReadTest, validinputtest1) {
 	string input = "abcd 20";
@@ -14,6 +24,26 @@ TEST(ReadTest, validinputtest1) {
 TEST(ReadTest, validinputtest2) {
 	string input = "read  40";
 	EXPECT_THROW(printResult(input), std::invalid_argument);
+}
+
+TEST(TestShellWrite, WriteSuccess) {
+	SsdMock ssd;
+	TestShell* app = new TestShell(&ssd);
+
+	EXPECT_CALL(ssd, write(3, "0xAAAABBBB"))
+		.Times(1);
+
+	app->write("3 0xAAAABBBB");
+}
+
+TEST(TestShellWrite, WriteInputError) {
+	SsdMock ssd;
+	TestShell* app = new TestShell(&ssd);
+
+	EXPECT_THROW(app->write("1 djf"), InvalidCommandException);
+	EXPECT_THROW(app->write("100 0xAAAAAAAA"), InvalidCommandException);
+	EXPECT_THROW(app->write("1 AAAAAAAA"), InvalidCommandException);
+	EXPECT_THROW(app->write("1 0xeeepppp"), InvalidCommandException);
 }
 
 TEST(ReadTest, validinputtest3) {
@@ -52,14 +82,16 @@ TEST(ReadTest, validinputtest9) {
 }
 
 TEST(AppTest, Help) {
-	TestShell* app = new TestShell();
+	SsdMock ssd;
+	TestShell* app = new TestShell(&ssd);
 	app->help("write");
 	app->help("");
 	//do not need Test for Help function
 }
 
 TEST(AppTest, Exit) {
-	TestShell* app = new TestShell();
+	SsdMock ssd;
+	TestShell* app = new TestShell(&ssd);
 	EXPECT_TRUE(app != nullptr);
 	app->exitApp();
 	EXPECT_TRUE(app == nullptr);
