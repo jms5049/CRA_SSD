@@ -32,20 +32,21 @@ void TestShell::write(string input)
 void TestShell::read(string input)
 {
 	int idx = verifyReadInput(input);
-	//string filepath = "result.txt";
-	//std::ifstream file(filepath);
-	//if (file.is_open()) {
-	//	std::cout << "File opened successfully!" << std::endl;
-	//	string line;
-	//	while (getline(file, line)) {
-	//		std::cout << line << std::endl;
-	//	}
-	//	file.close();
-	//}
-	//else {
-	//	std::cerr << "Failed to open the file!" << std::endl;
-	//}
 	ssdApi->read(idx);
+
+	string filepath = "../TestShell/result.txt";
+	std::ifstream file(filepath);
+	if (file.is_open()) {
+		std::cout << "File opened successfully!" << std::endl;
+		string line;
+		while (getline(file, line)) {
+			std::cout << line << std::endl;
+		}
+		file.close();
+	}
+	else {
+		std::cerr << "Failed to open the file!" << std::endl;
+	}
 }
 
 void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string& strData)
