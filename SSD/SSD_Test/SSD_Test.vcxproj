@@ -99,7 +99,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\packages\gmock.1.11.0\lib\native\src\gtest\src\gtest_main.cc" />
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="Ssd_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CRA_SSD\CRA_SSD.vcxproj">

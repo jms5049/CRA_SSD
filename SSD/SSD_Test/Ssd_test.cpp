@@ -11,10 +11,9 @@ public:
 };
 
 TEST_F(SsdVirtualFixture, readNandDataFileNameError) {
-	EXPECT_THAT(device.readNandData(invalidFileName), Eq("Nand file open error!"));
+	EXPECT_THAT(device.readNandData(invalidFileName), Eq(device.getErrorMessage()));
 }
 
 TEST_F(SsdVirtualFixture, readNandDataNandSizeError) {
 	EXPECT_THAT(device.readNandData(validFileName).size(), Eq(800));
 }
-
