@@ -15,7 +15,6 @@ private:
 
 	void verifyWriteInput(int spacePos, std::string& strLba, std::string& strData);
 
-private:
 	void help_write();
 	void help_read();
 	void help_exit();

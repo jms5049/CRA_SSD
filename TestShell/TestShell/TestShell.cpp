@@ -24,7 +24,6 @@ void TestShell::write(string input)
 	verifyWriteInput(spacePos, strLba, strData);
 
 	int iLba = atoi(strLba.data());
-
 	ssdApi->write(iLba, strData);
 }
 
