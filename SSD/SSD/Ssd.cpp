@@ -21,6 +21,15 @@ public:
 		return line;
 	}
 
+	void writeNandData(string fileName, string changedNandData) {
+		ofstream file(fileName);
+
+		if (file.is_open() == false)  return;
+		file << changedNandData;
+
+		file.close();
+	}
+
 	string readSsd(int LBAIndex) {
 		string nandData = readNandData(nandFlieName);
 
@@ -30,8 +39,18 @@ public:
 		return "0x" + nandData.substr(startIndex, 8);
 	}
 
+	void writeSsd(int LBAIndex, string writeData) {
+		string nandData = readNandData(nandFlieName);
+
+		if (nandData == ErrorMessage)  return;
+
+		int startIndex = LBAIndex * 4 * 2;
+		for (int i = 0; i < 8; i++) {
+			nandData[startIndex + i] = writeData[i];
+		}
+		writeNandData(nandFlieName, nandData);
+	}
 private:
 	string nandFlieName = "../nand.txt";
 	string ErrorMessage = "Nand file open error!";
-	
 };
