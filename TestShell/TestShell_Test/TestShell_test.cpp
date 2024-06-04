@@ -4,9 +4,32 @@
 #include "gmock/gmock.h"
 using namespace testing;
 
-TEST(AppTest, Exit) {
-	TestShell* app = new TestShell();
-	EXPECT_TRUE(app != nullptr);
-	app->exitApp();
-	EXPECT_TRUE(app == nullptr);
+TEST(ShellTest, inputArgsCountException) {
+	TestShell* shell = new TestShell();
+	string userInput = "write 0x3 0x4 0x5";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+
+	userInput = "write 0x3";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+
+	userInput = "read 0x3 0x4";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+
+	userInput = "read 0x3 0x4 0x5";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+
+	userInput = "exit 0x3";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+
+	userInput = "help 0x3 0x4 0x5";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+}
+
+TEST(ShellTest, inputArgTypeException) {
+	TestShell* shell = new TestShell();
+	string userInput = "write write write";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+
+	userInput = "read read";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
 }
