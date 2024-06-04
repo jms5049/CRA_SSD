@@ -90,7 +90,8 @@ TEST(AppTest, Help) {
 }
 
 TEST(ShellTest, inputArgsCountException) {
-	TestShell* shell = new TestShell();
+	SsdMock ssd;
+	TestShell* shell = new TestShell(&ssd);
 	string userInput = "write 0x3 0x4 0x5";
 	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
 
@@ -111,9 +112,11 @@ TEST(ShellTest, inputArgsCountException) {
 }
 
 TEST(ShellTest, inputArgTypeException) {
-	TestShell* shell = new TestShell();
+	SsdMock ssd;
+	TestShell* shell = new TestShell(&ssd);
 	string userInput = "write write write";
 	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
 
 	userInput = "read read";
 	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+}

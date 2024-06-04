@@ -118,10 +118,6 @@ void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string&
 	}
 }
 
-void TestShell::exitShell() {
-	exit(0);
-}
-
 void TestShell::help(string command) {
 	if (command == "write") help_write();
 	else if (command == "read") help_read();
