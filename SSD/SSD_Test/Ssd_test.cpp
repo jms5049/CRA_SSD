@@ -17,3 +17,7 @@ TEST_F(SsdVirtualFixture, readNandDataFileNameError) {
 TEST_F(SsdVirtualFixture, readNandDataNandSizeError) {
 	EXPECT_THAT(device.readNandData(validFileName).size(), Eq(800));
 }
+
+TEST_F(SsdVirtualFixture, readNandDataIndex0) {
+	EXPECT_THAT(device.readSsd(0), StartsWith("0x00000000"));
+}
