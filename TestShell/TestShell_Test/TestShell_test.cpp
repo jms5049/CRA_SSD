@@ -4,6 +4,16 @@
 #include "gmock/gmock.h"
 using namespace testing;
 
+using std::string;
+
+
+TEST(AppTest, Help) {
+	TestShell* app = new TestShell();
+	app->help("write");
+	app->help("");
+	//do not need Test for Help function
+}
+
 TEST(AppTest, Exit) {
 	TestShell* app = new TestShell();
 	EXPECT_TRUE(app != nullptr);
