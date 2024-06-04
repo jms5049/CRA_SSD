@@ -1,20 +1,24 @@
 #pragma once
+#include <stdlib.h>
+#include <sstream>
+#include <iostream>
 #include <string>
+#include <vector>
 
-using std::string;
+using namespace std;
 
 class TestShell {
 public:
 	TestShell(SsdApi* ssdApi);
 	void write(string input);
-	void exitApp();
+	void inputParser(string userInput);
+	void exitShell();
 	void help(string command);
 
 private:
+	vector<string> splitString(const string& str);
 	SsdApi* ssdApi;
-
 	void verifyWriteInput(int spacePos, std::string& strLba, std::string& strData);
-
 	void help_write();
 	void help_read();
 	void help_exit();
