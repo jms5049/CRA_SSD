@@ -27,17 +27,11 @@ public:
 		if (nandData == ErrorMessage)  return ErrorMessage;
 
 		int startIndex = LBAIndex * 4 * 2;
-		return "0x" + changeEndian(nandData.substr(startIndex, 8));
+		return "0x" + nandData.substr(startIndex, 8);
 	}
 
 private:
 	string nandFlieName = "../nand.txt";
 	string ErrorMessage = "Nand file open error!";
-	string changeEndian(string hexWord) {
-		string ret = hexWord.substr(6, 2)
-			+ hexWord.substr(4, 2)
-			+ hexWord.substr(2, 2)
-			+ hexWord.substr(0, 2);
-		return ret;
-	}
+	
 };
