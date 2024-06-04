@@ -48,9 +48,9 @@ void TestShell::inputParser(string userInput) {
 		return;
 	}
 	if (args[0] == "help") {
-		if (args.size() != 1)
+		if (args.size() != 2)
 			throw invalid_argument("Wrong API Call use Help to See More");
-		//TO DO : call write Function args[1] : LBA , args[2] : ADDR
+		help(args[1]);
 		return;
 	}
 	if (args[0] == "fullwrite") {
@@ -118,7 +118,7 @@ void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string&
 	}
 }
 
-void TestShell::exitApp() {
+void TestShell::exitShell() {
 	exit(0);
 }
 
