@@ -1,1 +1,1 @@
-# CRA Project - SSD
+# CRA Project - SSD (Group B)
