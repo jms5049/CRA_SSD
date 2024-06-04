@@ -10,6 +10,7 @@ using std::string;
 TEST(AppTest, Help) {
 	TestShell* app = new TestShell();
 	app->help("write");
+	app->help("");
 	//do not need Test for Help function
 }
 
