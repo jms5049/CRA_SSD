@@ -28,3 +28,7 @@ TEST_F(SsdVirtualFixture, writeNandDataIndex4) {
 	device.readSsd(4);
 	EXPECT_THAT(device.readResult(), Eq("0xBEEF9090"));
 }
+
+TEST_F(SsdVirtualFixture, errorMessage) {
+	EXPECT_THAT(device.getErrorMessage(), StrEq("Nand file open error!"));
+}
