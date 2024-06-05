@@ -96,24 +96,26 @@ void TestShell::write(string input)
 	ssdApi->write(iLba, strData);
 }
 
-void TestShell::fullWrite(string input)
+void TestShell::fullWrite(string writeData)
 {
-	// data 길이 확인
-	if (input.length() != 10) throw InvalidCommandException();
+	verifyWriteDataLength(writeData);
+	verifyWriteDataHexNum(writeData);
 
-	// data가 16진수인지 확인
-	if (input[0] != '0' || input[1] != 'x') throw InvalidCommandException();
-	for (int i = 2; i < input.length(); i++) {
-		if (((input[i] >= '0' && input[i] <= '9')
-			|| (input[i] >= 'a' && input[i] <= 'f')
-			|| (input[i] >= 'A' && input[i] <= 'F')) == false)
+	for (int i = 0; i < 100; i++) {
+		ssdApi->write(i, writeData);
+	}
+}
+
+void TestShell::verifyWriteDataHexNum(std::string& writeData)
+{
+	if (writeData[0] != '0' || writeData[1] != 'x') throw InvalidCommandException();
+	for (int i = 2; i < writeData.length(); i++) {
+		if (((writeData[i] >= '0' && writeData[i] <= '9')
+			|| (writeData[i] >= 'a' && writeData[i] <= 'f')
+			|| (writeData[i] >= 'A' && writeData[i] <= 'F')) == false)
 		{
 			throw InvalidCommandException();
 		}
-	}
-
-	for (int i = 0; i < 100; i++) {
-		ssdApi->write(i, input);
 	}
 }
 
@@ -155,7 +157,7 @@ void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string&
 	// 각 입력 위치와 길이 확인
 	if (spacePos == string::npos || spacePos == 0) throw InvalidCommandException();
 	if (strLba.length() > 2) throw InvalidCommandException();
-	if (strData.length() > 10) throw InvalidCommandException();
+	verifyWriteDataLength(strData);
 
 	// LBA가 숫자로 입력됐는지 확인
 	for (int i = 0; i < strLba.length(); i++) {
@@ -163,15 +165,12 @@ void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string&
 	}
 
 	// data가 최대 16진수인지 확인
-	if (strData[0] != '0' || strData[1] != 'x') throw InvalidCommandException();
-	for (int i = 2; i < strData.length(); i++) {
-		if (((strData[i] >= '0' && strData[i] <= '9')
-			|| (strData[i] >= 'a' && strData[i] <= 'f')
-			|| (strData[i] >= 'A' && strData[i] <= 'F')) == false)
-		{
-			throw InvalidCommandException();
-		}
-	}
+	verifyWriteDataHexNum(strData);
+}
+
+void TestShell::verifyWriteDataLength(std::string& strData)
+{
+	if (strData.length() != 10) throw InvalidCommandException();
 }
 
 int TestShell::verifyReadInput(string input) {

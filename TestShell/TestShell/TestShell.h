@@ -23,6 +23,9 @@ private:
 	vector<string> splitString(const string& str);
 	SsdApi* ssdApi;
 	void verifyWriteInput(int spacePos, std::string& strLba, std::string& strData);
+	void verifyWriteDataLength(std::string& strData);
+	void verifyWriteDataHexNum(std::string& writeData);
+
 	int verifyReadInput(string input);
 	string readResultFile(const std::string& filepath);
 	void help_write();
