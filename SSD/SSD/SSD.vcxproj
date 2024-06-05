@@ -139,6 +139,9 @@
     <Text Include="..\nand.txt" />
     <Text Include="..\result.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Ssd.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
