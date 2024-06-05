@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <string>
+#include <fstream>
+#include <iostream>
 #include <regex>
 
 #include "ShellException.h"
@@ -94,6 +96,26 @@ void TestShell::write(string input)
 	ssdApi->write(iLba, strData);
 }
 
+void TestShell::read(string input)
+{
+	int idx = verifyReadInput(input);
+	ssdApi->read(idx);
+
+	string filepath = "../TestShell/result.txt";
+	std::ifstream file(filepath);
+	if (file.is_open()) {
+		std::cout << "File opened successfully!" << std::endl;
+		string line;
+		while (getline(file, line)) {
+			std::cout << line << std::endl;
+		}
+		file.close();
+	}
+	else {
+		std::cerr << "Failed to open the file!" << std::endl;
+	}
+}
+
 void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string& strData)
 {
 	// 각 입력 위치와 길이 확인
@@ -118,6 +140,30 @@ void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string&
 	}
 }
 
+<<<<<<< feature/read_refactoring
+int TestShell::verifyReadInput(string input) {
+	if (input[0] != 'r') throw std::invalid_argument("Invalid Input Format! Must start with r");
+	if (input.size() >= 8 || input[4] != ' ') throw std::invalid_argument("Invalid read input format");
+	if (input.size() == 6) {
+		if (!isdigit(input[5])) {
+			throw std::invalid_argument("Invalid index format! Index must be 0 to 99");
+		}
+		return stoi(input.substr(5, 1));
+	}
+	if (input.size() == 7) {
+		if (!isdigit(input[5]) || !isdigit(input[6])) {
+			throw std::invalid_argument("Invalid index format! Index must be 0 to 99");
+		}
+		return stoi(input.substr(5, 2));
+	}
+}
+
+void TestShell::exitApp() {
+	exit(0);
+}
+
+=======
+>>>>>>> master
 void TestShell::help(string command) {
 	if (command == "write") help_write();
 	else if (command == "read") help_read();
