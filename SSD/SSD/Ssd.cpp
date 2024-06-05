@@ -49,8 +49,8 @@ public:
 		writeNandData(nandData);
 	}
 private:
-	string nandFlieName = "../nand.txt";
-	string resultFileName = "../result.txt";
+	string nandFlieName = "./nand.txt";
+	string resultFileName = "./result.txt";
 	string ErrorMessage = "Nand file open error!";
 
 	string readTxtData(string filePath) {
