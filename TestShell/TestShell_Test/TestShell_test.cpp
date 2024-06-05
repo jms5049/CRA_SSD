@@ -12,7 +12,7 @@ using std::string;
 
 class SsdMock : public SsdApi {
 public:
-	MOCK_METHOD(int, read, (int lba), (override));
+	MOCK_METHOD(string, read, (int lba), (override));
 	MOCK_METHOD(void, write, (int lba, string data), (override));
 };
 
@@ -31,16 +31,6 @@ public:
 	SsdMock ssd;
 	TestShell* app = new TestShell(&ssd);
 };
-
-TEST_F(SsdTestShellFixture, WriteSuccess) {
-	// 수행 후 Read가 필요하나 아직 Read 구현 전이라 txt 열어서 결과 확인함.
-	app->write("3", "0xAAAABBBB");
-}
-
-TEST_F(SsdTestShellFixture, FullWriteSuccess) {
-	// 수행 후 Read가 필요하나 아직 Read 구현 전이라 txt 열어서 결과 확인함.
-	app->fullWrite("0xFFFFFFFF");
-}
 
 TEST_F(TestShellFixture, WriteSuccess) {
 	EXPECT_CALL(ssd, write(3, "0xAAAABBBB"))
@@ -91,6 +81,16 @@ TEST_F(TestShellFixture, fullReadSuccess) {
 			.Times(1);
 	}
 
+	app->fullRead();
+}
+
+TEST_F(SsdTestShellFixture, readwriteSuccess) {
+	app->write("3", "0xAAAABBBB");
+	app->read("3");
+}
+
+TEST_F(SsdTestShellFixture, fullReadWriteSuccess) {
+	app->fullWrite("0xFFFFFFFF");
 	app->fullRead();
 }
 

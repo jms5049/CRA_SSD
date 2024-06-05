@@ -98,8 +98,7 @@ void TestShell::verifyWriteDataLength(std::string& strData)
 string TestShell::read(string strLba)
 {
 	int iLba = verifyConvertLba(strLba);
-	ssdApi->read(iLba);
-	string result = readResultFile("../../SSD/result.txt");
+	string result = ssdApi->read(iLba);
 	cout << result << endl;
 	return result;
 }
@@ -107,8 +106,7 @@ string TestShell::read(string strLba)
 void TestShell::fullRead()
 {
 	for (int idx = 0; idx < 100; idx++) {
-		ssdApi->read(idx);
-		cout << readResultFile("../../SSD/result.txt") << endl;
+		cout << ssdApi->read(idx);
 	}
 }
 
@@ -122,23 +120,6 @@ int TestShell::verifyConvertLba(string& strLba) {
 
 	iLba = stoi(strLba);
 	return iLba;
-}
-
-string TestShell::readResultFile(const std::string& filepath) {
-	string content;
-	std::ifstream file(filepath);
-	if (!file.is_open()) {
-		std::cerr << "Error: Failed to open result.txt file for reading!" << std::endl;
-		return "";
-	}
-
-	std::string line;
-	while (std::getline(file, line)) {
-		content += line + "\n";
-	}
-
-	file.close();
-	return content;
 }
 
 void TestShell::exitApp() {
