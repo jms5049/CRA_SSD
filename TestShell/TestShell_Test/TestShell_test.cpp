@@ -20,6 +20,10 @@ class SsdTestShellFixture : public Test {
 public:
 	Ssd ssd;
 	TestShell* app = new TestShell(&ssd);
+
+	void TearDown() {
+		app->fullWrite("0x00000000");
+	}
 };
 
 class TestShellFixture : public Test {
@@ -29,12 +33,12 @@ public:
 };
 
 TEST_F(SsdTestShellFixture, WriteSuccess) {
-	// ¼öÇà ÈÄ Read°¡ ÇÊ¿äÇÏ³ª ¾ÆÁ÷ Read ±¸Çö ÀüÀÌ¶ó txt ¿­¾î¼­ °á°ú È®ÀÎÇÔ.
+	// ìˆ˜í–‰ í›„ Readê°€ í•„ìš”í•˜ë‚˜ ì•„ì§ Read êµ¬í˜„ ì „ì´ë¼ txt ì—´ì–´ì„œ ê²°ê³¼ í™•ì¸í•¨.
 	app->write("3", "0xAAAABBBB");
 }
 
 TEST_F(SsdTestShellFixture, FullWriteSuccess) {
-	// ¼öÇà ÈÄ Read°¡ ÇÊ¿äÇÏ³ª ¾ÆÁ÷ Read ±¸Çö ÀüÀÌ¶ó txt ¿­¾î¼­ °á°ú È®ÀÎÇÔ.
+	// ìˆ˜í–‰ í›„ Readê°€ í•„ìš”í•˜ë‚˜ ì•„ì§ Read êµ¬í˜„ ì „ì´ë¼ txt ì—´ì–´ì„œ ê²°ê³¼ í™•ì¸í•¨.
 	app->fullWrite("0xFFFFFFFF");
 }
 
