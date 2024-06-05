@@ -30,7 +30,7 @@ public:
 
 TEST_F(SsdTestShellFixture, WriteSuccess) {
 	// 수행 후 Read가 필요하나 아직 Read 구현 전이라 txt 열어서 결과 확인함.
-	app->write("3 0xAAAABBBB");
+	app->write("3", "0xAAAABBBB");
 }
 
 TEST_F(SsdTestShellFixture, FullWriteSuccess) {
