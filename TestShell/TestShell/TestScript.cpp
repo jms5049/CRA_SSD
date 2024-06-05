@@ -1,4 +1,4 @@
-﻿#include <string>
+#include <string>
 #include <fstream>
 
 #include "SsdApi.h"
@@ -26,9 +26,11 @@ bool TestScript::testApp1() {
 	string data = "0x5a5a5a5a";
 	testShell->fullWrite(data);
 	testShell->fullRead();
-	string result = readResult();
-	if (result != data) {
-		return false;
+	for (int addr = 0; addr < 100; addr++) {
+		string result = testShell->read(to_string(addr));
+		if (result != data) {
+			return false;
+		}
 	}
 	return true;
 }
@@ -45,7 +47,7 @@ bool TestScript::testApp2() {
 
 	for (int addr = 0; addr < 5; addr++) {
 		testShell->read(to_string(addr));
-		string result = readResult();
+		string result = testShell->read(to_string(addr));
 		if (result != data) {
 			return false;
 		}
@@ -58,22 +60,6 @@ void TestScript::write5AddrTest(string data) {
 		testShell->write(to_string(addr), data);
 	}
 }
-
-string TestScript::readResult()
-{
-	string filepath = "../../SSD/result.txt";
-	std::ifstream file(filepath);
-
-	string line = "";
-	if (file.is_open()) {
-		getline(file, line);
-		file.close();
-	}
-
-	return line;
-}
-
-
 
 vector<string> TestScript::splitString(const string& str) {
 	istringstream iss(str);
