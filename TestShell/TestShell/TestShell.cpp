@@ -20,31 +20,31 @@ void TestShell::inputParser(string userInput) {
 	vector<string> args = splitString(userInput);
 
 	if (args[0] == "write") {
-		if (args.size() != 3) throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 3) throw InvalidArgumentException();
 		write(args[1], args[2]);
 		return;
 	}
 	if (args[0] == "read") {
-		if (args.size() != 2) throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 2) throw InvalidArgumentException();
 		read(args[1]);
 		return;
 	}
 	if (args[0] == "exit") {
-		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 1) throw InvalidArgumentException();
 		exitShell();
 	}
 	if (args[0] == "help") {
-		if (args.size() != 2) throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 2) throw InvalidArgumentException();
 		help(args[1]);
 		return;
 	}
 	if (args[0] == "fullwrite") {
-		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 1) throw InvalidArgumentException();
 		fullWrite(args[1]);
 		return;
 	}
 	if (args[0] == "fullread") {
-		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 1) throw InvalidArgumentException();
 		fullRead();
 		return;
 	}
@@ -66,12 +66,12 @@ vector<string> TestShell::splitString(const string& str) {
 	return tokens;
 }
 
-void TestShell::write(string strLba, string strData)
+void TestShell::write(string strLba, string writeData)
 {
-	verifyWriteInput(strLba, strData);
-
-	int iLba = atoi(strLba.data());
-	ssdApi->write(iLba, strData);
+	int iLba = verifyConvertLba(strLba);
+	verifyWriteDataLength(writeData);
+	verifyWriteDataHexNum(writeData);
+	ssdApi->write(iLba, writeData);
 }
 
 void TestShell::fullWrite(string writeData)
@@ -87,32 +87,17 @@ void TestShell::fullWrite(string writeData)
 void TestShell::verifyWriteDataHexNum(std::string& writeData)
 {
 	regex e("0x[0-9A-F]{8}");
-	if (regex_match(writeData, e) == false) throw InvalidCommandException();
-}
-
-void TestShell::verifyWriteInput(std::string& strLba, std::string& strData)
-{
-	if (strLba.length() > 2) throw InvalidCommandException();
-	verifyWriteDataLength(strData);
-
-	// LBA가 숫자로 입력됐는지 확인
-	for (int i = 0; i < strLba.length(); i++) {
-		if (strLba[i] < '0' || strLba[i] > '9') throw InvalidCommandException();
-	}
-
-	// data가 최대 16진수인지 확인
-	verifyWriteDataHexNum(strData);
+	if (regex_match(writeData, e) == false) throw InvalidDataException();
 }
 
 void TestShell::verifyWriteDataLength(std::string& strData)
 {
-	if (strData.length() != 10) throw InvalidCommandException();
+	if (strData.length() != 10) throw InvalidDataException();
 }
 
 string TestShell::read(string strLba)
 {
-	verifyReadInput(strLba);
-	int iLba = atoi(strLba.data());
+	int iLba = verifyConvertLba(strLba);
 	ssdApi->read(iLba);
 	string result = readResultFile("../../SSD/result.txt");
 	cout << result << endl;
@@ -127,12 +112,16 @@ void TestShell::fullRead()
 	}
 }
 
-void TestShell::verifyReadInput(std::string& strLba) {
-	if (strLba.length() > 2) throw InvalidCommandException();
-	// LBA가 숫자로 입력됐는지 확인
+int TestShell::verifyConvertLba(string& strLba) {
+	int iLba = 0;
+	if (strLba.length() > 2) throw InvalidLbaException();
+
 	for (int i = 0; i < strLba.length(); i++) {
-		if (strLba[i] < '0' || strLba[i] > '9') throw InvalidCommandException();
+		if (strLba[i] < '0' || strLba[i] > '9') throw InvalidLbaException();
 	}
+
+	iLba = stoi(strLba);
+	return iLba;
 }
 
 string TestShell::readResultFile(const std::string& filepath) {
