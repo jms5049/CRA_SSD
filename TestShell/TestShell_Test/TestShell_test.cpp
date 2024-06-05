@@ -26,14 +26,14 @@ TEST_F(TestShellFixture, WriteSuccess) {
 	EXPECT_CALL(ssd, write(3, "0xAAAABBBB"))
 		.Times(1);
 
-	app->write("3 0xAAAABBBB");
+	app->write("3", "0xAAAABBBB");
 }
 
 TEST_F(TestShellFixture, WriteInputError) {
-	EXPECT_THROW(app->write("1 djf"), InvalidCommandException);
-	EXPECT_THROW(app->write("100 0xAAAAAAAA"), InvalidCommandException);
-	EXPECT_THROW(app->write("1 AAAAAAAA"), InvalidCommandException);
-	EXPECT_THROW(app->write("1 0xeeepppp"), InvalidCommandException);
+	EXPECT_THROW(app->write("1", "djf"), InvalidCommandException);
+	EXPECT_THROW(app->write("100","0xAAAAAAAA"), InvalidCommandException);
+	EXPECT_THROW(app->write("1", "AAAAAAAA"), InvalidCommandException);
+	EXPECT_THROW(app->write("1", "0xeeepppp"), InvalidCommandException);
 }
 
 TEST_F(TestShellFixture, FullWriteSuccess) {
@@ -104,8 +104,5 @@ TEST_F(TestShellFixture, inputArgsCountException) {
 
 TEST_F(TestShellFixture, inputArgTypeException) {
 	string userInput = "write write write";
-	EXPECT_THROW(app->inputParser(userInput), std::invalid_argument);
-
-	userInput = "read read";
-	EXPECT_THROW(app->inputParser(userInput), std::invalid_argument);
+	EXPECT_THROW(app->inputParser(userInput), InvalidCommandException);
 }

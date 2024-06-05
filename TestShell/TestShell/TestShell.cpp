@@ -18,52 +18,33 @@ TestShell::TestShell(SsdApi* ssdApi) : ssdApi(ssdApi) {
 
 void TestShell::inputParser(string userInput) {
 	vector<string> args = splitString(userInput);
+
 	if (args[0] == "write") {
-		if (args.size() != 3)
-			throw invalid_argument("Wrong API Call use Help to See More");
-
-		int lba = stoi(args[1]);
-		int data = stoi(args[2]);
-
-		if (lba < 0 || lba > 99)
-			throw out_of_range("LBA Out of Range");
-
-		//TO DO : call write Function args[1] : LBA , args[2] : data
+		if (args.size() != 3) throw invalid_argument("Wrong API Call use Help to See More");
 		return;
 	}
 	if (args[0] == "read") {
-		if (args.size() != 2)
-			throw invalid_argument("Wrong API Call use Help to See More");
-
-		int lba = stoi(args[1]);
-
-		if (lba < 0 || lba > 99)
-			throw out_of_range("LBA Out of Range");
-		//read(lba);
+		if (args.size() != 2) throw invalid_argument("Wrong API Call use Help to See More");
 		return;
 	}
 	if (args[0] == "exit") {
-		if (args.size() != 1)
-			throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
 		exitShell();
 		return;
 	}
 	if (args[0] == "help") {
-		if (args.size() != 2)
-			throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 2) throw invalid_argument("Wrong API Call use Help to See More");
 		help(args[1]);
 		return;
 	}
 	if (args[0] == "fullwrite") {
-		if (args.size() != 1)
-			throw invalid_argument("Wrong API Call use Help to See More");
-		//TO DO : call full write
+		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
+		//TO DO : fullWrite();
 		return;
 	}
 	if (args[0] == "fullread") {
-		if (args.size() != 1)
-			throw invalid_argument("Wrong API Call use Help to See More");
-		fullRead();
+		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
+		//TO DO : fullRead();
 		return;
 	}
 }
