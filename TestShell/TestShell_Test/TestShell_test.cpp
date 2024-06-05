@@ -73,10 +73,34 @@ TEST(AppTest, Help) {
 	//do not need Test for Help function
 }
 
-TEST(AppTest, Exit) {
+TEST(ShellTest, inputArgsCountException) {
 	SsdMock ssd;
-	TestShell* app = new TestShell(&ssd);
-	EXPECT_TRUE(app != nullptr);
-	app->exitApp();
-	EXPECT_TRUE(app == nullptr);
+	TestShell* shell = new TestShell(&ssd);
+	string userInput = "write 0x3 0x4 0x5";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+
+	userInput = "write 0x3";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+
+	userInput = "read 0x3 0x4";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+
+	userInput = "read 0x3 0x4 0x5";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+
+	userInput = "exit 0x3";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+
+	userInput = "help 0x3 0x4 0x5";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+}
+
+TEST(ShellTest, inputArgTypeException) {
+	SsdMock ssd;
+	TestShell* shell = new TestShell(&ssd);
+	string userInput = "write write write";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
+
+	userInput = "read read";
+	EXPECT_THROW(shell->inputParser(userInput), std::invalid_argument);
 }
