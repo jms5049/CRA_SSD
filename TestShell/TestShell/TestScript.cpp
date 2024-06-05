@@ -55,7 +55,6 @@ string TestScript::converAddrDataToString(int addr, string data) {
 	result = to_string(addr);
 	result.append(" ");
 	result.append(data);
-	printf("%s\n", result.c_str());
 	return result;
 }
 
@@ -69,7 +68,6 @@ string TestScript::readResult()
 		getline(file, line);
 		file.close();
 	}
-	else { printf("there is no file\n"); };
 
 	return line;
 }
