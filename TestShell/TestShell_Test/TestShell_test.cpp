@@ -66,6 +66,18 @@ TEST(TestShellRead, ReadInputError) {
 	EXPECT_THROW(app->read("read  4"), std::invalid_argument);
 }
 
+TEST(TestShellRead, fullReadSuccess) {
+	SsdMockRead ssd;
+	TestShell* app = new TestShell(&ssd);
+
+	for (int i = 0; i < 100; i++) {
+		EXPECT_CALL(ssd, read(i))
+			.Times(1);
+	}
+
+	app->fullRead();
+}
+
 TEST(AppTest, Help) {
 	SsdMock ssd;
 	TestShell* app = new TestShell(&ssd);

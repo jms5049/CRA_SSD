@@ -12,6 +12,7 @@ public:
 	TestShell(SsdApi* ssdApi);
 	void write(string input);
 	void read(string input);
+	void fullRead();
 	void exitApp();
 	void inputParser(string userInput);
 	void exitShell();
@@ -22,6 +23,7 @@ private:
 	SsdApi* ssdApi;
 	void verifyWriteInput(int spacePos, std::string& strLba, std::string& strData);
 	int verifyReadInput(string input);
+	string readResultFile(const std::string& filepath);
 	void help_write();
 	void help_read();
 	void help_exit();

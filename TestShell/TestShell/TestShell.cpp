@@ -39,7 +39,7 @@ void TestShell::inputParser(string userInput) {
 
 		if (lba < 0 || lba > 99)
 			throw out_of_range("LBA Out of Range");
-		//TO DO : call read Function args[1] : LBA
+		//read(lba);
 		return;
 	}
 	if (args[0] == "exit") {
@@ -63,7 +63,7 @@ void TestShell::inputParser(string userInput) {
 	if (args[0] == "fullread") {
 		if (args.size() != 1)
 			throw invalid_argument("Wrong API Call use Help to See More");
-		//TO DO : call full read
+		fullRead();
 		return;
 	}
 }
@@ -96,23 +96,36 @@ void TestShell::write(string input)
 	ssdApi->write(iLba, strData);
 }
 
+string TestShell::readResultFile(const std::string& filepath) {
+	string content;
+	std::ifstream file(filepath);
+	if (!file.is_open()) {
+		std::cerr << "Error: Failed to open result.txt file for reading!" << std::endl;
+		return ""; 
+	}
+
+	std::string line;
+	while (std::getline(file, line)) {
+		content += line + "\n";
+	}
+
+	file.close();
+	return content;
+}
+
+
 void TestShell::read(string input)
 {
 	int idx = verifyReadInput(input);
 	ssdApi->read(idx);
+	cout << readResultFile("../../SSD/result.txt") << endl;
+}
 
-	string filepath = "../TestShell/result.txt";
-	std::ifstream file(filepath);
-	if (file.is_open()) {
-		std::cout << "File opened successfully!" << std::endl;
-		string line;
-		while (getline(file, line)) {
-			std::cout << line << std::endl;
-		}
-		file.close();
-	}
-	else {
-		std::cerr << "Failed to open the file!" << std::endl;
+void TestShell::fullRead() 
+{
+	for (int idx = 0; idx < 100; idx++) {
+		ssdApi->read(idx);
+		cout << readResultFile("../../SSD/result.txt") << endl;
 	}
 }
 

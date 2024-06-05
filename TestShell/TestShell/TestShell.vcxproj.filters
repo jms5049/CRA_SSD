@@ -36,9 +36,4 @@
       <UniqueIdentifier>{158d0289-eda1-4117-8bb7-ffbdade5608a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="result.txt">
-      <Filter>리소스 파일</Filter>
-    </Text>
-  </ItemGroup>
 </Project>
