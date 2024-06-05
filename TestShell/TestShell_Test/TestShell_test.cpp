@@ -32,6 +32,17 @@ public:
 	TestShell* app = new TestShell(&ssd);
 };
 
+TEST_F(SsdTestShellFixture, readwriteSuccess) {
+	std::cout << "test\n";
+	app->write("3", "0xAAAABBBB");
+	app->read("3");
+}
+
+TEST_F(SsdTestShellFixture, fullReadWriteSuccess) {
+	app->fullWrite("0xFFFFFFFF");
+	app->fullRead();
+}
+
 TEST_F(TestShellFixture, WriteSuccess) {
 	EXPECT_CALL(ssd, write(3, "0xAAAABBBB"))
 		.Times(1);
@@ -81,16 +92,6 @@ TEST_F(TestShellFixture, fullReadSuccess) {
 			.Times(1);
 	}
 
-	app->fullRead();
-}
-
-TEST_F(SsdTestShellFixture, readwriteSuccess) {
-	app->write("3", "0xAAAABBBB");
-	app->read("3");
-}
-
-TEST_F(SsdTestShellFixture, fullReadWriteSuccess) {
-	app->fullWrite("0xFFFFFFFF");
 	app->fullRead();
 }
 

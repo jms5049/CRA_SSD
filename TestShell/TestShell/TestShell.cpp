@@ -39,7 +39,7 @@ void TestShell::inputParser(string userInput) {
 		return;
 	}
 	if (args[0] == "fullwrite") {
-		if (args.size() != 1) throw InvalidArgumentException();
+		if (args.size() != 2) throw InvalidArgumentException();
 		fullWrite(args[1]);
 		return;
 	}
