@@ -108,15 +108,8 @@ void TestShell::fullWrite(string writeData)
 
 void TestShell::verifyWriteDataHexNum(std::string& writeData)
 {
-	if (writeData[0] != '0' || writeData[1] != 'x') throw InvalidCommandException();
-	for (int i = 2; i < writeData.length(); i++) {
-		if (((writeData[i] >= '0' && writeData[i] <= '9')
-			|| (writeData[i] >= 'a' && writeData[i] <= 'f')
-			|| (writeData[i] >= 'A' && writeData[i] <= 'F')) == false)
-		{
-			throw InvalidCommandException();
-		}
-	}
+	regex e("0x[0-9A-F]{8}");
+	if (regex_match(writeData, e) == false) throw InvalidCommandException();
 }
 
 string TestShell::readResultFile(const std::string& filepath) {
