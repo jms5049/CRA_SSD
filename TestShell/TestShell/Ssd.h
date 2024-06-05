@@ -7,7 +7,7 @@ public:
 	int read(int lba) override;
 
 private:
-	static const LPCSTR SSD_LOCATION;
+	static const std::string SSD_LOCATION;
 
 	std::string convertToWriteCmd(int lba, std::string& data);
 };
