@@ -12,6 +12,16 @@ TestScript::TestScript() {
 	testShell = new TestShell(&ssd);
 }
 
+void TestScript::testScriptApp(string userInput) {
+	vector<string> args = splitString(userInput);
+	if (args[0] == "testapp1") {
+		printf("TestApp1 result: %d \n", testApp1());
+	}
+	if (args[0] == "testapp2") {
+		printf("TestApp1 result: %d \n", testApp2());
+	}
+}
+
 bool TestScript::testApp1() {
 	string data = "0x5a5a5a5a";
 	testShell->fullWrite(data);
@@ -63,15 +73,7 @@ string TestScript::readResult()
 	return line;
 }
 
-void TestScript::testScriptApp(string userInput) {
-	vector<string> args = splitString(userInput);
-	if (args[0] == "testapp1") {
-		printf("TestApp1 result: %d \n", testApp1());
-	}
-	if (args[0] == "testapp2") {
-		printf("TestApp1 result: %d \n", testApp2());
-	}
-}
+
 
 vector<string> TestScript::splitString(const string& str) {
 	istringstream iss(str);
