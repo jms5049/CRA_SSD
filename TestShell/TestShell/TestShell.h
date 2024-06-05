@@ -17,6 +17,7 @@ public:
 	void inputParser(string userInput);
 	void exitShell();
 	void help(string command);
+	void fullWrite(string input);
 
 private:
 	vector<string> splitString(const string& str);

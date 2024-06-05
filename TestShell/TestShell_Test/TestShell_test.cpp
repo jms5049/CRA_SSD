@@ -43,6 +43,26 @@ TEST(TestShellWrite, WriteInputError) {
 	EXPECT_THROW(app->write("1 0xeeepppp"), InvalidCommandException);
 }
 
+TEST(TestShellWrite, FullWriteSuccess) {
+	SsdMock ssd;
+	TestShell* app = new TestShell(&ssd);
+
+	EXPECT_CALL(ssd, write(_, "0xAAAABBBB"))
+		.Times(100);
+
+	app->fullWrite("0xAAAABBBB");
+}
+
+TEST(TestShellWrite, FullWriteInputError) {
+	SsdMock ssd;
+	TestShell* app = new TestShell(&ssd);
+
+	EXPECT_THROW(app->fullWrite("1 0xAAAAA"), InvalidCommandException);
+	EXPECT_THROW(app->fullWrite("AA"), InvalidCommandException);
+	EXPECT_THROW(app->fullWrite("0xB"), InvalidCommandException);
+	EXPECT_THROW(app->fullWrite("adtt"), InvalidCommandException);
+}
+
 TEST(TestShellRead, ReadSuccess) {
 	SsdMockRead ssd;
 	TestShell* app = new TestShell(&ssd);

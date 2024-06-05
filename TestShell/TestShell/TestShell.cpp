@@ -96,6 +96,27 @@ void TestShell::write(string input)
 	ssdApi->write(iLba, strData);
 }
 
+void TestShell::fullWrite(string input)
+{
+	// data 길이 확인
+	if (input.length() != 10) throw InvalidCommandException();
+
+	// data가 16진수인지 확인
+	if (input[0] != '0' || input[1] != 'x') throw InvalidCommandException();
+	for (int i = 2; i < input.length(); i++) {
+		if (((input[i] >= '0' && input[i] <= '9')
+			|| (input[i] >= 'a' && input[i] <= 'f')
+			|| (input[i] >= 'A' && input[i] <= 'F')) == false)
+		{
+			throw InvalidCommandException();
+		}
+	}
+
+	for (int i = 0; i < 100; i++) {
+		ssdApi->write(i, input);
+	}
+}
+
 string TestShell::readResultFile(const std::string& filepath) {
 	string content;
 	std::ifstream file(filepath);
