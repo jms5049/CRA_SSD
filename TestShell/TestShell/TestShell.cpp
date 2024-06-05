@@ -34,7 +34,7 @@ void TestShell::inputParser(string userInput) {
 		exitShell();
 	}
 	if (args[0] == "help") {
-		if (args.size() != 2) throw InvalidArgumentException();
+		if (args.size() > 2) throw InvalidArgumentException();
 		help(args[1]);
 		return;
 	}
