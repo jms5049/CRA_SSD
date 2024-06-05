@@ -23,7 +23,7 @@ void TestScript::testScriptApp(string userInput) {
 }
 
 bool TestScript::testApp1() {
-	string data = "0x5a5a5a5a";
+	string data = "0x5A5A5A5A";
 	testShell->fullWrite(data);
 	testShell->fullRead();
 	for (int addr = 0; addr < 100; addr++) {
