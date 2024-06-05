@@ -51,10 +51,11 @@ TEST_F(TestShellFixture, FullWriteInputError) {
 }
 
 TEST_F(TestShellFixture, ReadSuccess) {
-	EXPECT_CALL(ssd, read(23))
-		.Times(1);
+	EXPECT_CALL(ssd, read(_))
+		.Times(2);
 
 	app->read("read 23");
+	app->read("read 2");
 }
 
 TEST_F(TestShellFixture, ReadInputError) {
@@ -76,33 +77,43 @@ TEST_F(TestShellFixture, fullReadSuccess) {
 	app->fullRead();
 }
 
-TEST_F(TestShellFixture, Help) {
-	app->help("write");
-	app->help("");
-	//do not need Test for Help function
-}
-
 TEST_F(TestShellFixture, inputArgsCountException) {
-	string userInput = "write 0x3 0x4 0x5";
-	EXPECT_THROW(app->inputParser(userInput), std::invalid_argument);
+	EXPECT_THROW(app->inputParser("write 0x3 0x4 0x5"), std::invalid_argument);
+	EXPECT_THROW(app->inputParser("write 0x3"), std::invalid_argument);
 
-	userInput = "write 0x3";
-	EXPECT_THROW(app->inputParser(userInput), std::invalid_argument);
+	EXPECT_THROW(app->inputParser("read 0x3 0x4"), std::invalid_argument);
+	EXPECT_THROW(app->inputParser("read 0x3 0x4 0x5"), std::invalid_argument);
 
-	userInput = "read 0x3 0x4";
-	EXPECT_THROW(app->inputParser(userInput), std::invalid_argument);
+	EXPECT_THROW(app->inputParser("exit 0x3"), std::invalid_argument);
 
-	userInput = "read 0x3 0x4 0x5";
-	EXPECT_THROW(app->inputParser(userInput), std::invalid_argument);
+	EXPECT_THROW(app->inputParser("help 0x3 0x4 0x5"), std::invalid_argument);
 
-	userInput = "exit 0x3";
-	EXPECT_THROW(app->inputParser(userInput), std::invalid_argument);
+	EXPECT_THROW(app->inputParser("fullwrite 0x3 0x4"), std::invalid_argument);
 
-	userInput = "help 0x3 0x4 0x5";
-	EXPECT_THROW(app->inputParser(userInput), std::invalid_argument);
+	EXPECT_THROW(app->inputParser("fullread 0x3 0x4"), std::invalid_argument);
 }
 
 TEST_F(TestShellFixture, inputArgTypeException) {
 	string userInput = "write write write";
 	EXPECT_THROW(app->inputParser(userInput), InvalidCommandException);
+}
+
+TEST_F(TestShellFixture, InvalidLBA) {
+	EXPECT_THROW(app->inputParser("write 100 0x12345678"), std::out_of_range);
+	EXPECT_THROW(app->inputParser("read 100"), std::out_of_range);
+}
+
+TEST_F(TestShellFixture, HelpSuccess) {
+	EXPECT_NO_THROW(app->inputParser("help write"));
+
+	EXPECT_NO_THROW(app->help("write"));
+	EXPECT_NO_THROW(app->help("read"));
+	EXPECT_NO_THROW(app->help("exit"));
+	EXPECT_NO_THROW(app->help("fullwrite"));
+	EXPECT_NO_THROW(app->help("fullread"));
+	EXPECT_NO_THROW(app->help(""));
+}
+
+TEST_F(TestShellFixture, ExitSuccess) {
+	EXPECT_NO_THROW(app->inputParser("exit"));
 }

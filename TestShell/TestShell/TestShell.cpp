@@ -31,7 +31,6 @@ void TestShell::inputParser(string userInput) {
 	if (args[0] == "exit") {
 		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
 		exitShell();
-		return;
 	}
 	if (args[0] == "help") {
 		if (args.size() != 2) throw invalid_argument("Wrong API Call use Help to See More");
@@ -86,15 +85,8 @@ void TestShell::fullWrite(string writeData)
 
 void TestShell::verifyWriteDataHexNum(std::string& writeData)
 {
-	if (writeData[0] != '0' || writeData[1] != 'x') throw InvalidCommandException();
-	for (int i = 2; i < writeData.length(); i++) {
-		if (((writeData[i] >= '0' && writeData[i] <= '9')
-			|| (writeData[i] >= 'a' && writeData[i] <= 'f')
-			|| (writeData[i] >= 'A' && writeData[i] <= 'F')) == false)
-		{
-			throw InvalidCommandException();
-		}
-	}
+	regex e("0x[0-9A-F]{8}");
+	if (regex_match(writeData, e) == false) throw InvalidCommandException();
 }
 
 string TestShell::readResultFile(const std::string& filepath) {
@@ -165,11 +157,6 @@ int TestShell::verifyReadInput(string input) {
 		return stoi(input.substr(5, 2));
 	}
 }
-
-void TestShell::exitApp() {
-	exit(0);
-}
-
 
 void TestShell::help(string command) {
 	if (command == "write") help_write();
