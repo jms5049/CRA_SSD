@@ -54,18 +54,15 @@ TEST_F(TestShellFixture, ReadSuccess) {
 	EXPECT_CALL(ssd, read(_))
 		.Times(2);
 
-	app->read("read 23");
-	app->read("read 2");
+	app->read("23");
+	app->read("2");
 }
 
 TEST_F(TestShellFixture, ReadInputError) {
-	EXPECT_THROW(app->read("abcd 20"), std::invalid_argument);
-	EXPECT_THROW(app->read("read  40"), std::invalid_argument);
-	EXPECT_THROW(app->read("read25"), std::invalid_argument);
-	EXPECT_THROW(app->read("read !#"), std::invalid_argument);
-	EXPECT_THROW(app->read("read $"), std::invalid_argument);
-	EXPECT_THROW(app->read("read 2*"), std::invalid_argument);
-	EXPECT_THROW(app->read("read  4"), std::invalid_argument);
+	EXPECT_THROW(app->read("a20"), InvalidCommandException);
+	EXPECT_THROW(app->read("333"), InvalidCommandException);
+	EXPECT_THROW(app->read("!#"), InvalidCommandException);
+	EXPECT_THROW(app->read("2$"), InvalidCommandException);
 }
 
 TEST_F(TestShellFixture, fullReadSuccess) {
@@ -80,16 +77,11 @@ TEST_F(TestShellFixture, fullReadSuccess) {
 TEST_F(TestShellFixture, inputArgsCountException) {
 	EXPECT_THROW(app->inputParser("write 0x3 0x4 0x5"), std::invalid_argument);
 	EXPECT_THROW(app->inputParser("write 0x3"), std::invalid_argument);
-
 	EXPECT_THROW(app->inputParser("read 0x3 0x4"), std::invalid_argument);
 	EXPECT_THROW(app->inputParser("read 0x3 0x4 0x5"), std::invalid_argument);
-
 	EXPECT_THROW(app->inputParser("exit 0x3"), std::invalid_argument);
-
 	EXPECT_THROW(app->inputParser("help 0x3 0x4 0x5"), std::invalid_argument);
-
 	EXPECT_THROW(app->inputParser("fullwrite 0x3 0x4"), std::invalid_argument);
-
 	EXPECT_THROW(app->inputParser("fullread 0x3 0x4"), std::invalid_argument);
 }
 
@@ -100,7 +92,7 @@ TEST_F(TestShellFixture, inputArgTypeException) {
 
 TEST_F(TestShellFixture, InvalidLBA) {
 	EXPECT_THROW(app->inputParser("write 100 0x12345678"), InvalidCommandException);
-	//EXPECT_THROW(app->inputParser("read 100"), std::out_of_range);
+	EXPECT_THROW(app->inputParser("read 100"), InvalidCommandException);
 }
 
 TEST_F(TestShellFixture, HelpSuccess) {

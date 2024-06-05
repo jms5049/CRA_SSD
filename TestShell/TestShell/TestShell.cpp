@@ -26,6 +26,7 @@ void TestShell::inputParser(string userInput) {
 	}
 	if (args[0] == "read") {
 		if (args.size() != 2) throw invalid_argument("Wrong API Call use Help to See More");
+		read(args[1]);
 		return;
 	}
 	if (args[0] == "exit") {
@@ -108,10 +109,11 @@ void TestShell::verifyWriteDataLength(std::string& strData)
 	if (strData.length() != 10) throw InvalidCommandException();
 }
 
-void TestShell::read(string input)
+void TestShell::read(string strLba)
 {
-	int idx = verifyReadInput(input);
-	ssdApi->read(idx);
+	verifyReadInput(strLba);
+	int iLba = atoi(strLba.data());
+	ssdApi->read(iLba);
 	cout << readResultFile("../../SSD/result.txt") << endl;
 }
 
@@ -123,20 +125,11 @@ void TestShell::fullRead()
 	}
 }
 
-int TestShell::verifyReadInput(string input) {
-	if (input[0] != 'r') throw std::invalid_argument("Invalid Input Format! Must start with r");
-	if (input.size() >= 8 || input[4] != ' ') throw std::invalid_argument("Invalid read input format");
-	if (input.size() == 6) {
-		if (!isdigit(input[5])) {
-			throw std::invalid_argument("Invalid index format! Index must be 0 to 99");
-		}
-		return stoi(input.substr(5, 1));
-	}
-	if (input.size() == 7) {
-		if (!isdigit(input[5]) || !isdigit(input[6])) {
-			throw std::invalid_argument("Invalid index format! Index must be 0 to 99");
-		}
-		return stoi(input.substr(5, 2));
+void TestShell::verifyReadInput(std::string& strLba) {
+	if (strLba.length() > 2) throw InvalidCommandException();
+	// LBA가 숫자로 입력됐는지 확인
+	for (int i = 0; i < strLba.length(); i++) {
+		if (strLba[i] < '0' || strLba[i] > '9') throw InvalidCommandException();
 	}
 }
 
