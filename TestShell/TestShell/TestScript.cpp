@@ -59,20 +59,6 @@ void TestScript::write5AddrTest(string data) {
 	}
 }
 
-string TestScript::readResult()
-{
-	string filepath = "../../SSD/result.txt";
-	std::ifstream file(filepath);
-
-	string line = "";
-	if (file.is_open()) {
-		getline(file, line);
-		file.close();
-	}
-
-	return line;
-}
-
 vector<string> TestScript::splitString(const string& str) {
 	istringstream iss(str);
 	vector<string> tokens;
