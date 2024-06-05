@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "SsdApi.h"
 #include "Ssd.h"
@@ -8,15 +9,18 @@
 using namespace std;
 
 bool isTestscript(string input) {
-	if (input.find("testapp1") == 0 || input.find("testapp2") == 0)
-		return true;
+	vector<string> testScriptCmds = { "testapp1", "testapp2" };
+	for (auto& cmd : testScriptCmds) {
+		if (input.find(cmd) == 0) return true;
+	}
 	return false;
 }
 
 bool isTestshell(string input) {
-	if (input.find("read") == 0 || input.find("write") == 0 || input.find("exit") == 0 ||
-		input.find("help") == 0 || input.find("fullwrite") == 0 || input.find("fullread") == 0)
-		return true;
+	vector<string> testShellCmds = { "read", "write", "exit", "help", "fullwrite", "fullread" };
+	for (auto& cmd : testShellCmds) {
+		if (input.find(cmd) == 0) return true;
+	}
 	return false;
 }
 
