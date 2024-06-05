@@ -109,12 +109,14 @@ void TestShell::verifyWriteDataLength(std::string& strData)
 	if (strData.length() != 10) throw InvalidCommandException();
 }
 
-void TestShell::read(string strLba)
+string TestShell::read(string strLba)
 {
 	verifyReadInput(strLba);
 	int iLba = atoi(strLba.data());
 	ssdApi->read(iLba);
-	cout << readResultFile("../../SSD/result.txt") << endl;
+	string result = readResultFile("../../SSD/result.txt");
+	cout << result << endl;
+	return result;
 }
 
 void TestShell::fullRead()
