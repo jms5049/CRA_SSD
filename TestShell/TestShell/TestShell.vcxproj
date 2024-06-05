@@ -130,15 +130,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Ssd.cpp" />
     <ClCompile Include="TestShell.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SsdApi.h" />
     <ClInclude Include="ShellException.h" />
+    <ClInclude Include="Ssd.h" />
     <ClInclude Include="TestShell.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="result.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

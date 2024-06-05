@@ -12,8 +12,7 @@ using std::string;
 using std::regex;
 using std::regex_match;
 
-TestShell::TestShell(SsdApi* ssdApi)
-: ssdApi(ssdApi) {
+TestShell::TestShell(SsdApi* ssdApi) : ssdApi(ssdApi) {
 	// do nothing
 }
 
@@ -40,7 +39,7 @@ void TestShell::inputParser(string userInput) {
 
 		if (lba < 0 || lba > 99)
 			throw out_of_range("LBA Out of Range");
-		//TO DO : call read Function args[1] : LBA
+		//read(lba);
 		return;
 	}
 	if (args[0] == "exit") {
@@ -64,7 +63,7 @@ void TestShell::inputParser(string userInput) {
 	if (args[0] == "fullread") {
 		if (args.size() != 1)
 			throw invalid_argument("Wrong API Call use Help to See More");
-		//TO DO : call full read
+		fullRead();
 		return;
 	}
 }
@@ -84,6 +83,7 @@ vector<string> TestShell::splitString(const string& str) {
 	}
 	return tokens;
 }
+
 void TestShell::write(string input)
 {
 	int spacePos = input.find(' ');
@@ -96,23 +96,59 @@ void TestShell::write(string input)
 	ssdApi->write(iLba, strData);
 }
 
+void TestShell::fullWrite(string writeData)
+{
+	verifyWriteDataLength(writeData);
+	verifyWriteDataHexNum(writeData);
+
+	for (int i = 0; i < 100; i++) {
+		ssdApi->write(i, writeData);
+	}
+}
+
+void TestShell::verifyWriteDataHexNum(std::string& writeData)
+{
+	if (writeData[0] != '0' || writeData[1] != 'x') throw InvalidCommandException();
+	for (int i = 2; i < writeData.length(); i++) {
+		if (((writeData[i] >= '0' && writeData[i] <= '9')
+			|| (writeData[i] >= 'a' && writeData[i] <= 'f')
+			|| (writeData[i] >= 'A' && writeData[i] <= 'F')) == false)
+		{
+			throw InvalidCommandException();
+		}
+	}
+}
+
+string TestShell::readResultFile(const std::string& filepath) {
+	string content;
+	std::ifstream file(filepath);
+	if (!file.is_open()) {
+		std::cerr << "Error: Failed to open result.txt file for reading!" << std::endl;
+		return ""; 
+	}
+
+	std::string line;
+	while (std::getline(file, line)) {
+		content += line + "\n";
+	}
+
+	file.close();
+	return content;
+}
+
+
 void TestShell::read(string input)
 {
 	int idx = verifyReadInput(input);
 	ssdApi->read(idx);
+	cout << readResultFile("../../SSD/result.txt") << endl;
+}
 
-	string filepath = "../TestShell/result.txt";
-	std::ifstream file(filepath);
-	if (file.is_open()) {
-		std::cout << "File opened successfully!" << std::endl;
-		string line;
-		while (getline(file, line)) {
-			std::cout << line << std::endl;
-		}
-		file.close();
-	}
-	else {
-		std::cerr << "Failed to open the file!" << std::endl;
+void TestShell::fullRead() 
+{
+	for (int idx = 0; idx < 100; idx++) {
+		ssdApi->read(idx);
+		cout << readResultFile("../../SSD/result.txt") << endl;
 	}
 }
 
@@ -121,7 +157,7 @@ void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string&
 	// 각 입력 위치와 길이 확인
 	if (spacePos == string::npos || spacePos == 0) throw InvalidCommandException();
 	if (strLba.length() > 2) throw InvalidCommandException();
-	if (strData.length() > 10) throw InvalidCommandException();
+	verifyWriteDataLength(strData);
 
 	// LBA가 숫자로 입력됐는지 확인
 	for (int i = 0; i < strLba.length(); i++) {
@@ -129,18 +165,14 @@ void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string&
 	}
 
 	// data가 최대 16진수인지 확인
-	if (strData[0] != '0' || strData[1] != 'x') throw InvalidCommandException();
-	for (int i = 2; i < strData.length(); i++) {
-		if (((strData[i] >= '0' && strData[i] <= '9')
-			|| (strData[i] >= 'a' && strData[i] <= 'f')
-			|| (strData[i] >= 'A' && strData[i] <= 'F')) == false)
-		{
-			throw InvalidCommandException();
-		}
-	}
+	verifyWriteDataHexNum(strData);
 }
 
-<<<<<<< feature/read_refactoring
+void TestShell::verifyWriteDataLength(std::string& strData)
+{
+	if (strData.length() != 10) throw InvalidCommandException();
+}
+
 int TestShell::verifyReadInput(string input) {
 	if (input[0] != 'r') throw std::invalid_argument("Invalid Input Format! Must start with r");
 	if (input.size() >= 8 || input[4] != ' ') throw std::invalid_argument("Invalid read input format");
@@ -162,8 +194,7 @@ void TestShell::exitApp() {
 	exit(0);
 }
 
-=======
->>>>>>> master
+
 void TestShell::help(string command) {
 	if (command == "write") help_write();
 	else if (command == "read") help_read();
