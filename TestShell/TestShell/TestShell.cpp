@@ -123,7 +123,10 @@ void TestShell::read(string input)
 
 void TestShell::fullRead() 
 {
-	cout << readResultFile("../../SSD/result.txt") << endl;
+	for (int idx = 0; idx < 100; idx++) {
+		ssdApi->read(idx);
+		cout << readResultFile("../../SSD/result.txt") << endl;
+	}
 }
 
 void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string& strData)
