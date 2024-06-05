@@ -14,7 +14,7 @@ public:
 
 TEST_F(SsdVirtualFixture, readNandDataIndex0) {
 	device.readSsd(0);
-	EXPECT_THAT(device.readResult(), StartsWith("0x00000000"));
+	EXPECT_THAT(device.readResult(), Eq("0x00000000"));
 }
 
 TEST_F(SsdVirtualFixture, writeNandDataIndex0) {
