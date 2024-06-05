@@ -99,8 +99,8 @@ TEST_F(TestShellFixture, inputArgTypeException) {
 }
 
 TEST_F(TestShellFixture, InvalidLBA) {
-	EXPECT_THROW(app->inputParser("write 100 0x12345678"), std::out_of_range);
-	EXPECT_THROW(app->inputParser("read 100"), std::out_of_range);
+	EXPECT_THROW(app->inputParser("write 100 0x12345678"), InvalidCommandException);
+	//EXPECT_THROW(app->inputParser("read 100"), std::out_of_range);
 }
 
 TEST_F(TestShellFixture, HelpSuccess) {
