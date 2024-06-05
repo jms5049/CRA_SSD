@@ -35,11 +35,16 @@ int main() {
 
 		getline(cin, input);
 
-		if (isTestscript(input))
-			testscript.testScriptApp(input);
-		else if (isTestshell(input))
-			testShell.inputParser(input);
-		else
-			cout << "INVALID COMMAND" << endl;
+		try {
+			if (isTestscript(input))
+				testscript.testScriptApp(input);
+			else if (isTestshell(input))
+				testShell.inputParser(input);
+			else
+				cout << "INVALID COMMAND : NOT supported Command." << endl;
+		}
+		catch (exception e) {
+			cout << "INVALID COMMAND : " << e.what() << endl;
+		}
 	}
 }
