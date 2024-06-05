@@ -6,12 +6,12 @@
 
 using std::string;
 
-const LPCSTR Ssd::SSD_LOCATION = "..\\..\\SSD\\";
+const string Ssd::SSD_LOCATION = "..\\..\\SSD\\";
 
 void Ssd::write(int lba, std::string data)
 {
 	string writeCmd = convertToWriteCmd(lba, data);
-	ShellExecuteA(NULL, "open", "ssd", writeCmd.c_str(), SSD_LOCATION, SW_HIDE);
+	ShellExecuteA(NULL, "open", "ssd", writeCmd.c_str(), SSD_LOCATION.c_str(), SW_HIDE);
 }
 
 string Ssd::convertToWriteCmd(int lba, std::string& data)

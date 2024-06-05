@@ -66,12 +66,12 @@ vector<string> TestShell::splitString(const string& str) {
 	return tokens;
 }
 
-void TestShell::write(string strLba, string strData)
+void TestShell::write(string strLba, string writeData)
 {
-	verifyWriteInput(strLba, strData);
-
-	int iLba = atoi(strLba.data());
-	ssdApi->write(iLba, strData);
+	int iLba = verifyConvertLba(strLba);
+	verifyWriteDataLength(writeData);
+	verifyWriteDataHexNum(writeData);
+	ssdApi->write(iLba, writeData);
 }
 
 void TestShell::fullWrite(string writeData)
@@ -87,32 +87,17 @@ void TestShell::fullWrite(string writeData)
 void TestShell::verifyWriteDataHexNum(std::string& writeData)
 {
 	regex e("0x[0-9A-F]{8}");
-	if (regex_match(writeData, e) == false) throw InvalidCommandException();
-}
-
-void TestShell::verifyWriteInput(std::string& strLba, std::string& strData)
-{
-	if (strLba.length() > 2) throw InvalidCommandException();
-	verifyWriteDataLength(strData);
-
-	// LBA가 숫자로 입력됐는지 확인
-	for (int i = 0; i < strLba.length(); i++) {
-		if (strLba[i] < '0' || strLba[i] > '9') throw InvalidCommandException();
-	}
-
-	// data가 최대 16진수인지 확인
-	verifyWriteDataHexNum(strData);
+	if (regex_match(writeData, e) == false) throw InvalidDataException();
 }
 
 void TestShell::verifyWriteDataLength(std::string& strData)
 {
-	if (strData.length() != 10) throw InvalidCommandException();
+	if (strData.length() != 10) throw InvalidDataException();
 }
 
 void TestShell::read(string strLba)
 {
-	verifyReadInput(strLba);
-	int iLba = atoi(strLba.data());
+	int iLba = verifyConvertLba(strLba);
 	ssdApi->read(iLba);
 	cout << readResultFile("../../SSD/result.txt") << endl;
 }
@@ -125,12 +110,16 @@ void TestShell::fullRead()
 	}
 }
 
-void TestShell::verifyReadInput(std::string& strLba) {
-	if (strLba.length() > 2) throw InvalidCommandException();
-	// LBA가 숫자로 입력됐는지 확인
+int TestShell::verifyConvertLba(string& strLba) {
+	int iLba = 0;
+	if (strLba.length() > 2) throw InvalidLbaException();
+
 	for (int i = 0; i < strLba.length(); i++) {
-		if (strLba[i] < '0' || strLba[i] > '9') throw InvalidCommandException();
+		if (strLba[i] < '0' || strLba[i] > '9') throw InvalidLbaException();
 	}
+
+	iLba = stoi(strLba);
+	return iLba;
 }
 
 string TestShell::readResultFile(const std::string& filepath) {

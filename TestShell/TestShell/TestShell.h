@@ -22,11 +22,10 @@ public:
 private:
 	vector<string> splitString(const string& str);
 	SsdApi* ssdApi;
-	void verifyWriteInput(std::string& strLba, std::string& strData);
 	void verifyWriteDataLength(std::string& strData);
 	void verifyWriteDataHexNum(std::string& writeData);
+	int verifyConvertLba(std::string& strLba);
 
-	void verifyReadInput(std::string& strLba);
 	string readResultFile(const std::string& filepath);
 	void help_write();
 	void help_read();

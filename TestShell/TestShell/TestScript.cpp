@@ -1,4 +1,4 @@
-﻿#include <string>
+#include <string>
 #include <fstream>
 
 #include "SsdApi.h"
@@ -72,8 +72,6 @@ string TestScript::readResult()
 
 	return line;
 }
-
-
 
 vector<string> TestScript::splitString(const string& str) {
 	istringstream iss(str);
