@@ -97,39 +97,6 @@ void TestShell::verifyWriteDataHexNum(std::string& writeData)
 	}
 }
 
-string TestShell::readResultFile(const std::string& filepath) {
-	string content;
-	std::ifstream file(filepath);
-	if (!file.is_open()) {
-		std::cerr << "Error: Failed to open result.txt file for reading!" << std::endl;
-		return ""; 
-	}
-
-	std::string line;
-	while (std::getline(file, line)) {
-		content += line + "\n";
-	}
-
-	file.close();
-	return content;
-}
-
-
-void TestShell::read(string input)
-{
-	int idx = verifyReadInput(input);
-	ssdApi->read(idx);
-	cout << readResultFile("../../SSD/result.txt") << endl;
-}
-
-void TestShell::fullRead() 
-{
-	for (int idx = 0; idx < 100; idx++) {
-		ssdApi->read(idx);
-		cout << readResultFile("../../SSD/result.txt") << endl;
-	}
-}
-
 void TestShell::verifyWriteInput(std::string& strLba, std::string& strData)
 {
 	if (strLba.length() > 2) throw InvalidCommandException();
@@ -149,6 +116,21 @@ void TestShell::verifyWriteDataLength(std::string& strData)
 	if (strData.length() != 10) throw InvalidCommandException();
 }
 
+void TestShell::read(string input)
+{
+	int idx = verifyReadInput(input);
+	ssdApi->read(idx);
+	cout << readResultFile("../../SSD/result.txt") << endl;
+}
+
+void TestShell::fullRead()
+{
+	for (int idx = 0; idx < 100; idx++) {
+		ssdApi->read(idx);
+		cout << readResultFile("../../SSD/result.txt") << endl;
+	}
+}
+
 int TestShell::verifyReadInput(string input) {
 	if (input[0] != 'r') throw std::invalid_argument("Invalid Input Format! Must start with r");
 	if (input.size() >= 8 || input[4] != ' ') throw std::invalid_argument("Invalid read input format");
@@ -166,10 +148,26 @@ int TestShell::verifyReadInput(string input) {
 	}
 }
 
+string TestShell::readResultFile(const std::string& filepath) {
+	string content;
+	std::ifstream file(filepath);
+	if (!file.is_open()) {
+		std::cerr << "Error: Failed to open result.txt file for reading!" << std::endl;
+		return "";
+	}
+
+	std::string line;
+	while (std::getline(file, line)) {
+		content += line + "\n";
+	}
+
+	file.close();
+	return content;
+}
+
 void TestShell::exitApp() {
 	exit(0);
 }
-
 
 void TestShell::help(string command) {
 	if (command == "write") help_write();
