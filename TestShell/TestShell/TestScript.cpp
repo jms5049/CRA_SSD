@@ -38,14 +38,14 @@ bool TestScript::testApp1() {
 bool TestScript::testApp2() {
 	string data;
 	data = "0xAAAABBBB";
-	for (int cnt = 0; cnt < 30; cnt++) {
-		write5AddrTest(data);
+	for (int cnt = 0; cnt < testCnt; cnt++) {
+		writeAddrTest(data);
 	}
 
 	data = "0x12345678";
-	write5AddrTest(data);
+	writeAddrTest(data);
 
-	for (int addr = 0; addr < 5; addr++) {
+	for (int addr = 0; addr < testAddr; addr++) {
 		testShell->read(to_string(addr));
 		string result = testShell->read(to_string(addr));
 		if (result != data) {
@@ -55,8 +55,8 @@ bool TestScript::testApp2() {
 	return true;
 }
 
-void TestScript::write5AddrTest(string data) {
-	for (int addr = 0; addr < 5; addr++) {
+void TestScript::writeAddrTest(string data) {
+	for (int addr = 0; addr < testAddr; addr++) {
 		testShell->write(to_string(addr), data);
 	}
 }

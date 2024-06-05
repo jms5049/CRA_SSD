@@ -13,4 +13,7 @@ private:
 	void write5AddrTest(string data);
 
 	vector<string> splitString(const string& str);
+
+	const int testCnt = 30;
+	const int testAddr = 5;
 };
