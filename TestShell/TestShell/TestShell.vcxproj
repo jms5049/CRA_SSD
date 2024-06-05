@@ -131,12 +131,14 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ssd.cpp" />
+    <ClCompile Include="TestScript.cpp" />
     <ClCompile Include="TestShell.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SsdApi.h" />
     <ClInclude Include="ShellException.h" />
     <ClInclude Include="Ssd.h" />
+    <ClInclude Include="TestScript.h" />
     <ClInclude Include="TestShell.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
