@@ -95,11 +95,13 @@ void TestShell::verifyWriteDataLength(std::string& strData)
 	if (strData.length() != 10) throw InvalidDataException();
 }
 
-void TestShell::read(string strLba)
+string TestShell::read(string strLba)
 {
 	int iLba = verifyConvertLba(strLba);
 	ssdApi->read(iLba);
-	cout << readResultFile("../../SSD/result.txt") << endl;
+	string result = readResultFile("../../SSD/result.txt");
+	cout << result << endl;
+	return result;
 }
 
 void TestShell::fullRead()

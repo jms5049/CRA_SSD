@@ -20,6 +20,10 @@ class SsdTestShellFixture : public Test {
 public:
 	Ssd ssd;
 	TestShell* app = new TestShell(&ssd);
+
+	void TearDown() {
+		app->fullWrite("0x00000000");
+	}
 };
 
 class TestShellFixture : public Test {

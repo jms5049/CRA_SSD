@@ -11,7 +11,7 @@ class TestShell {
 public:
 	TestShell(SsdApi* ssdApi);
 	void write(string strLba, string strData);
-	void read(string strLba);
+	string read(string strLba);
 	void fullRead();
 	void exitApp();
 	void inputParser(string userInput);

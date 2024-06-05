@@ -10,7 +10,10 @@ private:
 
 	bool testApp1();
 	bool testApp2();
-	void write5AddrTest(string data);
+	void writeAddrTest(string data);
 
 	vector<string> splitString(const string& str);
+
+	const int testCnt = 30;
+	const int testAddr = 5;
 };
