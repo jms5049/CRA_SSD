@@ -20,31 +20,31 @@ void TestShell::inputParser(string userInput) {
 	vector<string> args = splitString(userInput);
 
 	if (args[0] == "write") {
-		if (args.size() != 3) throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 3) throw InvalidArgumentException();
 		write(args[1], args[2]);
 		return;
 	}
 	if (args[0] == "read") {
-		if (args.size() != 2) throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 2) throw InvalidArgumentException();
 		read(args[1]);
 		return;
 	}
 	if (args[0] == "exit") {
-		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 1) throw InvalidArgumentException();
 		exitShell();
 	}
 	if (args[0] == "help") {
-		if (args.size() != 2) throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 2) throw InvalidArgumentException();
 		help(args[1]);
 		return;
 	}
 	if (args[0] == "fullwrite") {
-		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 1) throw InvalidArgumentException();
 		fullWrite(args[1]);
 		return;
 	}
 	if (args[0] == "fullread") {
-		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 1) throw InvalidArgumentException();
 		fullRead();
 		return;
 	}

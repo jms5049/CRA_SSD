@@ -29,12 +29,12 @@ public:
 };
 
 TEST_F(SsdTestShellFixture, WriteSuccess) {
-	// ¼öÇà ÈÄ Read°¡ ÇÊ¿äÇÏ³ª ¾ÆÁ÷ Read ±¸Çö ÀüÀÌ¶ó txt ¿­¾î¼­ °á°ú È®ÀÎÇÔ.
+	// ìˆ˜í–‰ í›„ Readê°€ í•„ìš”í•˜ë‚˜ ì•„ì§ Read êµ¬í˜„ ì „ì´ë¼ txt ì—´ì–´ì„œ ê²°ê³¼ í™•ì¸í•¨.
 	app->write("3", "0xAAAABBBB");
 }
 
 TEST_F(SsdTestShellFixture, FullWriteSuccess) {
-	// ¼öÇà ÈÄ Read°¡ ÇÊ¿äÇÏ³ª ¾ÆÁ÷ Read ±¸Çö ÀüÀÌ¶ó txt ¿­¾î¼­ °á°ú È®ÀÎÇÔ.
+	// ìˆ˜í–‰ í›„ Readê°€ í•„ìš”í•˜ë‚˜ ì•„ì§ Read êµ¬í˜„ ì „ì´ë¼ txt ì—´ì–´ì„œ ê²°ê³¼ í™•ì¸í•¨.
 	app->fullWrite("0xFFFFFFFF");
 }
 
@@ -91,14 +91,14 @@ TEST_F(TestShellFixture, fullReadSuccess) {
 }
 
 TEST_F(TestShellFixture, inputArgsCountException) {
-	EXPECT_THROW(app->inputParser("write 0x3 0x4 0x5"), std::invalid_argument);
-	EXPECT_THROW(app->inputParser("write 0x3"), std::invalid_argument);
-	EXPECT_THROW(app->inputParser("read 0x3 0x4"), std::invalid_argument);
-	EXPECT_THROW(app->inputParser("read 0x3 0x4 0x5"), std::invalid_argument);
-	EXPECT_THROW(app->inputParser("exit 0x3"), std::invalid_argument);
-	EXPECT_THROW(app->inputParser("help 0x3 0x4 0x5"), std::invalid_argument);
-	EXPECT_THROW(app->inputParser("fullwrite 0x3 0x4"), std::invalid_argument);
-	EXPECT_THROW(app->inputParser("fullread 0x3 0x4"), std::invalid_argument);
+	EXPECT_THROW(app->inputParser("write 0x3 0x4 0x5"), InvalidArgumentException);
+	EXPECT_THROW(app->inputParser("write 0x3"), InvalidArgumentException);
+	EXPECT_THROW(app->inputParser("read 0x3 0x4"), InvalidArgumentException);
+	EXPECT_THROW(app->inputParser("read 0x3 0x4 0x5"), InvalidArgumentException);
+	EXPECT_THROW(app->inputParser("exit 0x3"), InvalidArgumentException);
+	EXPECT_THROW(app->inputParser("help 0x3 0x4 0x5"), InvalidArgumentException);
+	EXPECT_THROW(app->inputParser("fullwrite 0x3 0x4"), InvalidArgumentException);
+	EXPECT_THROW(app->inputParser("fullread 0x3 0x4"), InvalidArgumentException);
 }
 
 TEST_F(TestShellFixture, inputArgTypeException) {
@@ -109,6 +109,11 @@ TEST_F(TestShellFixture, inputArgTypeException) {
 TEST_F(TestShellFixture, InvalidLBA) {
 	EXPECT_THROW(app->inputParser("write 100 0x12345678"), InvalidCommandException);
 	EXPECT_THROW(app->inputParser("read 100"), InvalidCommandException);
+}
+
+TEST_F(TestShellFixture, InvalidLBA2) {
+	EXPECT_THROW(app->inputParser("write aa 0x12345678"), InvalidCommandException);
+	EXPECT_THROW(app->inputParser("read aa"), InvalidCommandException);
 }
 
 TEST_F(TestShellFixture, HelpSuccess) {
