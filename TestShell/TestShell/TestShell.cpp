@@ -96,17 +96,21 @@ void TestShell::write(string input)
 	ssdApi->write(iLba, strData);
 }
 
-void TestShell::overwriteFile(const std::string& filepath, const std::string& newReadData) {
-	std::ofstream outputFile(filepath, std::ios::trunc);
-	if (!outputFile.is_open()) {
-		std::cerr << "Error: Failed to open file for writing!" << std::endl;
-		return;
+string TestShell::readResultFile(const std::string& filepath) {
+	string content;
+	std::ifstream file(filepath);
+	if (!file.is_open()) {
+		std::cerr << "Error: Failed to open result.txt file for reading!" << std::endl;
+		return ""; 
 	}
 
-	outputFile << newReadData;
-	outputFile.close();
+	std::string line;
+	while (std::getline(file, line)) {
+		content += line + "\n";
+	}
 
-	std::cout << "File overwritten successfully!" << std::endl;
+	file.close();
+	return content;
 }
 
 
@@ -114,14 +118,12 @@ void TestShell::read(string input)
 {
 	int idx = verifyReadInput(input);
 	ssdApi->read(idx);
-	string readNewData = "0x1111111";
-	overwriteFile("../../SSD/result.txt", readNewData);
+	cout << readResultFile("../../SSD/result.txt") << endl;
 }
 
 void TestShell::fullRead() 
 {
-	string readNewData = "";
-	overwriteFile("../../SSD/result.txt", readNewData);
+	cout << readResultFile("../../SSD/result.txt") << endl;
 }
 
 void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string& strData)

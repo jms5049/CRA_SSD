@@ -23,7 +23,7 @@ private:
 	SsdApi* ssdApi;
 	void verifyWriteInput(int spacePos, std::string& strLba, std::string& strData);
 	int verifyReadInput(string input);
-	void overwriteFile(const std::string& filepath, const std::string& readData);
+	string readResultFile(const std::string& filepath);
 	void help_write();
 	void help_read();
 	void help_exit();
