@@ -11,7 +11,7 @@ class TestShell {
 public:
 	TestShell(SsdApi* ssdApi);
 	void write(string strLba, string strData);
-	void read(string input);
+	void read(string strLba);
 	void fullRead();
 	void exitApp();
 	void inputParser(string userInput);
@@ -26,7 +26,7 @@ private:
 	void verifyWriteDataLength(std::string& strData);
 	void verifyWriteDataHexNum(std::string& writeData);
 
-	int verifyReadInput(string input);
+	void verifyReadInput(std::string& strLba);
 	string readResultFile(const std::string& filepath);
 	void help_write();
 	void help_read();
