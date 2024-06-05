@@ -32,6 +32,7 @@ TEST_F(TestShellFixture, WriteSuccess) {
 TEST_F(TestShellFixture, WriteInputError) {
 	EXPECT_THROW(app->write("1 djf"), InvalidCommandException);
 	EXPECT_THROW(app->write("100 0xAAAAAAAA"), InvalidCommandException);
+	EXPECT_THROW(app->write("1 0xaaaaaaaa"), InvalidCommandException);
 	EXPECT_THROW(app->write("1 AAAAAAAA"), InvalidCommandException);
 	EXPECT_THROW(app->write("1 0xeeepppp"), InvalidCommandException);
 }

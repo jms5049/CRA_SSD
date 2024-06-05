@@ -108,7 +108,7 @@ void TestShell::fullWrite(string writeData)
 
 void TestShell::verifyWriteDataHexNum(std::string& writeData)
 {
-	regex e("0x[0-9a-fA-F]{8}");
+	regex e("0x[0-9A-F]{8}");
 	if (regex_match(writeData, e) == false) throw InvalidCommandException();
 }
 
