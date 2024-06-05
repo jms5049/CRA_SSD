@@ -3,6 +3,7 @@
 #include <string>
 
 #include "../TestShell/TestShell.cpp"
+#include "../TestShell/Ssd.cpp"
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
