@@ -13,30 +13,26 @@ TestScript::TestScript() {
 }
 
 bool TestScript::testApp1() {
-	testShell->fullWrite("0x5a5a5a5a");
+	string data = "0x5a5a5a5a";
+	testShell->fullWrite(data);
 	testShell->fullRead();
 	//화면에 출력된 것을 확인할 방법이 없으니,,, read result.txt and check ????
 	string result = readResult();
-	if (result != "0x5a5a5a5a") {
+	if (result != data) {
 		return false;
 	}
 	return true;
 }
 
 bool TestScript::testApp2() {
-	string input, data;
+	string data;
 	data = "0xAAAABBBB";
 	for (int cnt = 0; cnt < 30; cnt++) {
-		for (int addr = 0; addr < 5; addr++)
-		{
-			testShell->write(converAddrDataToString(addr, data));
-		}
+		write5AddrTest(data);
 	}
 
 	data = "0x12345678";
-	for (int addr = 0; addr < 5; addr++) {
-		testShell->write(converAddrDataToString(addr, data));
-	}
+	write5AddrTest(data);
 
 	for (int addr = 0; addr < 5; addr++) {
 		testShell->read(to_string(addr));
@@ -46,6 +42,12 @@ bool TestScript::testApp2() {
 		}
 	}
 	return true;
+}
+
+void TestScript::write5AddrTest(string data) {
+	for (int addr = 0; addr < 5; addr++) {
+		testShell->write(converAddrDataToString(addr, data));
+	}
 }
 
 string TestScript::converAddrDataToString(int addr, string data) {
