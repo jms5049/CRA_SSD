@@ -1,6 +1,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <thread> 
+#include <chrono> 
 #include <Windows.h>
 
 #include "Ssd.h"
@@ -45,6 +47,7 @@ string Ssd::read(int lba)
 {
 	string readCmd = convertToReadCmd(lba);
 	ShellExecuteA(NULL, "open", "ssd", readCmd.c_str(), SSD_LOCATION.c_str(), SW_HIDE);
+	std::this_thread::sleep_for(std::chrono::milliseconds(15));
 	return readResultFile("../../SSD/result.txt");
 }
 

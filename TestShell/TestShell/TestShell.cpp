@@ -106,7 +106,7 @@ string TestShell::read(string strLba)
 void TestShell::fullRead()
 {
 	for (int idx = 0; idx < 100; idx++) {
-		cout << ssdApi->read(idx);
+		cout << idx << " " << ssdApi->read(idx);
 	}
 }
 
