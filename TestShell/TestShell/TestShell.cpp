@@ -34,7 +34,7 @@ void TestShell::inputParser(string userInput) {
 		exitShell();
 	}
 	if (args[0] == "help") {
-		if (args.size() != 2) throw InvalidArgumentException();
+		if (args.size() > 2) throw InvalidArgumentException();
 		help(args[1]);
 		return;
 	}
@@ -122,24 +122,7 @@ int TestShell::verifyConvertLba(string& strLba) {
 	return iLba;
 }
 
-string TestShell::readResultFile(const std::string& filepath) {
-	string content;
-	std::ifstream file(filepath);
-	if (!file.is_open()) {
-		std::cerr << "Error: Failed to open result.txt file for reading!" << std::endl;
-		return "";
-	}
-
-	std::string line;
-	while (std::getline(file, line)) {
-		content += line + "\n";
-	}
-
-	file.close();
-	return content;
-}
-
-void TestShell::exitApp() {
+void TestShell::exitShell() {
 	exit(0);
 }
 
