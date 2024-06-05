@@ -13,9 +13,6 @@ public:
 	void readSsd(int LBAIndex);
 	void writeSsd(int LBAIndex, string writeData);
 private:
-	string nandFlieName = "./nand.txt";
-	string resultFileName = "./result.txt";
-	string ErrorMessage = "Nand file open error!";
 	const int nandCharSize = 800;
 	string readTxtData(string filePath);
 	void writeTxtData(string filePath, string writeData);

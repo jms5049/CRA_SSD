@@ -9,6 +9,10 @@ using std::ofstream;
 using std::ifstream;
 using std::ios;
 
+const string nandFlieName = "./nand.txt";
+const string resultFileName = "./result.txt";
+const string ErrorMessage = "Nand file open error!";
+
 string Ssd::getErrorMessage() {
 	return ErrorMessage;
 }
