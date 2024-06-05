@@ -39,12 +39,12 @@ void TestShell::inputParser(string userInput) {
 	}
 	if (args[0] == "fullwrite") {
 		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
-		//TO DO : fullWrite();
+		fullWrite(args[1]);
 		return;
 	}
 	if (args[0] == "fullread") {
 		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
-		//TO DO : fullRead();
+		fullRead();
 		return;
 	}
 }
