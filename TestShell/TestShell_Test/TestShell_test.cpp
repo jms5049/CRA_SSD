@@ -26,15 +26,14 @@ TEST_F(TestShellFixture, WriteSuccess) {
 	EXPECT_CALL(ssd, write(3, "0xAAAABBBB"))
 		.Times(1);
 
-	app->write("3 0xAAAABBBB");
+	app->write("3", "0xAAAABBBB");
 }
 
 TEST_F(TestShellFixture, WriteInputError) {
-	EXPECT_THROW(app->write("1 djf"), InvalidCommandException);
-	EXPECT_THROW(app->write("100 0xAAAAAAAA"), InvalidCommandException);
-	EXPECT_THROW(app->write("1 0xaaaaaaaa"), InvalidCommandException);
-	EXPECT_THROW(app->write("1 AAAAAAAA"), InvalidCommandException);
-	EXPECT_THROW(app->write("1 0xeeepppp"), InvalidCommandException);
+	EXPECT_THROW(app->write("1", "djf"), InvalidCommandException);
+	EXPECT_THROW(app->write("100","0xAAAAAAAA"), InvalidCommandException);
+	EXPECT_THROW(app->write("1", "AAAAAAAA"), InvalidCommandException);
+	EXPECT_THROW(app->write("1", "0xeeepppp"), InvalidCommandException);
 }
 
 TEST_F(TestShellFixture, FullWriteSuccess) {
@@ -95,14 +94,12 @@ TEST_F(TestShellFixture, inputArgsCountException) {
 }
 
 TEST_F(TestShellFixture, inputArgTypeException) {
-	EXPECT_THROW(app->inputParser("write write write"), std::invalid_argument);
-
-	EXPECT_THROW(app->inputParser("read read"), std::invalid_argument);
+	string userInput = "write write write";
+	EXPECT_THROW(app->inputParser(userInput), InvalidCommandException);
 }
 
 TEST_F(TestShellFixture, InvalidLBA) {
 	EXPECT_THROW(app->inputParser("write 100 0x12345678"), std::out_of_range);
-
 	EXPECT_THROW(app->inputParser("read 100"), std::out_of_range);
 }
 

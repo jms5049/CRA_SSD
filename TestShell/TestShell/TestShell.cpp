@@ -18,51 +18,33 @@ TestShell::TestShell(SsdApi* ssdApi) : ssdApi(ssdApi) {
 
 void TestShell::inputParser(string userInput) {
 	vector<string> args = splitString(userInput);
+
 	if (args[0] == "write") {
-		if (args.size() != 3)
-			throw invalid_argument("Wrong API Call use Help to See More");
-
-		int lba = stoi(args[1]);
-		int data = stoi(args[2]);
-
-		if (lba < 0 || lba > 99)
-			throw out_of_range("LBA Out of Range");
-
-		//TO DO : call write Function args[1] : LBA , args[2] : data
+		if (args.size() != 3) throw invalid_argument("Wrong API Call use Help to See More");
+		write(args[1], args[2]);
 		return;
 	}
 	if (args[0] == "read") {
-		if (args.size() != 2)
-			throw invalid_argument("Wrong API Call use Help to See More");
-
-		int lba = stoi(args[1]);
-
-		if (lba < 0 || lba > 99)
-			throw out_of_range("LBA Out of Range");
-		//read(lba);
+		if (args.size() != 2) throw invalid_argument("Wrong API Call use Help to See More");
 		return;
 	}
 	if (args[0] == "exit") {
-		if (args.size() != 1)
-			throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
 		exitShell();
 	}
 	if (args[0] == "help") {
-		if (args.size() != 2)
-			throw invalid_argument("Wrong API Call use Help to See More");
+		if (args.size() != 2) throw invalid_argument("Wrong API Call use Help to See More");
 		help(args[1]);
 		return;
 	}
 	if (args[0] == "fullwrite") {
-		if (args.size() != 1)
-			throw invalid_argument("Wrong API Call use Help to See More");
-		//TO DO : call full write
+		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
+		//TO DO : fullWrite();
 		return;
 	}
 	if (args[0] == "fullread") {
-		if (args.size() != 1)
-			throw invalid_argument("Wrong API Call use Help to See More");
-		fullRead();
+		if (args.size() != 1) throw invalid_argument("Wrong API Call use Help to See More");
+		//TO DO : fullRead();
 		return;
 	}
 }
@@ -83,13 +65,9 @@ vector<string> TestShell::splitString(const string& str) {
 	return tokens;
 }
 
-void TestShell::write(string input)
+void TestShell::write(string strLba, string strData)
 {
-	int spacePos = input.find(' ');
-	string strLba = input.substr(0, spacePos);
-	string strData = input.substr(spacePos + 1, input.length());
-
-	verifyWriteInput(spacePos, strLba, strData);
+	verifyWriteInput(strLba, strData);
 
 	int iLba = atoi(strLba.data());
 	ssdApi->write(iLba, strData);
@@ -111,43 +89,8 @@ void TestShell::verifyWriteDataHexNum(std::string& writeData)
 	if (regex_match(writeData, e) == false) throw InvalidCommandException();
 }
 
-string TestShell::readResultFile(const std::string& filepath) {
-	string content;
-	std::ifstream file(filepath);
-	if (!file.is_open()) {
-		std::cerr << "Error: Failed to open result.txt file for reading!" << std::endl;
-		return ""; 
-	}
-
-	std::string line;
-	while (std::getline(file, line)) {
-		content += line + "\n";
-	}
-
-	file.close();
-	return content;
-}
-
-
-void TestShell::read(string input)
+void TestShell::verifyWriteInput(std::string& strLba, std::string& strData)
 {
-	int idx = verifyReadInput(input);
-	ssdApi->read(idx);
-	cout << readResultFile("../../SSD/result.txt") << endl;
-}
-
-void TestShell::fullRead() 
-{
-	for (int idx = 0; idx < 100; idx++) {
-		ssdApi->read(idx);
-		cout << readResultFile("../../SSD/result.txt") << endl;
-	}
-}
-
-void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string& strData)
-{
-	// 각 입력 위치와 길이 확인
-	if (spacePos == string::npos || spacePos == 0) throw InvalidCommandException();
 	if (strLba.length() > 2) throw InvalidCommandException();
 	verifyWriteDataLength(strData);
 
@@ -165,6 +108,21 @@ void TestShell::verifyWriteDataLength(std::string& strData)
 	if (strData.length() != 10) throw InvalidCommandException();
 }
 
+void TestShell::read(string input)
+{
+	int idx = verifyReadInput(input);
+	ssdApi->read(idx);
+	cout << readResultFile("../../SSD/result.txt") << endl;
+}
+
+void TestShell::fullRead()
+{
+	for (int idx = 0; idx < 100; idx++) {
+		ssdApi->read(idx);
+		cout << readResultFile("../../SSD/result.txt") << endl;
+	}
+}
+
 int TestShell::verifyReadInput(string input) {
 	if (input[0] != 'r') throw std::invalid_argument("Invalid Input Format! Must start with r");
 	if (input.size() >= 8 || input[4] != ' ') throw std::invalid_argument("Invalid read input format");
@@ -180,6 +138,27 @@ int TestShell::verifyReadInput(string input) {
 		}
 		return stoi(input.substr(5, 2));
 	}
+}
+
+string TestShell::readResultFile(const std::string& filepath) {
+	string content;
+	std::ifstream file(filepath);
+	if (!file.is_open()) {
+		std::cerr << "Error: Failed to open result.txt file for reading!" << std::endl;
+		return "";
+	}
+
+	std::string line;
+	while (std::getline(file, line)) {
+		content += line + "\n";
+	}
+
+	file.close();
+	return content;
+}
+
+void TestShell::exitApp() {
+	exit(0);
 }
 
 void TestShell::help(string command) {
