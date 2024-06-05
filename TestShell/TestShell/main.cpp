@@ -35,5 +35,7 @@ int main() {
 			testscript.testScriptApp(input);
 		else if (isTestshell(input))
 			testShell.inputParser(input);
+		else
+			cout << "INVALID COMMAND" << endl;
 	}
 }
