@@ -12,8 +12,7 @@ using std::string;
 using std::regex;
 using std::regex_match;
 
-TestShell::TestShell(SsdApi* ssdApi)
-: ssdApi(ssdApi) {
+TestShell::TestShell(SsdApi* ssdApi) : ssdApi(ssdApi) {
 	// do nothing
 }
 
@@ -84,6 +83,7 @@ vector<string> TestShell::splitString(const string& str) {
 	}
 	return tokens;
 }
+
 void TestShell::write(string input)
 {
 	int spacePos = input.find(' ');
@@ -140,7 +140,6 @@ void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string&
 	}
 }
 
-<<<<<<< feature/read_refactoring
 int TestShell::verifyReadInput(string input) {
 	if (input[0] != 'r') throw std::invalid_argument("Invalid Input Format! Must start with r");
 	if (input.size() >= 8 || input[4] != ' ') throw std::invalid_argument("Invalid read input format");
@@ -162,8 +161,7 @@ void TestShell::exitApp() {
 	exit(0);
 }
 
-=======
->>>>>>> master
+
 void TestShell::help(string command) {
 	if (command == "write") help_write();
 	else if (command == "read") help_read();
