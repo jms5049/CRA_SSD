@@ -7,7 +7,7 @@ using std::string;
 
 void Ssd::write(int lba, std::string data)
 {
-	// ex) È£ÃâºÎ ¿¹½Ã
+	// ex) í˜¸ì¶œë¶€ ì˜ˆì‹œ
 	// string writeCmd = lba + " " + data;
 	// ShellExecuteA(NULL, "open", "ssd.exe", writeCmd.c_str(), NULL, SW_SHOW);
 }
