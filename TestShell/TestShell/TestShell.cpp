@@ -21,6 +21,7 @@ void TestShell::inputParser(string userInput) {
 
 	if (args[0] == "write") {
 		if (args.size() != 3) throw invalid_argument("Wrong API Call use Help to See More");
+		write(args[1], args[2]);
 		return;
 	}
 	if (args[0] == "read") {
@@ -65,13 +66,9 @@ vector<string> TestShell::splitString(const string& str) {
 	return tokens;
 }
 
-void TestShell::write(string input)
+void TestShell::write(string strLba, string strData)
 {
-	int spacePos = input.find(' ');
-	string strLba = input.substr(0, spacePos);
-	string strData = input.substr(spacePos + 1, input.length());
-
-	verifyWriteInput(spacePos, strLba, strData);
+	verifyWriteInput(strLba, strData);
 
 	int iLba = atoi(strLba.data());
 	ssdApi->write(iLba, strData);
@@ -133,10 +130,8 @@ void TestShell::fullRead()
 	}
 }
 
-void TestShell::verifyWriteInput(int spacePos, std::string& strLba, std::string& strData)
+void TestShell::verifyWriteInput(std::string& strLba, std::string& strData)
 {
-	// 각 입력 위치와 길이 확인
-	if (spacePos == string::npos || spacePos == 0) throw InvalidCommandException();
 	if (strLba.length() > 2) throw InvalidCommandException();
 	verifyWriteDataLength(strData);
 

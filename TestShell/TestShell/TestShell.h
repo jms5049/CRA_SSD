@@ -10,7 +10,7 @@ using namespace std;
 class TestShell {
 public:
 	TestShell(SsdApi* ssdApi);
-	void write(string input);
+	void write(string strLba, string strData);
 	void read(string input);
 	void fullRead();
 	void exitApp();
@@ -22,7 +22,7 @@ public:
 private:
 	vector<string> splitString(const string& str);
 	SsdApi* ssdApi;
-	void verifyWriteInput(int spacePos, std::string& strLba, std::string& strData);
+	void verifyWriteInput(std::string& strLba, std::string& strData);
 	void verifyWriteDataLength(std::string& strData);
 	void verifyWriteDataHexNum(std::string& writeData);
 
