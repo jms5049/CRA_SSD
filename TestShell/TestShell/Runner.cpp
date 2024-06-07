@@ -14,8 +14,7 @@ using namespace std;
 void Runner::runnerApp(string userInput) {
 	vector<string> args = splitString(userInput);
 	ifstream file(args[1]);
-	Ssd* ssd = new Ssd();
-	TestShell* testShell = TestShell::getInstance(ssd);
+	TestShell* testShell = TestShell::getInstance();
 	class TestScript testscript;
 
 	if (!file.is_open()) {

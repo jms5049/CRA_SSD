@@ -5,7 +5,6 @@ public:
 	bool testScriptApp(string userInput);
 
 private:
-	Ssd ssd;
 	TestShell* testShell;
 
 	bool testApp1();
@@ -14,6 +13,9 @@ private:
 
 	bool testWrite10AndCompare();
 	bool testRead10AndCompare();
+
+	string makeWriteCommand(int lba, string data);
+	string makeReadCommand(int lba);
 
 	vector<string> splitString(const string& str);
 
