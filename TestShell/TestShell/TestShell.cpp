@@ -7,6 +7,7 @@
 #include <exception>
 
 #include "SsdApi.h"
+#include "Logger.h"
 #include "TestShell.h"
 
 using std::string;

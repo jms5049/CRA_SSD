@@ -1,5 +1,5 @@
 #pragma once
-#include "Logger.h"
+#include "SsdApi.h"
 using namespace std;
 
 class TestShell {

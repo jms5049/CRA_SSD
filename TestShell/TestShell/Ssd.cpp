@@ -4,6 +4,8 @@
 #include <Windows.h>
 
 #include "Ssd.h"
+#include "SsdApi.h"
+#include "Logger.h"
 
 using std::string;
 
