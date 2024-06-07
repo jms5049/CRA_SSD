@@ -14,13 +14,13 @@ const string Ssd::SSD_LOCATION = "..\\..\\SSD\\";
 void Ssd::write(int lba, std::string data)
 {
 	string writeCmd = convertToWriteCmd(lba, data);
-	ExecuteSsdCmd(writeCmd);
+	executeSsdCmd(writeCmd);
 }
 
 string Ssd::read(int lba)
 {
 	string readCmd = convertToReadCmd(lba);
-	ExecuteSsdCmd(readCmd);
+	executeSsdCmd(readCmd);
 	return readResultFile("../../SSD/result.txt");
 }
 
@@ -58,7 +58,7 @@ string Ssd::convertToWriteCmd(int lba, std::string& data)
 	return result;
 }
 
-void Ssd::ExecuteSsdCmd(string& cmdOption) {
+void Ssd::executeSsdCmd(string& cmdOption) {
 	SHELLEXECUTEINFOA sei;
 	::ZeroMemory(&sei, sizeof(SHELLEXECUTEINFO));
 
