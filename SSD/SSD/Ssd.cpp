@@ -39,7 +39,37 @@ void Ssd::readSsd(int LBAIndex) {
 	updateReadResult("0x" + nandData.substr(startIndex, 8));
 }
 
+void flush() {
+
+}
+
+bool isCmd10() {
+
+}
+
+void addCmnToFile(string cmd) {
+
+}
+
 void Ssd::writeSsd(int LBAIndex, string writeData) {
+	// Add write cmd to buffer.txt
+	char index[100];
+	itoa(LBAIndex, index, 10);
+
+	string cmd = "W ";
+	cmd += index;
+	cmd += " ";
+	cmd += writeData;
+
+	addCmnToFile(cmd);
+	
+	// Check cmd number is 10 and Do flush
+	if (isCmd10()) {
+		flush();
+	}
+}
+
+void Ssd::writeNand(int LBAIndex, string writeData) {
 	readNandDataAndUpdateStartIndex(LBAIndex);
 	if (nandData == ErrorMessage)  return;
 

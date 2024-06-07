@@ -31,4 +31,5 @@ private:
 	void readNandDataAndUpdateStartIndex(int LBAIndex);
 	void updateAndWriteNandData(int updateSize, string writeData);
 	void updateReadResult(string readData);
+	void writeNand(int LBAIndex, string writeData);
 };
