@@ -3,8 +3,8 @@
 #include <fstream>
 #include <iostream>
 #include <regex>
+#include <exception>
 
-#include "ShellException.h"
 #include "SsdApi.h"
 #include "TestShell.h"
 
@@ -20,31 +20,31 @@ void TestShell::inputParser(string userInput) {
 	vector<string> args = splitString(userInput);
 
 	if (args[0] == "write") {
-		if (args.size() != 3) throw InvalidArgumentException();
+		if (args.size() != 3) throw std::invalid_argument("Invalid Input Argument for Write Command");
 		write(args[1], args[2]);
 		return;
 	}
 	if (args[0] == "read") {
-		if (args.size() != 2) throw InvalidArgumentException();
+		if (args.size() != 2) throw std::invalid_argument("Invalid Input Argument for Read Command");
 		read(args[1]);
 		return;
 	}
 	if (args[0] == "exit") {
-		if (args.size() != 1) throw InvalidArgumentException();
+		if (args.size() != 1) throw std::invalid_argument("Invalid Input Argument for Read Command");
 		exitShell();
 	}
 	if (args[0] == "help") {
-		if (args.size() > 2) throw InvalidArgumentException();
+		if (args.size() > 2) throw std::invalid_argument("Invalid Input Argument for Read Command");
 		help(args[1]);
 		return;
 	}
 	if (args[0] == "fullwrite") {
-		if (args.size() != 2) throw InvalidArgumentException();
+		if (args.size() != 2) throw std::invalid_argument("Invalid Input Argument for Read Command");
 		fullWrite(args[1]);
 		return;
 	}
 	if (args[0] == "fullread") {
-		if (args.size() != 1) throw InvalidArgumentException();
+		if (args.size() != 1) throw std::invalid_argument("Invalid Input Argument for Read Command");
 		fullRead();
 		return;
 	}
@@ -87,12 +87,12 @@ void TestShell::fullWrite(string writeData)
 void TestShell::verifyWriteDataHexNum(std::string& writeData)
 {
 	regex e("0x[0-9A-F]{8}");
-	if (regex_match(writeData, e) == false) throw InvalidDataException();
+	if (regex_match(writeData, e) == false) throw std::invalid_argument("Given Data Length is Not in Format");
 }
 
 void TestShell::verifyWriteDataLength(std::string& strData)
 {
-	if (strData.length() != 10) throw InvalidDataException();
+	if (strData.length() > 10) throw std::out_of_range("Given Data Length is too Long");
 }
 
 string TestShell::read(string strLba)
@@ -112,10 +112,10 @@ void TestShell::fullRead()
 
 int TestShell::verifyConvertLba(string& strLba) {
 	int iLba = 0;
-	if (strLba.length() > 2) throw InvalidLbaException();
+	if (strLba.length() > 2) throw std::out_of_range("Given LBA Length is too Long");
 
 	for (int i = 0; i < strLba.length(); i++) {
-		if (strLba[i] < '0' || strLba[i] > '9') throw InvalidLbaException();
+		if (strLba[i] < '0' || strLba[i] > '9') throw std::invalid_argument("Given LBA Length is Not in Format");
 	}
 
 	iLba = stoi(strLba);
