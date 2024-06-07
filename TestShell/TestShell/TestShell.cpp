@@ -30,21 +30,21 @@ void TestShell::inputParser(string userInput) {
 		return;
 	}
 	if (args[0] == "exit") {
-		if (args.size() != 1) throw std::invalid_argument("Invalid Input Argument for Read Command");
+		if (args.size() != 1) throw std::invalid_argument("Invalid Input Argument for Exit Command");
 		exitShell();
 	}
 	if (args[0] == "help") {
-		if (args.size() > 2) throw std::invalid_argument("Invalid Input Argument for Read Command");
+		if (args.size() > 2) throw std::invalid_argument("Invalid Input Argument for Help Command");
 		help(args[1]);
 		return;
 	}
 	if (args[0] == "fullwrite") {
-		if (args.size() != 2) throw std::invalid_argument("Invalid Input Argument for Read Command");
+		if (args.size() != 2) throw std::invalid_argument("Invalid Input Argument for Full Write Command");
 		fullWrite(args[1]);
 		return;
 	}
 	if (args[0] == "fullread") {
-		if (args.size() != 1) throw std::invalid_argument("Invalid Input Argument for Read Command");
+		if (args.size() != 1) throw std::invalid_argument("Invalid Input Argument for Full Read Command");
 		fullRead();
 		return;
 	}
