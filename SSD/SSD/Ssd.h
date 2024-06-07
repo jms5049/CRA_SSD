@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "Buffer.h"
 
 using std::string;
 
@@ -26,6 +27,7 @@ private:
 
 	string nandData;
 	int startIndex;
+	Buffer ssd_buffer;
 
 	string readTxtData(string filePath);
 	void writeTxtData(string filePath, string writeData);

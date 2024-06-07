@@ -43,28 +43,20 @@ void flush() {
 
 }
 
-bool isCmd10() {
-
-}
-
-void addCmnToFile(string cmd) {
-
-}
-
 void Ssd::writeSsd(int LBAIndex, string writeData) {
 	// Add write cmd to buffer.txt
 	char index[100];
-	itoa(LBAIndex, index, 10);
+	_itoa_s(LBAIndex, index, 10);
 
 	string cmd = "W ";
 	cmd += index;
 	cmd += " ";
 	cmd += writeData;
 
-	addCmnToFile(cmd);
+	ssd_buffer.addCmnToBuffer(cmd);
 	
 	// Check cmd number is 10 and Do flush
-	if (isCmd10()) {
+	if (ssd_buffer.isCmd10InBuffer()) {
 		flush();
 	}
 }
