@@ -42,6 +42,12 @@ void Ssd::erase(int lba, int size) {
 	executeSsdCmd(eraseCmd);
 }
 
+void Ssd::flush()
+{
+	string flushCmd = "F";
+	executeSsdCmd(flushCmd);
+}
+
 string Ssd::readResultFile(const std::string& filepath) {
 	string content;
 	std::ifstream file(filepath);
