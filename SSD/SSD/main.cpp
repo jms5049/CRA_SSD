@@ -6,6 +6,11 @@ using std::invalid_argument;
 
 int stoiWithException(string target) {
     int intData = -1;
+
+    for (int i = 0; i < target.length(); i++) {
+        if (target[i] < '0' || target[i] > '9') return -1;
+    }
+
     try {
         intData = stoi(target);
     }
