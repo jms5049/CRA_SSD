@@ -1,17 +1,10 @@
 #pragma once
 class Logger {
 public:
-    static Logger& get() {
-        static Logger logger;
-        return logger;
-    }
-
+    static Logger* getInstance();
     void write();
 
 private:
-
-    Logger() {}
-    ~Logger() {}
-    Logger& operator=(const Logger& other) = delete;
-    Logger(const Logger& other) = delete;
+    static Logger* logger;
+    Logger();
 };
