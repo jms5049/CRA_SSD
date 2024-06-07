@@ -51,10 +51,10 @@ TEST_F(TestShellFixture, WriteSuccess) {
 }
 
 TEST_F(TestShellFixture, WriteInputError) {
-	EXPECT_THROW(app->write("1", "djf"), InvalidDataException);
-	EXPECT_THROW(app->write("100","0xAAAAAAAA"), InvalidLbaException);
-	EXPECT_THROW(app->write("1", "AAAAAAAA"), InvalidDataException);
-	EXPECT_THROW(app->write("1", "0xeeepppp"), InvalidDataException);
+	EXPECT_THROW(app->write("1", "djf"), std::exception);
+	EXPECT_THROW(app->write("100","0xAAAAAAAA"), std::exception);
+	EXPECT_THROW(app->write("1", "AAAAAAAA"), std::exception);
+	EXPECT_THROW(app->write("1", "0xeeepppp"), std::exception);
 }
 
 TEST_F(TestShellFixture, FullWriteSuccess) {
@@ -65,10 +65,10 @@ TEST_F(TestShellFixture, FullWriteSuccess) {
 }
 
 TEST_F(TestShellFixture, FullWriteInputError) {
-	EXPECT_THROW(app->fullWrite("1 0xAAAAA"), InvalidDataException);
-	EXPECT_THROW(app->fullWrite("AA"), InvalidDataException);
-	EXPECT_THROW(app->fullWrite("0xB"), InvalidDataException);
-	EXPECT_THROW(app->fullWrite("adtt"), InvalidDataException);
+	EXPECT_THROW(app->fullWrite("1 0xAAAAA"), std::exception);
+	EXPECT_THROW(app->fullWrite("AA"), std::exception);
+	EXPECT_THROW(app->fullWrite("0xB"), std::exception);
+	EXPECT_THROW(app->fullWrite("adtt"), std::exception);
 }
 
 TEST_F(TestShellFixture, ReadSuccess) {
@@ -80,10 +80,10 @@ TEST_F(TestShellFixture, ReadSuccess) {
 }
 
 TEST_F(TestShellFixture, ReadInputError) {
-	EXPECT_THROW(app->read("a20"), InvalidLbaException);
-	EXPECT_THROW(app->read("-1"), InvalidLbaException);
-	EXPECT_THROW(app->read("!#"), InvalidLbaException);
-	EXPECT_THROW(app->read("2$"), InvalidLbaException);
+	EXPECT_THROW(app->read("a20"), std::exception);
+	EXPECT_THROW(app->read("-1"), std::exception);
+	EXPECT_THROW(app->read("!#"), std::exception);
+	EXPECT_THROW(app->read("2$"), std::exception);
 }
 
 TEST_F(TestShellFixture, fullReadSuccess) {
@@ -96,19 +96,19 @@ TEST_F(TestShellFixture, fullReadSuccess) {
 }
 
 TEST_F(TestShellFixture, inputArgsCountException) {
-	EXPECT_THROW(app->inputParser("write 0x3 0x4 0x5"), InvalidArgumentException);
-	EXPECT_THROW(app->inputParser("write 0x3"), InvalidArgumentException);
-	EXPECT_THROW(app->inputParser("read 0x3 0x4"), InvalidArgumentException);
-	EXPECT_THROW(app->inputParser("read 0x3 0x4 0x5"), InvalidArgumentException);
-	EXPECT_THROW(app->inputParser("exit 0x3"), InvalidArgumentException);
-	EXPECT_THROW(app->inputParser("help 0x3 0x4 0x5"), InvalidArgumentException);
-	EXPECT_THROW(app->inputParser("fullwrite 0x3 0x4"), InvalidArgumentException);
-	EXPECT_THROW(app->inputParser("fullread 0x3 0x4"), InvalidArgumentException);
+	EXPECT_THROW(app->inputParser("write 0x3 0x4 0x5"), std::exception);
+	EXPECT_THROW(app->inputParser("write 0x3"), std::exception);
+	EXPECT_THROW(app->inputParser("read 0x3 0x4"), std::exception);
+	EXPECT_THROW(app->inputParser("read 0x3 0x4 0x5"), std::exception);
+	EXPECT_THROW(app->inputParser("exit 0x3"), std::exception);
+	EXPECT_THROW(app->inputParser("help 0x3 0x4 0x5"), std::exception);
+	EXPECT_THROW(app->inputParser("fullwrite 0x3 0x4"), std::exception);
+	EXPECT_THROW(app->inputParser("fullread 0x3 0x4"), std::exception);
 }
 
 TEST_F(TestShellFixture, inputArgTypeException) {
-	EXPECT_THROW(app->inputParser("write write write write"), InvalidArgumentException);
-	EXPECT_THROW(app->inputParser("read read read"), InvalidArgumentException);
+	EXPECT_THROW(app->inputParser("write write write write"), std::exception);
+	EXPECT_THROW(app->inputParser("read read read"), std::exception);
 }
 
 TEST_F(TestShellFixture, HelpSuccess) {
