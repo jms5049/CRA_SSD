@@ -25,9 +25,9 @@ bool isTestshell(string input) {
 }
 
 int main() {
-	class Ssd * ssd = new Ssd();
-	class TestShell testShell(ssd);
-	class TestScript testscript;
+	Ssd * ssd = new Ssd();
+	TestShell* testShell = TestShell::getInstance(ssd);
+	TestScript testscript;
 
 	while (1) {
 		string input;
@@ -39,7 +39,7 @@ int main() {
 			if (isTestscript(input))
 				testscript.testScriptApp(input);
 			else if (isTestshell(input))
-				testShell.inputParser(input);
+				testShell->inputParser(input);
 			else
 				cout << "INVALID COMMAND : NOT supported Command." << endl;
 		}

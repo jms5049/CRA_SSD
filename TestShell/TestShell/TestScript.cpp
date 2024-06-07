@@ -9,7 +9,7 @@
 using std::string;
 
 TestScript::TestScript() {
-	testShell = new TestShell(&ssd);
+	testShell = TestShell::getInstance(&ssd);
 }
 
 void TestScript::testScriptApp(string userInput) {

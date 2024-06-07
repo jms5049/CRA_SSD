@@ -16,6 +16,17 @@ TestShell::TestShell(SsdApi* ssdApi) : ssdApi(ssdApi) {
 	// do nothing
 }
 
+TestShell* TestShell::testShell = nullptr;
+
+TestShell* TestShell::getInstance(SsdApi* ssdApi)
+{
+	if (testShell == nullptr) {
+		testShell = new TestShell(ssdApi);
+	}
+
+	return testShell;
+}
+
 void TestShell::inputParser(string userInput) {
 	vector<string> args = splitString(userInput);
 

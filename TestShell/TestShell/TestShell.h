@@ -9,7 +9,8 @@ using namespace std;
 
 class TestShell {
 public:
-	TestShell(SsdApi* ssdApi);
+	static TestShell* getInstance(SsdApi* ssdApi);
+
 	void write(string strLba, string strData);
 	string read(string strLba);
 	void fullRead();
@@ -20,8 +21,11 @@ public:
 	void fullWrite(string input);
 
 private:
-	vector<string> splitString(const string& str);
+	static TestShell* testShell;
 	SsdApi* ssdApi;
+
+	TestShell(SsdApi* ssdApi);
+	vector<string> splitString(const string& str);
 	void verifyWriteDataLength(std::string& strData);
 	void verifyWriteDataHexNum(std::string& writeData);
 	int verifyConvertLba(std::string& strLba);
