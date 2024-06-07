@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <sstream>
 
 #include "Ssd.h"
 
@@ -52,23 +53,48 @@ void Ssd::readSsd(int LBAIndex) {
 	}
 }
 
+static vector<string> splitString(const string& str) {
+	istringstream iss(str);
+	vector<string> tokens;
+	string token;
+	while (iss >> token) {
+		if (!token.empty()) {
+			tokens.push_back(token);
+		}
+	}
+	return tokens;
+}
+
 void Ssd::flush() {
+	vector<string> bufferData = ssd_buffer.readBuffer();
+
+	for (int i = 0; i < bufferData.size(); i++) {
+		string cmd = bufferData[i];
+
+		if (cmd.find("W") == 0) {
+			vector<string> args = splitString(cmd);
+
+			int LBA = stoi(args[1]);
+			string writeData = args[2];
+
+			writeNand(LBA, writeData);
+		}
+		if (cmd.find("E") == 0) {
+			// Todo!!!!
+		}
+	}
+
 	ssd_buffer.flushBuffer();
 }
 
 void Ssd::writeSsd(int LBAIndex, string writeData) {
-	// Add write cmd to buffer.txt
-	char index[100];
-	_itoa_s(LBAIndex, index, 10);
-
 	string cmd = "W ";
-	cmd += index;
+	cmd += to_string(LBAIndex);
 	cmd += " ";
 	cmd += writeData;
 
 	ssd_buffer.addCmnToBuffer(cmd);
 	
-	// Check cmd number is 10 and Do flush
 	if (ssd_buffer.isCmd10InBuffer()) {
 		flush();
 	}
