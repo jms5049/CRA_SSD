@@ -28,7 +28,7 @@ void FullReadCommand::execute()
 void FullReadCommand::log()
 {
 	Logger* logger = Logger::getInstance();
-	string str = typeid(*this).name();
-	logger->write(str, " ");
+	string className = typeid(*this).name();
+	logger->write(className, " ");
 }
 

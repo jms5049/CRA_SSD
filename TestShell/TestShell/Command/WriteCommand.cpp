@@ -42,9 +42,9 @@ void WriteCommand::verifyWriteDataLength(std::string& strData)
 void WriteCommand::log()
 {
 	Logger* logger = Logger::getInstance();
-	string str = typeid(*this).name();
+	string className = typeid(*this).name();
 	string strLog = "ADDR:";
-	strLog += options[1].c_str();
+	strLog += options[1];
 	strLog += " " + options[2];
-	logger->write(str, strLog);
+	logger->write(className, strLog);
 }

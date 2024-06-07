@@ -28,6 +28,6 @@ void ReadCommand::execute()
 void ReadCommand::log()
 {
 	Logger* logger = Logger::getInstance();
-	string str = typeid(*this).name();
-	logger->write(str, options[1].c_str());
+	string className = typeid(*this).name();
+	logger->write(className, options[1].c_str());
 }

@@ -26,4 +26,15 @@ void EraseRangeCommand::execute()
 	int len = endIdx - startIdx;
 	if (len < 1) throw std::invalid_argument("Erasing size must be 1 to 100");
 	divideEraseRange(startIdx, len);
+	log();
+}
+
+void EraseRangeCommand::log()
+{
+	Logger* logger = Logger::getInstance();
+	string className = typeid(*this).name();
+	string strLog = "ADDR:";
+	strLog += options[1];
+	strLog += " " + options[2];
+	logger->write(className, strLog);
 }

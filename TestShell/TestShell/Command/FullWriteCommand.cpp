@@ -30,6 +30,6 @@ void FullWriteCommand::execute()
 void FullWriteCommand::log()
 {
 	Logger* logger = Logger::getInstance();
-	string str = typeid(*this).name();
-	logger->write(str, options[1]);
+	string className = typeid(*this).name();
+	logger->write(className, options[1]);
 }

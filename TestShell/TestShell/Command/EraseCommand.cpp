@@ -42,4 +42,15 @@ void EraseCommand::divideEraseRange(int iLba, int len)
 		startIdx = startIdx + 10;
 	}
 	if (residual > 0) ssdApi->erase(startIdx, residual);
+	log();
+}
+
+void EraseCommand::log()
+{
+	Logger* logger = Logger::getInstance();
+	string className = typeid(*this).name();
+	string strLog = "ADDR:";
+	strLog += options[1];
+	strLog += " " + options[2];
+	logger->write(className, strLog);
 }
