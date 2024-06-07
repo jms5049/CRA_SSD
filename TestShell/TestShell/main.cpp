@@ -10,7 +10,7 @@
 using namespace std;
 
 bool isTestscript(string input) {
-	vector<string> testScriptCmds = { "testapp1", "testapp2" };
+	vector<string> testScriptCmds = { "testapp1", "testapp2" , "Write10AndCompare", "Read10AndCompare" };
 	for (auto& cmd : testScriptCmds) {
 		if (input.find(cmd) == 0) return true;
 	}
@@ -18,7 +18,7 @@ bool isTestscript(string input) {
 }
 
 bool isTestshell(string input) {
-	vector<string> testShellCmds = { "read", "write", "exit", "help", "fullwrite", "fullread" };
+	vector<string> testShellCmds = { "read", "write", "exit", "help", "fullwrite", "fullread", "erase", "erase_range"};
 	for (auto& cmd : testShellCmds) {
 		if (input.find(cmd) == 0) return true;
 	}
