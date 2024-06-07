@@ -14,10 +14,10 @@ public:
 	void readSsd(int LBAIndex);
 	void writeSsd(int LBAIndex, string writeData);
 	void eraseSsd(int LBAIndex, int size);
+	void flush();
 private:
 	const string nandFlieName = "./nand.txt";
 	const string resultFileName = "./result.txt";
-	const string bufferFileName = "./buffer.txt";
 	const string ErrorMessage = "Nand file open error!";
 	const string EraseSource = "00000000";
 	const int nandCharSize = 800;

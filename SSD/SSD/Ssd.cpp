@@ -39,7 +39,7 @@ void Ssd::readSsd(int LBAIndex) {
 	updateReadResult("0x" + nandData.substr(startIndex, 8));
 }
 
-void flush() {
+void Ssd::flush() {
 
 }
 
