@@ -1,15 +1,29 @@
 #include <string>
 #include <fstream>
+#include <sstream>
+#include <vector>
+#include <iostream>
 
-#include "SsdApi.h"
-#include "Ssd.h"
+#include "Logger.h"
 #include "TestShell.h"
 #include "TestScript.h"
+#include "Logger.h"
 
 using std::string;
 
-TestScript::TestScript() {
-	testShell = TestShell::getInstance(&ssd);
+TestScript::TestScript(TestShell* testShell, Logger* logger) {
+	this->testShell = testShell;
+	this->logger = logger;
+}
+
+TestScript* TestScript::testScript = nullptr;
+TestScript* TestScript::getInstance(TestShell* testShell, Logger* logger)
+{
+	if (testScript == nullptr) {
+		testScript = new TestScript(testShell, logger);
+	}
+
+	return testScript;
 }
 
 bool TestScript::testScriptApp(string userInput) {
@@ -33,6 +47,7 @@ bool TestScript::testScriptApp(string userInput) {
 }
 
 bool TestScript::testApp1() {
+	log(__func__);
 	string data = "0x5A5A5A5A";
 	testShell->fullWrite(data);
 	testShell->fullRead();
@@ -46,12 +61,12 @@ bool TestScript::testApp1() {
 }
 
 bool TestScript::testApp2() {
+	log(__func__);
 	string data;
 	data = "0xAAAABBBB";
 	for (int cnt = 0; cnt < testCnt; cnt++) {
 		writeAddrTest(data);
 	}
-
 	data = "0x12345678";
 	writeAddrTest(data);
 
@@ -72,6 +87,7 @@ void TestScript::writeAddrTest(string data) {
 }
 
 bool TestScript::testWrite10AndCompare() {
+	log(__func__);
 	string data;
 	data = "0xAAAABBBB";
 
@@ -85,6 +101,7 @@ bool TestScript::testWrite10AndCompare() {
 }
 
 bool TestScript::testRead10AndCompare() {
+	log(__func__);
 	string data = testShell->read(to_string(0));
 	string result;
 
@@ -107,4 +124,12 @@ vector<string> TestScript::splitString(const string& str) {
 		}
 	}
 	return tokens;
+}
+
+void TestScript::log(string funcName) {
+	Logger* loggerTS = Logger::getInstance();
+	string str = typeid(*this).name();
+	str += ".";
+	str += funcName;
+	loggerTS->write(str);
 }

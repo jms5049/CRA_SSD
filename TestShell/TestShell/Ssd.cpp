@@ -4,10 +4,25 @@
 #include <Windows.h>
 
 #include "Ssd.h"
+#include "SsdApi.h"
+#include "Logger.h"
 
 using std::string;
 
 const string Ssd::SSD_LOCATION = "..\\..\\SSD\\";
+
+Ssd::Ssd(Logger* logger){
+	this->logger = logger;
+}
+
+Ssd* Ssd::ssd = nullptr;
+Ssd* Ssd::getInstance(Logger* logger) {
+	if (ssd == nullptr) {
+		ssd = new Ssd(logger);
+	}
+
+	return ssd;
+}
 
 void Ssd::write(int lba, std::string data)
 {
