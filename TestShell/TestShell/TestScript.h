@@ -2,7 +2,7 @@
 class TestScript {
 public:
 	static TestScript* getInstance(TestShell* testShell, Logger* logger);
-	void testScriptApp(string userInput);
+	bool testScriptApp(string userInput);
 
 private:
 	static TestScript* testScript;
@@ -20,11 +20,6 @@ private:
 
 	bool testWrite10AndCompare();
 	bool testRead10AndCompare();
-
-	vector<string> splitString(const string& str);
-
-	const int testCnt = 30;
-	const int testAddr = 5;
 
 	void log(string funcName);
 };

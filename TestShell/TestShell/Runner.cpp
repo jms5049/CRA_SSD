@@ -14,9 +14,10 @@ using namespace std;
 void Runner::runnerApp(string userInput) {
 	vector<string> args = splitString(userInput);
 	ifstream file(args[1]);
-	Ssd* ssd = new Ssd();
-	TestShell* testShell = TestShell::getInstance(ssd);
-	class TestScript testscript;
+	Logger* logger = Logger::getInstance();
+	Ssd* ssd = Ssd::getInstance(logger);
+	TestShell* testShell = TestShell::getInstance(ssd, logger);
+	TestScript* testScript = TestScript::getInstance(testShell, logger);
 
 	if (!file.is_open()) {
 		cerr << "Error: Failed to open " << args[1] << " file for reading!" << endl;
@@ -28,7 +29,7 @@ void Runner::runnerApp(string userInput) {
 		bool result = false;
 		cout << line << "\t\t" << "---   Run...";
 
-		result = testscript.testScriptApp(line);
+		result = testScript->testScriptApp(line);
 
 		if (result == true) 
 			cout << "Pass" << endl;

@@ -47,6 +47,7 @@ bool TestScript::testScriptApp(string userInput) {
 }
 
 bool TestScript::testApp1() {
+	log(__func__);
 	string data = "0x5A5A5A5A";
 	testShell->fullWrite(data);
 	testShell->fullRead();
@@ -86,6 +87,7 @@ void TestScript::writeAddrTest(string data) {
 }
 
 bool TestScript::testWrite10AndCompare() {
+	log(__func__);
 	string data;
 	data = "0xAAAABBBB";
 
@@ -99,6 +101,7 @@ bool TestScript::testWrite10AndCompare() {
 }
 
 bool TestScript::testRead10AndCompare() {
+	log(__func__);
 	string data = testShell->read(to_string(0));
 	string result;
 
