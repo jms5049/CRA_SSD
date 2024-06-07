@@ -14,16 +14,14 @@ const string Ssd::SSD_LOCATION = "..\\..\\SSD\\";
 void Ssd::write(int lba, std::string data)
 {
 	string writeCmd = convertToWriteCmd(lba, data);
-	ShellExecuteA(NULL, "open", "ssd", writeCmd.c_str(), SSD_LOCATION.c_str(), SW_HIDE);
+	executeSsdCmd(writeCmd);
 }
 
-string Ssd::convertToWriteCmd(int lba, std::string& data)
+string Ssd::read(int lba)
 {
-	string result = "W ";
-	result += std::to_string(lba);
-	result += " ";
-	result += data;
-	return result;
+	string readCmd = convertToReadCmd(lba);
+	executeSsdCmd(readCmd);
+	return readResultFile("../../SSD/result.txt");
 }
 
 string Ssd::readResultFile(const std::string& filepath) {
@@ -43,18 +41,40 @@ string Ssd::readResultFile(const std::string& filepath) {
 	return content;
 }
 
-string Ssd::read(int lba)
-{
-	string readCmd = convertToReadCmd(lba);
-	ShellExecuteA(NULL, "open", "ssd", readCmd.c_str(), SSD_LOCATION.c_str(), SW_HIDE);
-	std::this_thread::sleep_for(std::chrono::milliseconds(15));
-	return readResultFile("../../SSD/result.txt");
-}
-
 string Ssd::convertToReadCmd(int lba)
 {
 	string result = "R ";
 	result += std::to_string(lba);
 	result += " ";
 	return result;
+}
+
+string Ssd::convertToWriteCmd(int lba, std::string& data)
+{
+	string result = "W ";
+	result += std::to_string(lba);
+	result += " ";
+	result += data;
+	return result;
+}
+
+void Ssd::executeSsdCmd(string& cmdOption) {
+	SHELLEXECUTEINFOA sei;
+	::ZeroMemory(&sei, sizeof(SHELLEXECUTEINFO));
+
+	sei.cbSize = sizeof(SHELLEXECUTEINFO);
+	sei.lpFile = "ssd.exe";
+	sei.lpDirectory = SSD_LOCATION.c_str();
+	sei.lpParameters = cmdOption.c_str();
+	sei.nShow = SW_HIDE;
+	sei.fMask = SEE_MASK_NOCLOSEPROCESS;
+	sei.lpVerb = "open";
+
+	DWORD result = ShellExecuteExA(&sei);
+
+	if (sei.hProcess != NULL)
+	{
+		// 프로세스 종료까지 대기
+		WaitForSingleObject(sei.hProcess, INFINITE);
+	}
 }
