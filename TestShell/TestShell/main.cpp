@@ -25,9 +25,10 @@ bool isTestshell(string input) {
 }
 
 int main() {
-	Ssd * ssd = new Ssd();
-	TestShell* testShell = TestShell::getInstance(ssd);
-	TestScript testscript;
+	Logger* logger = Logger::getInstance();
+	Ssd * ssd = Ssd::getInstance(logger);
+	TestShell* testShell = TestShell::getInstance(ssd, logger);
+	TestScript* testScript = TestScript::getInstance(logger);
 
 	while (1) {
 		string input;
@@ -37,7 +38,7 @@ int main() {
 
 		try {
 			if (isTestscript(input))
-				testscript.testScriptApp(input);
+				testScript->testScriptApp(input);
 			else if (isTestshell(input))
 				testShell->inputParser(input);
 			else
