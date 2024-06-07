@@ -69,7 +69,6 @@
     <ClInclude Include="Runner.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ShellException.h" />
     <ClInclude Include="Command\CommandFactory.h">
       <Filter>헤더 파일\Command</Filter>
     </ClInclude>

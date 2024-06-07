@@ -40,6 +40,11 @@ string TestShell::getResult() {
 	return iCommand->getResult();
 }
 
+bool TestShell::isSupportedCommand(string command)
+{
+	return commandFactory->isSupportedCommand(command);
+}
+
 void TestShell::inputParser(string userInput) {
 	vector<string> args = splitString(userInput);
 

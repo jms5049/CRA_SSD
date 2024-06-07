@@ -11,6 +11,7 @@ public:
 	static TestShell* getInstance(Logger* logger);
 	void executeCommand(string userInput);
 	string getResult();
+	bool isSupportedCommand(string command);
 
 private:
 	static TestShell* testShell;
