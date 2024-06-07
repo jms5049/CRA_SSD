@@ -60,12 +60,12 @@ void TestShell::inputParser(string userInput) {
 		return;
 	}
 	if (args[0] == "erase") {
-		if (args.size() != 3) throw InvalidArgumentException();
+		if (args.size() != 3) throw std::invalid_argument("Invalid Input Argument for Erase Command");
 		erase(args[1], args[2]);
 		return;
 	}
 	if (args[0] == "erase_range") {
-		if (args.size() != 3) throw InvalidArgumentException();
+		if (args.size() != 3) throw std::invalid_argument("Invalid Input Argument for Erase Range Command");
 		erase_range(args[1], args[2]);
 		return;
 	}
@@ -135,8 +135,8 @@ void TestShell::erase(string startLba, string size)
 {
 	int iLba = verifyConvertLba(startLba);
 	int len = verifyConvertLba_3(size);
-	if(iLba < 0 || iLba > 99) throw InvalidLbaException();
-	if(len < 1 || len > 100) throw InvalidLbaException();
+	if(iLba < 0 || iLba > 99) throw std::invalid_argument("Start index must be 0 to 99");
+	if(len < 1 || len > 100) throw std::invalid_argument("Erasing size must be 1 to 100");
 	divideEraseRange(iLba, len);
 }
 
@@ -163,11 +163,11 @@ void TestShell::erase_range(string startLba, string endLba)
 {
 	int startIdx = verifyConvertLba(startLba);
 	int endIdx = verifyConvertLba_3(endLba);
-	if (startIdx < 0 || startIdx > 99) throw InvalidLbaException();
-	if (endIdx < 0 || endIdx > 100) throw InvalidLbaException();
+	if (startIdx < 0 || startIdx > 99) throw std::invalid_argument("Start index must be 0 to 99");
+	if (endIdx < 1 || endIdx > 100) throw std::invalid_argument("End index must be 1 to 100");
 	
 	int len = endIdx - startIdx;
-	if(len < 1) throw InvalidLbaException();
+	if(len < 1) throw std::invalid_argument("Erasing size must be 1 to 100");
 	divideEraseRange(startIdx, len);
 }
 
@@ -186,10 +186,10 @@ int TestShell::verifyConvertLba(string& strLba) {
 
 int TestShell::verifyConvertLba_3(string& strLba) {
 	int iLba = 0;
-	if (strLba.length() > 3) throw InvalidLbaException();
+	if (strLba.length() > 3) throw std::out_of_range("Given LBA Length is too Long");
 
 	for (int i = 0; i < strLba.length(); i++) {
-		if (strLba[i] < '0' || strLba[i] > '9') throw InvalidLbaException();
+		if (strLba[i] < '0' || strLba[i] > '9') throw std::invalid_argument("Given LBA Length is Not in Format");
 	}
 
 	iLba = stoi(strLba);
