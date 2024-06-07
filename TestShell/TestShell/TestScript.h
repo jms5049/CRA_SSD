@@ -2,7 +2,7 @@
 class TestScript {
 public:
 	TestScript();
-	void testScriptApp(string userInput);
+	bool testScriptApp(string userInput);
 
 private:
 	Ssd ssd;
@@ -11,6 +11,9 @@ private:
 	bool testApp1();
 	bool testApp2();
 	void writeAddrTest(string data);
+
+	bool testWrite10AndCompare();
+	bool testRead10AndCompare();
 
 	vector<string> splitString(const string& str);
 

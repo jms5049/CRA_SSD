@@ -12,14 +12,28 @@ TestScript::TestScript() {
 	testShell = TestShell::getInstance(&ssd);
 }
 
-void TestScript::testScriptApp(string userInput) {
+bool TestScript::testScriptApp(string userInput) {
 	vector<string> args = splitString(userInput);
+	bool result = false;
+
 	if (args[0] == "testapp1") {
-		printf("TestApp1 result: %s \n", (testApp1() == true) ? "PASS" : "FAIL");
+		result = testApp1();
+		printf("TestApp1 result: %s \n", result ? "PASS" : "FAIL");
 	}
 	if (args[0] == "testapp2") {
-		printf("TestApp1 result: %s \n", (testApp2() == true) ? "PASS" : "FAIL");
+		result = testApp2();
+		printf("TestApp1 result: %s \n", result ? "PASS" : "FAIL");
 	}
+	if (args[0] == "Write10AndCompare") {
+		result = testWrite10AndCompare();
+		printf("Write10AndCompare result: %s \n", result ? "PASS" : "FAIL");
+	}
+	if (args[0] == "Read10AndCompare") {
+		result = testRead10AndCompare();
+		printf("Read10AndCompare result: %s \n", result ? "PASS" : "FAIL");
+	}
+
+	return result;
 }
 
 bool TestScript::testApp1() {
@@ -59,6 +73,32 @@ void TestScript::writeAddrTest(string data) {
 	for (int addr = 0; addr < testAddr; addr++) {
 		testShell->write(to_string(addr), data);
 	}
+}
+
+bool TestScript::testWrite10AndCompare() {
+	string data;
+	data = "0xAAAABBBB";
+
+	for (int cnt = 0; cnt < 10; cnt++)
+		testShell->write(to_string(0), data);
+
+	string result = testShell->read(to_string(0));
+
+	if (result != data) return false;
+	return true;
+}
+
+bool TestScript::testRead10AndCompare() {
+	string data = testShell->read(to_string(0));
+	string result;
+
+	for (int cnt = 0; cnt < 10; cnt++) {
+		result = testShell->read(to_string(0));
+
+		if (result != data) return false;
+	}
+
+	return true;
 }
 
 vector<string> TestScript::splitString(const string& str) {

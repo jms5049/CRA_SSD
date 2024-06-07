@@ -6,6 +6,7 @@
 #include "Ssd.h"
 #include "TestShell.h"
 #include "TestScript.h"
+#include "Runner.h"
 using namespace std;
 
 bool isTestscript(string input) {
@@ -24,10 +25,19 @@ bool isTestshell(string input) {
 	return false;
 }
 
+bool isRunner(string input) {
+	vector<string> runnerCmds = { "runner" };
+	for (auto& cmd : runnerCmds) {
+		if (input.find(cmd) == 0) return true;
+	}
+	return false;
+}
+
 int main() {
 	Ssd * ssd = new Ssd();
 	TestShell* testShell = TestShell::getInstance(ssd);
 	TestScript testscript;
+	Runner testRunner;
 
 	while (1) {
 		string input;
@@ -40,6 +50,8 @@ int main() {
 				testscript.testScriptApp(input);
 			else if (isTestshell(input))
 				testShell->inputParser(input);
+			else if (isRunner(input))
+				testRunner.runnerApp(input);
 			else
 				cout << "INVALID COMMAND : NOT supported Command." << endl;
 		}
