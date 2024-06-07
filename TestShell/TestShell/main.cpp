@@ -28,7 +28,7 @@ int main() {
 	Logger* logger = Logger::getInstance();
 	Ssd * ssd = Ssd::getInstance(logger);
 	TestShell* testShell = TestShell::getInstance(ssd, logger);
-	TestScript* testScript = TestScript::getInstance(logger);
+	TestScript* testScript = TestScript::getInstance(testShell, logger);
 
 	while (1) {
 		string input;

@@ -4,23 +4,22 @@
 #include <vector>
 #include <iostream>
 
-#include "SsdApi.h"
-#include "Ssd.h"
+#include "Logger.h"
 #include "TestShell.h"
 #include "TestScript.h"
 
 using std::string;
 
-
-TestScript::TestScript(Logger* logger) {
+TestScript::TestScript(TestShell* testShell, Logger* logger) {
+	this->testShell = testShell;
 	this->logger = logger;
 }
 
 TestScript* TestScript::testScript = nullptr;
-TestScript* TestScript::getInstance(Logger* logger)
+TestScript* TestScript::getInstance(TestShell* testShell, Logger* logger)
 {
 	if (testScript == nullptr) {
-		testScript = new TestScript(logger);
+		testScript = new TestScript(testShell, logger);
 	}
 
 	return testScript;
@@ -38,7 +37,6 @@ void TestScript::testScriptApp(string userInput) {
 
 bool TestScript::testApp1() {
 	string data = "0x5A5A5A5A";
-	cout << "DEBUF#1\n";
 	testShell->fullWrite(data);
 	testShell->fullRead();
 	for (int addr = 0; addr < 100; addr++) {
@@ -56,7 +54,6 @@ bool TestScript::testApp2() {
 	for (int cnt = 0; cnt < testCnt; cnt++) {
 		writeAddrTest(data);
 	}
-
 	data = "0x12345678";
 	writeAddrTest(data);
 
