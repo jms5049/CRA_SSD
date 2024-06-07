@@ -1,5 +1,8 @@
 #include <string>
 #include <fstream>
+#include <sstream>
+#include <vector>
+#include <iostream>
 
 #include "SsdApi.h"
 #include "Ssd.h"
@@ -8,8 +11,19 @@
 
 using std::string;
 
-TestScript::TestScript() {
-	testShell = TestShell::getInstance(&ssd);
+
+TestScript::TestScript(Logger* logger) {
+	this->logger = logger;
+}
+
+TestScript* TestScript::testScript = nullptr;
+TestScript* TestScript::getInstance(Logger* logger)
+{
+	if (testScript == nullptr) {
+		testScript = new TestScript(logger);
+	}
+
+	return testScript;
 }
 
 void TestScript::testScriptApp(string userInput) {
@@ -24,6 +38,7 @@ void TestScript::testScriptApp(string userInput) {
 
 bool TestScript::testApp1() {
 	string data = "0x5A5A5A5A";
+	cout << "DEBUF#1\n";
 	testShell->fullWrite(data);
 	testShell->fullRead();
 	for (int addr = 0; addr < 100; addr++) {

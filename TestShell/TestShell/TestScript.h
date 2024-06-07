@@ -1,17 +1,19 @@
 #pragma once
 class TestScript {
 public:
-	TestScript();
+	static TestScript* getInstance(Logger* logger);
 	void testScriptApp(string userInput);
 
 private:
-	Ssd ssd;
+	static TestScript* testScript;
+	Logger* logger;
 	TestShell* testShell;
 
 	bool testApp1();
 	bool testApp2();
 	void writeAddrTest(string data);
 
+	TestScript(Logger* logger);
 	vector<string> splitString(const string& str);
 
 	const int testCnt = 30;
