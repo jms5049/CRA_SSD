@@ -4,17 +4,22 @@ using std::string;
 using std::stoi;
 using std::invalid_argument;
 
+int stoiWithException(string target) {
+    int intData = -1;
+    try {
+        intData = stoi(target);
+    }
+    catch (invalid_argument& e) {
+        return -1;
+    }
+    return intData;
+}
+
 int main(int argc, char *argv[]) {
     // guard
     if (argc < 3 || argc > 4) return 0;
     string rwChecker = argv[1];
-    int lba = -1;
-    try {
-       lba = stoi(argv[2]);
-    } 
-    catch (invalid_argument& e) {
-        return 0;
-    }
+    int lba = stoiWithException(argv[2]);
     if (lba < 0 || lba > 99)  return 0;
     
     Ssd device;
@@ -31,6 +36,12 @@ int main(int argc, char *argv[]) {
     }
     if (rwChecker == "R") {
         device.readSsd(lba);
+    }
+
+    if (rwChecker == "E") {
+        int size = stoiWithException(argv[3]);
+        if (size <= 0)  return 0;
+        device.eraseSsd(lba, size);
     }
     
     return 0;

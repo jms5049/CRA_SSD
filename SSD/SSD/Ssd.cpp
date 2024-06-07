@@ -9,10 +9,6 @@ using std::ofstream;
 using std::ifstream;
 using std::ios;
 
-const string nandFlieName = "./nand.txt";
-const string resultFileName = "./result.txt";
-const string ErrorMessage = "Nand file open error!";
-
 string Ssd::getErrorMessage() {
 	return ErrorMessage;
 }
@@ -37,27 +33,29 @@ string Ssd::readResult() {
 }
 
 void Ssd::readSsd(int LBAIndex) {
-	string nandData = readNandData();
-
+	readNandDataAndUpdateStartIndex(LBAIndex);
 	if (nandData == ErrorMessage)  return;
 
-	int startIndex = LBAIndex * 4 * 2;
 	updateReadResult("0x" + nandData.substr(startIndex, 8));
 }
 
 void Ssd::writeSsd(int LBAIndex, string writeData) {
-	string nandData = readNandData();
-
+	readNandDataAndUpdateStartIndex(LBAIndex);
 	if (nandData == ErrorMessage)  return;
 
-	int startIndex = LBAIndex * 4 * 2;
-	for (int i = 0; i < 8; i++) {
-		nandData[startIndex + i] = writeData[2 + i];
-	}
-	writeNandData(nandData);
+	updateAndWriteNandData(writeDataSize, writeData.substr(2, 8));
 }
 
-	
+void Ssd::eraseSsd(int LBAIndex, int size) {
+	readNandDataAndUpdateStartIndex(LBAIndex);
+	if (nandData == ErrorMessage)  return;
+
+	if (LBAIndex + size > lbaSize)
+		size = lbaSize - LBAIndex;
+
+	int endSize = size >= maxEraseSize ? (maxEraseSize * writeDataSize) : (size * writeDataSize);
+	updateAndWriteNandData(endSize, EraseSource);
+}
 
 string Ssd::readTxtData(string filePath) {
 	ifstream file(filePath);
@@ -78,12 +76,16 @@ void Ssd::writeTxtData(string filePath, string writeData) {
 	file.close();
 }
 
-string Ssd::readNandData() {
-	return readTxtData(nandFlieName);
+void Ssd::readNandDataAndUpdateStartIndex(int LBAIndex) {
+	nandData = readTxtData(nandFlieName);
+	startIndex = LBAIndex * writeDataSize;
 }
 
-void Ssd::writeNandData(string changedNandData) {
-	writeTxtData(nandFlieName, changedNandData);
+void Ssd::updateAndWriteNandData(int updateSize, string writeData) {
+	for (int i = 0; i < updateSize; i++) {
+		nandData[startIndex + i] = writeData[i % writeDataSize];
+	}
+	writeTxtData(nandFlieName, nandData);
 }
 
 void Ssd::updateReadResult(string readData) {
