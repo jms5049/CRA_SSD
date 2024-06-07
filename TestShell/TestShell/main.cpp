@@ -25,8 +25,8 @@ bool isRunner(int argc, char* argv[]) {
 
 int main(int argc, char* argv[]) {
 	Logger* logger = Logger::getInstance();
-	TestShell* testShell = TestShell::getInstance(logger);
-	TestScript* testScript = TestScript::getInstance(testShell, logger);
+	TestShell* testShell = TestShell::getInstance();
+	TestScript* testScript = TestScript::getInstance(testShell);
 	Runner testRunner;
 
 	if (isRunner(argc, argv)) {

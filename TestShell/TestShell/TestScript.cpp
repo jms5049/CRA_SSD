@@ -7,20 +7,18 @@
 #include "Logger.h"
 #include "TestShell.h"
 #include "TestScript.h"
-#include "Logger.h"
 
 using std::string;
 
-TestScript::TestScript(TestShell* testShell, Logger* logger) {
+TestScript::TestScript(TestShell* testShell) {
 	this->testShell = testShell;
-	this->logger = logger;
 }
 
 TestScript* TestScript::testScript = nullptr;
-TestScript* TestScript::getInstance(TestShell* testShell, Logger* logger)
+TestScript* TestScript::getInstance(TestShell* testShell)
 {
 	if (testScript == nullptr) {
-		testScript = new TestScript(testShell, logger);
+		testScript = new TestScript(testShell);
 	}
 
 	return testScript;

@@ -6,6 +6,7 @@
 
 #include "Runner.h"
 #include "Ssd.h"
+#include "Logger.h"
 #include "TestShell.h"
 #include "TestScript.h"
 
@@ -14,8 +15,8 @@ using namespace std;
 void Runner::runnerApp(string filename) {
 	ifstream file(filename);
 	Logger* logger = Logger::getInstance();
-	TestShell* testShell = TestShell::getInstance(logger);
-	TestScript* testScript = TestScript::getInstance(testShell, logger);
+	TestShell* testShell = TestShell::getInstance();
+	TestScript* testScript = TestScript::getInstance(testShell);
 
 	if (!file.is_open()) {
 		cerr << "Error: Failed to open " << filename << " file for reading!" << endl;
