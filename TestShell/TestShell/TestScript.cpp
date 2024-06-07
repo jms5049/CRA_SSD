@@ -8,6 +8,7 @@
 #include "Ssd.h"
 #include "TestShell.h"
 #include "TestScript.h"
+#include "Logger.h"
 
 using std::string;
 
@@ -51,6 +52,7 @@ bool TestScript::testApp1() {
 }
 
 bool TestScript::testApp2() {
+	log(__func__);
 	string data;
 	data = "0xAAAABBBB";
 	for (int cnt = 0; cnt < testCnt; cnt++) {
@@ -86,4 +88,12 @@ vector<string> TestScript::splitString(const string& str) {
 		}
 	}
 	return tokens;
+}
+
+void TestScript::log(string funcName) {
+	Logger* loggerTS = Logger::getInstance();
+	string str = typeid(*this).name();
+	str += ".";
+	str += funcName;
+	loggerTS->write(str);
 }
