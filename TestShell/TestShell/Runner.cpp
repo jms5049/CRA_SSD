@@ -16,7 +16,7 @@ void Runner::runnerApp(string userInput) {
 	ifstream file(args[1]);
 	Logger* logger = Logger::getInstance();
 	TestShell* testShell = TestShell::getInstance(logger);
-	TestScript* testScript = TestScript::getInstance(logger);
+	TestScript* testScript = TestScript::getInstance(testShell, logger);
 
 	if (!file.is_open()) {
 		cerr << "Error: Failed to open " << args[1] << " file for reading!" << endl;

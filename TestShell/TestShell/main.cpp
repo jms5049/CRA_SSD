@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 
+#include "Logger.h"
 #include "TestShell.h"
 #include "TestScript.h"
 #include "Runner.h"

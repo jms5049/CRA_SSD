@@ -24,9 +24,4 @@ private:
 	void log(string funcName);
 	string makeWriteCommand(int lba, string data);
 	string makeReadCommand(int lba);
-
-	vector<string> splitString(const string& str);
-
-	const int testCnt = 30;
-	const int testAddr = 5;
 };

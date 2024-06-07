@@ -47,3 +47,11 @@ void HelpCommand::help_fullwrite() {
 void HelpCommand::help_fullread() {
 	printf("fullread:\n\t you can read overall region at once\n");
 }
+
+void HelpCommand::help_erase() {
+	printf("erase:\n\t erase [address] [size] => erase 3 5 \n");
+}
+
+void HelpCommand::help_erase_range() {
+	printf("erase_range:\n\t erase_range [start address] [end address] => erase 0 5 \n");
+}

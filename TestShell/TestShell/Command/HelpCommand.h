@@ -15,4 +15,6 @@ private:
 	void help_exit();
 	void help_fullwrite();
 	void help_fullread();
+	void help_erase();
+	void help_erase_range();
 };

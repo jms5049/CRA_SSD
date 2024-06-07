@@ -2,13 +2,13 @@
 #include "SsdApi.h"
 using namespace std;
 
+class Logger;
 class CommandFactory;
 class ICommand;
 
 class TestShell {
 public:
 	static TestShell* getInstance(Logger* logger);
-	static TestShell* getInstance();
 	void executeCommand(string userInput);
 	string getResult();
 
