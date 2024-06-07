@@ -23,4 +23,8 @@ private:
 
 	vector<string> splitString(const string& str);
 
+	const int testCnt = 30;
+	const int testAddr = 5;
+
+	void log(string funcName);
 };

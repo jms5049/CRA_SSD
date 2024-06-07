@@ -2,7 +2,7 @@
 class Logger {
 public:
     static Logger* getInstance();
-    void write();
+    void write(std::string funcName);
 
 private:
     static Logger* logger;
