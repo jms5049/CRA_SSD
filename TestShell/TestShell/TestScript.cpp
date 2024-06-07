@@ -28,7 +28,7 @@ bool TestScript::testApp1() {
 	testShell->fullRead();
 	for (int addr = 0; addr < 100; addr++) {
 		string result = testShell->read(to_string(addr));
-		if (result != data + "\n") {
+		if (result != data) {
 			return false;
 		}
 	}
@@ -48,7 +48,7 @@ bool TestScript::testApp2() {
 	for (int addr = 0; addr < testAddr; addr++) {
 		testShell->read(to_string(addr));
 		string result = testShell->read(to_string(addr));
-		if (result != data + "\n") {
+		if (result != data) {
 			return false;
 		}
 	}
