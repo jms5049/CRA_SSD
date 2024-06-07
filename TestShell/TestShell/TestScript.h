@@ -20,7 +20,7 @@ private:
 	bool testWrite10AndCompare();
 	bool testRead10AndCompare();
 
-	void log(string funcName);
+	void log(string funcName, string strLog);
 	string makeWriteCommand(int lba, string data);
 	string makeReadCommand(int lba);
 };

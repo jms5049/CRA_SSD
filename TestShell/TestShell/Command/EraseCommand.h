@@ -11,4 +11,6 @@ public:
 
 protected:
 	void divideEraseRange(int iLba, int len);
+private:
+	void log();
 };

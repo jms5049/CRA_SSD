@@ -4,6 +4,7 @@
 #include <regex>
 
 #include "../SsdApi.h"
+#include "../Logger.h"
 #include "ICommand.h"
 #include "IoCommand.h"
 #include "WriteCommand.h"
@@ -23,4 +24,12 @@ void FullWriteCommand::execute()
 	for (int i = 0; i < 100; i++) {
 		ssdApi->write(i, writeData);
 	}
+	log();
+}
+
+void FullWriteCommand::log()
+{
+	Logger* logger = Logger::getInstance();
+	string str = typeid(*this).name();
+	logger->write(str, options[1]);
 }

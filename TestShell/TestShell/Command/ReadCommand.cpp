@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "../SsdApi.h"
+#include "../Logger.h"
 #include "ICommand.h"
 #include "IoCommand.h"
 #include "ReadCommand.h"
@@ -21,4 +22,12 @@ void ReadCommand::execute()
 	string result = ssdApi->read(iLba);
 	cout << result << endl;
 	readResult = result;
+	log();
+}
+
+void ReadCommand::log()
+{
+	Logger* logger = Logger::getInstance();
+	string str = typeid(*this).name();
+	logger->write(str, options[1].c_str());
 }

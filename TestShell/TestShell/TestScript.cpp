@@ -40,12 +40,13 @@ bool TestScript::testScriptApp(string userInput) {
 	if (args[0] == "Read10AndCompare") {
 		result = testRead10AndCompare();
 	}
+	string strRes = (result == true) ? "PASS" : "FAIL";
+	log(__func__, args[0] + "\t:" + strRes);
 
 	return result;
 }
 
 bool TestScript::testApp1() {
-	log(__func__);
 	string data = "0x5A5A5A5A";
 	testShell->executeCommand("fullwrite " + data);
 	testShell->executeCommand("fullread");
@@ -60,7 +61,6 @@ bool TestScript::testApp1() {
 }
 
 bool TestScript::testApp2() {
-	log(__func__);
 	string data;
 	data = "0xAAAABBBB";
 	for (int cnt = 0; cnt < testCnt; cnt++) {
@@ -89,7 +89,6 @@ void TestScript::writeAddrTest(string data) {
 
 
 bool TestScript::testWrite10AndCompare() {
-	log(__func__);
 	string data;
 	data = "0xAAAABBBB";
 
@@ -119,7 +118,6 @@ string TestScript::makeReadCommand(int lba)
 }
 
 bool TestScript::testRead10AndCompare() {
-	log(__func__);
 	testShell->executeCommand(makeReadCommand(0));
 	string data = testShell->getResult();
 	string result;
@@ -146,10 +144,10 @@ vector<string> TestScript::splitString(const string& str) {
 	return tokens;
 }
 
-void TestScript::log(string funcName) {
+void TestScript::log(string funcName, string strLog) {
 	Logger* loggerTS = Logger::getInstance();
 	string str = typeid(*this).name();
 	str += ".";
 	str += funcName;
-	loggerTS->write(str);
+	loggerTS->write(str, strLog);
 }

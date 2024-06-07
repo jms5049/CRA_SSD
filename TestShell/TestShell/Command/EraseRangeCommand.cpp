@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "../SsdApi.h"
+#include "../Logger.h"
 #include "ICommand.h"
 #include "IoCommand.h"
 #include "EraseCommand.h"

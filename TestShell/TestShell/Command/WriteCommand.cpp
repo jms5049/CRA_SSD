@@ -4,6 +4,7 @@
 #include <regex>
 
 #include "../SsdApi.h"
+#include "../Logger.h"
 #include "ICommand.h"
 #include "IoCommand.h"
 #include "WriteCommand.h"
@@ -24,6 +25,7 @@ void WriteCommand::execute()
 	verifyWriteDataHexNum(writeData);
 
 	ssdApi->write(iLba, writeData);
+	log();
 }
 
 void WriteCommand::verifyWriteDataHexNum(std::string& writeData)
@@ -35,4 +37,14 @@ void WriteCommand::verifyWriteDataHexNum(std::string& writeData)
 void WriteCommand::verifyWriteDataLength(std::string& strData)
 {
 	if (strData.length() > 10) throw std::out_of_range("Given Data Length is too Long");
+}
+
+void WriteCommand::log()
+{
+	Logger* logger = Logger::getInstance();
+	string str = typeid(*this).name();
+	string strLog = "ADDR:";
+	strLog += options[1].c_str();
+	strLog += " " + options[2];
+	logger->write(str, strLog);
 }
