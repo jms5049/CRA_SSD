@@ -207,6 +207,7 @@ void TestShell::help(string command) {
 	else if (command == "fullwrite") help_fullwrite();
 	else if (command == "fullread") help_fullread();
 	else if (command == "erase") help_erase();
+	else if (command == "erase_range") help_erase_range();
 	else {
 		help_write();
 		help_read();
