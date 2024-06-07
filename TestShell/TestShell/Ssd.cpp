@@ -36,7 +36,7 @@ string Ssd::readResultFile(const std::string& filepath) {
 
 	std::string line;
 	while (std::getline(file, line)) {
-		content += line + "\n";
+		content += line;
 	}
 
 	file.close();
