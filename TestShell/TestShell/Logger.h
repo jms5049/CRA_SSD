@@ -3,7 +3,7 @@
 class Logger {
 public:
     static Logger* getInstance();
-    void write(std::string* funcName);
+    void write(std::string funcName);
 
 private:
     static Logger* logger;
@@ -13,7 +13,7 @@ private:
     Logger& operator=(const Logger& other) = delete;
     Logger(const Logger& other) = delete;
 
-    void fileWrite(std::tm* curTime, std::string* funcName);
-    void zipFile(std::string* newFileName);
-    bool isOverflow();
+    static void fileWrite(std::tm* curTime, std::string funcName);
+    static void zipFile(std::string* newFileName);
+    static bool isOverflow();
 };
