@@ -28,19 +28,7 @@ void Runner::runnerApp(string userInput) {
 		bool result = false;
 		cout << line << "\t\t" << "---   Run...";
 
-		if (line.compare("testapp1") == 0) {
-			result = testscript.testScriptApp(line);
-		} 
-		else if (line.compare("testapp2") == 0) {
-			result = testscript.testScriptApp(line);
-		}
-		else if (line.compare("Write10AndCompare") == 0) {
-
-			result = testscript.testScriptApp(line);
-		}
-		else if (line.compare("Read10AndCompare") == 0) {
-			result = testscript.testScriptApp(line);
-		}
+		result = testscript.testScriptApp(line);
 
 		if (result == true) 
 			cout << "Pass" << endl;

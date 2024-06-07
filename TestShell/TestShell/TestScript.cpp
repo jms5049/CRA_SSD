@@ -18,19 +18,15 @@ bool TestScript::testScriptApp(string userInput) {
 
 	if (args[0] == "testapp1") {
 		result = testApp1();
-		printf("TestApp1 result: %s \n", result ? "PASS" : "FAIL");
 	}
 	if (args[0] == "testapp2") {
 		result = testApp2();
-		printf("TestApp1 result: %s \n", result ? "PASS" : "FAIL");
 	}
 	if (args[0] == "Write10AndCompare") {
 		result = testWrite10AndCompare();
-		printf("Write10AndCompare result: %s \n", result ? "PASS" : "FAIL");
 	}
 	if (args[0] == "Read10AndCompare") {
 		result = testRead10AndCompare();
-		printf("Read10AndCompare result: %s \n", result ? "PASS" : "FAIL");
 	}
 
 	return result;
