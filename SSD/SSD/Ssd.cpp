@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
 #include "Ssd.h"
 
@@ -32,11 +33,23 @@ string Ssd::readResult() {
 	return readTxtData(resultFileName);
 }
 
-void Ssd::readSsd(int LBAIndex) {
-	readNandDataAndUpdateStartIndex(LBAIndex);
-	if (nandData == ErrorMessage)  return;
-
+bool Ssd::checkBuffer(int LbAIndex) {
+	vector<string> bufferData = ssd_buffer.readBuffer();
+	for (int i = 0; i < bufferData.size(); i++) {
+		string temp = bufferData[i];
+	}
+	bool check = 1;
 	updateReadResult("0x" + nandData.substr(startIndex, 8));
+	return true;
+}
+
+void Ssd::readSsd(int LBAIndex) {
+	if (checkBuffer(LBAIndex) == false) {
+		readNandDataAndUpdateStartIndex(LBAIndex);
+		if (nandData == ErrorMessage)  return;
+
+		updateReadResult("0x" + nandData.substr(startIndex, 8));
+	}
 }
 
 void Ssd::flush() {
