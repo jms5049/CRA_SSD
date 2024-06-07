@@ -15,10 +15,10 @@ TestScript::TestScript() {
 void TestScript::testScriptApp(string userInput) {
 	vector<string> args = splitString(userInput);
 	if (args[0] == "testapp1") {
-		printf("TestApp1 result: %d \n", testApp1());
+		printf("TestApp1 result: %s \n", (testApp1() == true) ? "PASS" : "FAIL");
 	}
 	if (args[0] == "testapp2") {
-		printf("TestApp1 result: %d \n", testApp2());
+		printf("TestApp1 result: %s \n", (testApp2() == true) ? "PASS" : "FAIL");
 	}
 }
 
