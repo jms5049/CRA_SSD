@@ -16,14 +16,6 @@ bool isTestscript(string input) {
 	return false;
 }
 
-bool isTestshell(string input) {
-	vector<string> testShellCmds = { "read", "write", "exit", "help", "fullwrite", "fullread", "erase", "erase_range"};
-	for (auto& cmd : testShellCmds) {
-		if (input.find(cmd) == 0) return true;
-	}
-	return false;
-}
-
 bool isRunner(string input) {
 	vector<string> runnerCmds = { "runner" };
 	for (auto& cmd : runnerCmds) {
@@ -47,7 +39,7 @@ int main() {
 		try {
 			if (isTestscript(input))
 				testScript->testScriptApp(input);
-			else if (isTestshell(input))
+			else if (testShell->isSupportedCommand(input))
 				testShell->executeCommand(input);
 			else if (isRunner(input))
 				testRunner.runnerApp(input);
