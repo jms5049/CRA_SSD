@@ -11,6 +11,8 @@
 #include "FullWriteCommand.h"
 #include "HelpCommand.h"
 #include "ExitCommand.h"
+#include "EraseCommand.h"
+#include "EraseRangeCommand.h"
 
 using std::string;
 using std::vector;
@@ -28,7 +30,9 @@ const vector<string> CommandFactory::supportedCommands = {
 	"exit",
 	"help",
 	"fullwrite",
-	"fullread"
+	"fullread",
+	"erase",
+	"erase_range"
 };
 
 ICommand* CommandFactory::getCommand(vector<string>& commandAndOptions)
@@ -59,6 +63,8 @@ ICommand* CommandFactory::makeCommand(vector<string>& commandAndOptions)
 	if (commandName == "help") command = new HelpCommand(commandAndOptions);
 	if (commandName == "fullwrite") command = new FullWriteCommand(commandAndOptions);
 	if (commandName == "fullread") command = new FullReadCommand(commandAndOptions);
+	if (commandName == "erase") command = new EraseCommand(commandAndOptions);
+	if (commandName == "erase_range") command = new EraseRangeCommand(commandAndOptions);
 
 	return command;
 }

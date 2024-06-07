@@ -19,12 +19,16 @@ void HelpCommand::execute()
 	else if (command == "exit") help_exit();
 	else if (command == "fullwrite") help_fullwrite();
 	else if (command == "fullread") help_fullread();
+	else if (command == "erase") help_erase();
+	else if (command == "earse_range") help_erase_range();
 	else {
 		help_write();
 		help_read();
 		help_exit();
 		help_fullwrite();
 		help_fullread();
+		help_erase();
+		help_erase_range();
 	}
 }
 
