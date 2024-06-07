@@ -13,6 +13,8 @@ const string nandFlieName = "./nand.txt";
 const string resultFileName = "./result.txt";
 const string ErrorMessage = "Nand file open error!";
 
+const int MAX_ERASE_SIZE = 10;
+
 string Ssd::getErrorMessage() {
 	return ErrorMessage;
 }
@@ -57,7 +59,21 @@ void Ssd::writeSsd(int LBAIndex, string writeData) {
 	writeNandData(nandData);
 }
 
-	
+void Ssd::eraseSsd(int LBAIndex, int size) {
+	string nandData = readNandData();
+
+	if (nandData == ErrorMessage)  return;
+
+	int startIndex = LBAIndex * 4 * 2;
+	if (LBAIndex + size > 100)
+		size = 100 - LBAIndex;
+
+	int endSize = size >= MAX_ERASE_SIZE ? (MAX_ERASE_SIZE * 8) : (size * 8);
+	for (int i = 0; i < endSize; i++) {
+		nandData[startIndex + i] = '0';
+	}
+	writeNandData(nandData);
+}
 
 string Ssd::readTxtData(string filePath) {
 	ifstream file(filePath);

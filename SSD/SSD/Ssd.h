@@ -12,6 +12,7 @@ public:
 	string readResult();
 	void readSsd(int LBAIndex);
 	void writeSsd(int LBAIndex, string writeData);
+	void eraseSsd(int LBAIndex, int size);
 private:
 	const int nandCharSize = 800;
 	string readTxtData(string filePath);
