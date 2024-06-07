@@ -1,15 +1,10 @@
 #pragma once
-#include <stdlib.h>
-#include <sstream>
-#include <iostream>
-#include <string>
-#include <vector>
-
+#include "Logger.h"
 using namespace std;
 
 class TestShell {
 public:
-	static TestShell* getInstance(SsdApi* ssdApi);
+	static TestShell* getInstance(SsdApi* ssdApi, Logger* logger);
 
 	void write(string strLba, string strData);
 	string read(string strLba);
@@ -23,14 +18,13 @@ public:
 private:
 	static TestShell* testShell;
 	SsdApi* ssdApi;
+	Logger* logger;
 
-	TestShell(SsdApi* ssdApi);
+	TestShell(SsdApi* ssdApi, Logger* logger);
 	vector<string> splitString(const string& str);
 	void verifyWriteDataLength(std::string& strData);
 	void verifyWriteDataHexNum(std::string& writeData);
 	int verifyConvertLba(std::string& strLba);
-
-	string readResultFile(const std::string& filepath);
 	void help_write();
 	void help_read();
 	void help_exit();

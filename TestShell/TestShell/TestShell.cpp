@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string>
 #include <fstream>
+#include <sstream>
 #include <iostream>
 #include <regex>
 #include <exception>
@@ -12,16 +13,15 @@ using std::string;
 using std::regex;
 using std::regex_match;
 
-TestShell::TestShell(SsdApi* ssdApi) : ssdApi(ssdApi) {
-	// do nothing
+TestShell::TestShell(SsdApi* ssdApi, Logger* logger) : ssdApi(ssdApi) {
+	this->logger = logger;
 }
 
 TestShell* TestShell::testShell = nullptr;
-
-TestShell* TestShell::getInstance(SsdApi* ssdApi)
+TestShell* TestShell::getInstance(SsdApi* ssdApi, Logger* logger)
 {
 	if (testShell == nullptr) {
-		testShell = new TestShell(ssdApi);
+		testShell = new TestShell(ssdApi, logger);
 	}
 
 	return testShell;
