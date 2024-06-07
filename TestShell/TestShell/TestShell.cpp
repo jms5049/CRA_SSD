@@ -134,7 +134,7 @@ void TestShell::fullRead()
 void TestShell::erase(string startLba, string size)
 {
 	int iLba = verifyConvertLba(startLba);
-	int len = verifyConvertLba(size);
+	int len = verifyConvertLba_3(size);
 	if(iLba < 0 || iLba > 99) throw InvalidLbaException();
 	if(len < 1 || len > 100) throw InvalidLbaException();
 	divideEraseRange(iLba, len);
@@ -142,7 +142,7 @@ void TestShell::erase(string startLba, string size)
 
 void TestShell::divideEraseRange(int iLba, int len)
 {
-	if (iLba + len > 100) len = iLba + len - 100;
+	if (iLba + len > 100) len = 100 - iLba;
 	if (len <= 10) {
 		ssdApi->erase(iLba, len);
 		return;
@@ -162,9 +162,9 @@ void TestShell::divideEraseRange(int iLba, int len)
 void TestShell::erase_range(string startLba, string endLba)
 {
 	int startIdx = verifyConvertLba(startLba);
-	int endIdx = verifyConvertLba(endLba);
+	int endIdx = verifyConvertLba_3(endLba);
 	if (startIdx < 0 || startIdx > 99) throw InvalidLbaException();
-	if (endIdx < 0 || endIdx > 99) throw InvalidLbaException();
+	if (endIdx < 0 || endIdx > 100) throw InvalidLbaException();
 	
 	int len = endIdx - startIdx;
 	if(len < 1) throw InvalidLbaException();
@@ -175,6 +175,18 @@ void TestShell::erase_range(string startLba, string endLba)
 int TestShell::verifyConvertLba(string& strLba) {
 	int iLba = 0;
 	if (strLba.length() > 2) throw InvalidLbaException();
+
+	for (int i = 0; i < strLba.length(); i++) {
+		if (strLba[i] < '0' || strLba[i] > '9') throw InvalidLbaException();
+	}
+
+	iLba = stoi(strLba);
+	return iLba;
+}
+
+int TestShell::verifyConvertLba_3(string& strLba) {
+	int iLba = 0;
+	if (strLba.length() > 3) throw InvalidLbaException();
 
 	for (int i = 0; i < strLba.length(); i++) {
 		if (strLba[i] < '0' || strLba[i] > '9') throw InvalidLbaException();

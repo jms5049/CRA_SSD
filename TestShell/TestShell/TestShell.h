@@ -31,6 +31,7 @@ private:
 	void verifyWriteDataLength(std::string& strData);
 	void verifyWriteDataHexNum(std::string& writeData);
 	int verifyConvertLba(std::string& strLba);
+	int verifyConvertLba_3(std::string& strLba);
 	void divideEraseRange(int iLba, int len);
 
 	void help_write();
