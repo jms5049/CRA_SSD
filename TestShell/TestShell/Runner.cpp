@@ -15,9 +15,8 @@ void Runner::runnerApp(string userInput) {
 	vector<string> args = splitString(userInput);
 	ifstream file(args[1]);
 	Logger* logger = Logger::getInstance();
-	Ssd* ssd = Ssd::getInstance(logger);
-	TestShell* testShell = TestShell::getInstance(ssd, logger);
-	TestScript* testScript = TestScript::getInstance(testShell, logger);
+	TestShell* testShell = TestShell::getInstance(logger);
+	TestScript* testScript = TestScript::getInstance(logger);
 
 	if (!file.is_open()) {
 		cerr << "Error: Failed to open " << args[1] << " file for reading!" << endl;

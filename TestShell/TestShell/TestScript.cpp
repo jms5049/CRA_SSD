@@ -49,10 +49,11 @@ bool TestScript::testScriptApp(string userInput) {
 bool TestScript::testApp1() {
 	log(__func__);
 	string data = "0x5A5A5A5A";
-	testShell->fullWrite(data);
-	testShell->fullRead();
+	testShell->executeCommand("fullwrite " + data);
+	testShell->executeCommand("fullread");
 	for (int addr = 0; addr < 100; addr++) {
-		string result = testShell->read(to_string(addr));
+		testShell->executeCommand(makeReadCommand(addr));
+		string result = testShell->getResult();
 		if (result != data) {
 			return false;
 		}
@@ -71,8 +72,8 @@ bool TestScript::testApp2() {
 	writeAddrTest(data);
 
 	for (int addr = 0; addr < testAddr; addr++) {
-		testShell->read(to_string(addr));
-		string result = testShell->read(to_string(addr));
+		testShell->executeCommand(makeReadCommand(addr));
+		string result = testShell->getResult();
 		if (result != data) {
 			return false;
 		}
@@ -81,10 +82,13 @@ bool TestScript::testApp2() {
 }
 
 void TestScript::writeAddrTest(string data) {
+	string writeCommand;
 	for (int addr = 0; addr < testAddr; addr++) {
-		testShell->write(to_string(addr), data);
+		testShell->executeCommand(makeWriteCommand(addr, data));
 	}
 }
+
+
 
 bool TestScript::testWrite10AndCompare() {
 	log(__func__);
@@ -92,21 +96,40 @@ bool TestScript::testWrite10AndCompare() {
 	data = "0xAAAABBBB";
 
 	for (int cnt = 0; cnt < 10; cnt++)
-		testShell->write(to_string(0), data);
+		testShell->executeCommand(makeWriteCommand(0, data));
 
-	string result = testShell->read(to_string(0));
+	testShell->executeCommand(makeReadCommand(0));
+	string result = testShell->getResult();
 
 	if (result != data) return false;
 	return true;
 }
 
+string TestScript::makeWriteCommand(int lba, string data)
+{
+	string result = "write ";
+	result += to_string(lba);
+	result += " " + data;
+	return result;
+}
+
+string TestScript::makeReadCommand(int lba)
+{
+	string result = "read ";
+	result += to_string(lba);
+	return result;
+}
+
 bool TestScript::testRead10AndCompare() {
 	log(__func__);
 	string data = testShell->read(to_string(0));
+	testShell->executeCommand(makeReadCommand(0));
+	string data = testShell->getResult();
 	string result;
 
 	for (int cnt = 0; cnt < 10; cnt++) {
-		result = testShell->read(to_string(0));
+		testShell->executeCommand(makeReadCommand(0));
+		result = testShell->getResult();
 
 		if (result != data) return false;
 	}
