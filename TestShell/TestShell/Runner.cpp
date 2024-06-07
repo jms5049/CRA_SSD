@@ -15,8 +15,7 @@ void Runner::runnerApp(string userInput) {
 	vector<string> args = splitString(userInput);
 	ifstream file(args[1]);
 	Logger* logger = Logger::getInstance();
-	Ssd* ssd = Ssd::getInstance(logger);
-	TestShell* testShell = TestShell::getInstance(ssd, logger);
+	TestShell* testShell = TestShell::getInstance(logger);
 	TestScript* testScript = TestScript::getInstance(testShell, logger);
 
 	if (!file.is_open()) {

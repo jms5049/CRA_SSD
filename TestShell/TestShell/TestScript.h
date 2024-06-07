@@ -22,4 +22,6 @@ private:
 	bool testRead10AndCompare();
 
 	void log(string funcName);
+	string makeWriteCommand(int lba, string data);
+	string makeReadCommand(int lba);
 };

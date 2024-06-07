@@ -129,6 +129,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Command\CommandFactory.cpp" />
+    <ClCompile Include="Command\EraseCommand.cpp" />
+    <ClCompile Include="Command\EraseRangeCommand.cpp" />
+    <ClCompile Include="Command\ExitCommand.cpp" />
+    <ClCompile Include="Command\FullReadCommand.cpp" />
+    <ClCompile Include="Command\FullWriteCommand.cpp" />
+    <ClCompile Include="Command\HelpCommand.cpp" />
+    <ClCompile Include="Command\IoCommand.cpp" />
+    <ClCompile Include="Command\ReadCommand.cpp" />
+    <ClCompile Include="Command\WriteCommand.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Runner.cpp" />
@@ -138,8 +148,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SsdApi.h" />
+    <ClInclude Include="Command\CommandFactory.h" />
+    <ClInclude Include="Command\EraseCommand.h" />
+    <ClInclude Include="Command\EraseRangeCommand.h" />
+    <ClInclude Include="Command\ExitCommand.h" />
+    <ClInclude Include="Command\FullReadCommand.h" />
+    <ClInclude Include="Command\FullWriteCommand.h" />
+    <ClInclude Include="Command\HelpCommand.h" />
+    <ClInclude Include="Command\ICommand.h" />
+    <ClInclude Include="Command\IoCommand.h" />
+    <ClInclude Include="Command\ReadCommand.h" />
+    <ClInclude Include="Command\WriteCommand.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Runner.h" />
+    <ClInclude Include="ShellException.h" />
     <ClInclude Include="Ssd.h" />
     <ClInclude Include="TestScript.h" />
     <ClInclude Include="TestShell.h" />
