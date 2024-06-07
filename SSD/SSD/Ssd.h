@@ -15,6 +15,7 @@ public:
 	void writeSsd(int LBAIndex, string writeData);
 	void eraseSsd(int LBAIndex, int size);
 	void flush();
+
 private:
 	const string nandFlieName = "./nand.txt";
 	const string resultFileName = "./result.txt";
@@ -35,4 +36,5 @@ private:
 	void updateAndWriteNandData(int updateSize, string writeData);
 	void updateReadResult(string readData);
 	void writeNand(int LBAIndex, string writeData);
+	bool checkBuffer(int LBAIndex);
 };

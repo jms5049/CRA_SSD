@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 bool Buffer::isCmd10InBuffer() {
@@ -28,4 +29,19 @@ void Buffer::addCmnToBuffer(string cmd) {
 void Buffer::flushBuffer() {
 	ofstream file(bufferFileName, ios::trunc);
 	file.close();
+}
+
+vector<string> Buffer::readBuffer() {
+	vector<string> bufferData;
+	ifstream file(bufferFileName);
+
+	if (!file.is_open()) cerr << "Error opening file!" << endl;
+
+	string line;
+	while (getline(file, line)) {
+		bufferData.push_back(line);
+	}
+
+	file.close();
+	return bufferData;
 }
