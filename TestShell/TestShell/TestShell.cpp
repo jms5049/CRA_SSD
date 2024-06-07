@@ -206,12 +206,15 @@ void TestShell::help(string command) {
 	else if (command == "exit") help_exit();
 	else if (command == "fullwrite") help_fullwrite();
 	else if (command == "fullread") help_fullread();
+	else if (command == "erase") help_erase();
 	else {
 		help_write();
 		help_read();
 		help_exit();
 		help_fullwrite();
 		help_fullread();
+		help_erase();
+		help_erase_range();
 	}
 }
 
@@ -229,4 +232,10 @@ void TestShell::help_fullwrite() {
 }
 void TestShell::help_fullread() {
 	printf("fullread:\n\t you can read overall region at once\n");
+}
+void TestShell::help_erase() {
+	printf("erase:\n\t erase [address] [size] => erase 3 5 \n");
+}
+void TestShell::help_erase_range() {
+	printf("erase_range:\n\t erase_range [start address] [end address] => erase 0 5 \n");
 }
