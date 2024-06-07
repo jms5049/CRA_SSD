@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "Buffer.h"
 
 using std::string;
 
@@ -13,6 +14,8 @@ public:
 	void readSsd(int LBAIndex);
 	void writeSsd(int LBAIndex, string writeData);
 	void eraseSsd(int LBAIndex, int size);
+	void flush();
+
 private:
 	const string nandFlieName = "./nand.txt";
 	const string resultFileName = "./result.txt";
@@ -25,10 +28,13 @@ private:
 
 	string nandData;
 	int startIndex;
+	Buffer ssd_buffer;
 
 	string readTxtData(string filePath);
 	void writeTxtData(string filePath, string writeData);
 	void readNandDataAndUpdateStartIndex(int LBAIndex);
 	void updateAndWriteNandData(int updateSize, string writeData);
 	void updateReadResult(string readData);
+	void writeNand(int LBAIndex, string writeData);
+	bool checkBuffer(int LBAIndex);
 };

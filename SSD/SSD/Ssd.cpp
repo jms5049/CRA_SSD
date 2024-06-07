@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
+#include <sstream>
 
 #include "Ssd.h"
 
@@ -32,14 +34,73 @@ string Ssd::readResult() {
 	return readTxtData(resultFileName);
 }
 
-void Ssd::readSsd(int LBAIndex) {
-	readNandDataAndUpdateStartIndex(LBAIndex);
-	if (nandData == ErrorMessage)  return;
-
+bool Ssd::checkBuffer(int LbAIndex) {
+	vector<string> bufferData = ssd_buffer.readBuffer();
+	for (int i = 0; i < bufferData.size(); i++) {
+		string temp = bufferData[i];
+	}
+	bool check = 1;
 	updateReadResult("0x" + nandData.substr(startIndex, 8));
+	return true;
+}
+
+void Ssd::readSsd(int LBAIndex) {
+	if (checkBuffer(LBAIndex) == false) {
+		readNandDataAndUpdateStartIndex(LBAIndex);
+		if (nandData == ErrorMessage)  return;
+
+		updateReadResult("0x" + nandData.substr(startIndex, 8));
+	}
+}
+
+static vector<string> splitString(const string& str) {
+	istringstream iss(str);
+	vector<string> tokens;
+	string token;
+	while (iss >> token) {
+		if (!token.empty()) {
+			tokens.push_back(token);
+		}
+	}
+	return tokens;
+}
+
+void Ssd::flush() {
+	vector<string> bufferData = ssd_buffer.readBuffer();
+
+	for (int i = 0; i < bufferData.size(); i++) {
+		string cmd = bufferData[i];
+
+		if (cmd.find("W") == 0) {
+			vector<string> args = splitString(cmd);
+
+			int LBA = stoi(args[1]);
+			string writeData = args[2];
+
+			writeNand(LBA, writeData);
+		}
+		if (cmd.find("E") == 0) {
+			// Todo!!!!
+		}
+	}
+
+	ssd_buffer.flushBuffer();
 }
 
 void Ssd::writeSsd(int LBAIndex, string writeData) {
+	string cmd = "W ";
+	cmd += to_string(LBAIndex);
+	cmd += " ";
+	cmd += writeData;
+
+	ssd_buffer.addCmnToBuffer(cmd);
+	
+	if (ssd_buffer.isCmd10InBuffer()) {
+		flush();
+	}
+}
+
+void Ssd::writeNand(int LBAIndex, string writeData) {
 	readNandDataAndUpdateStartIndex(LBAIndex);
 	if (nandData == ErrorMessage)  return;
 
