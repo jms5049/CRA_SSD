@@ -22,6 +22,11 @@ string Ssd::read(int lba)
 	return readResultFile("../../SSD/result.txt");
 }
 
+void Ssd::erase(int lba, int size) {
+	string eraseCmd = convertToEraseCmd(lba, size);
+	executeSsdCmd(eraseCmd);
+}
+
 string Ssd::readResultFile(const std::string& filepath) {
 	string content;
 	std::ifstream file(filepath);
@@ -44,6 +49,15 @@ string Ssd::convertToReadCmd(int lba)
 	string result = "R ";
 	result += std::to_string(lba);
 	result += " ";
+	return result;
+}
+
+string Ssd::convertToEraseCmd(int lba, int size)
+{
+	string result = "E ";
+	result += std::to_string(lba);
+	result += " ";
+	result += std::to_string(size);
 	return result;
 }
 
