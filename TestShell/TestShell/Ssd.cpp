@@ -11,14 +11,13 @@ using std::string;
 
 const string Ssd::SSD_LOCATION = "..\\..\\SSD\\";
 
-Ssd::Ssd(Logger* logger){
-	this->logger = logger;
+Ssd::Ssd(){
 }
 
 Ssd* Ssd::ssd = nullptr;
-Ssd* Ssd::getInstance(Logger* logger) {
+Ssd* Ssd::getInstance() {
 	if (ssd == nullptr) {
-		ssd = new Ssd(logger);
+		ssd = new Ssd();
 	}
 
 	return ssd;

@@ -34,8 +34,8 @@ bool isRunner(string input) {
 
 int main() {
 	Logger* logger = Logger::getInstance();
-	TestShell* testShell = TestShell::getInstance(logger);
-	TestScript* testScript = TestScript::getInstance(testShell, logger);
+	TestShell* testShell = TestShell::getInstance();
+	TestScript* testScript = TestScript::getInstance(testShell);
 	Runner testRunner;
 
 	while (1) {

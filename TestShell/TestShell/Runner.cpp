@@ -6,6 +6,7 @@
 
 #include "Runner.h"
 #include "Ssd.h"
+#include "Logger.h"
 #include "TestShell.h"
 #include "TestScript.h"
 
@@ -15,8 +16,8 @@ void Runner::runnerApp(string userInput) {
 	vector<string> args = splitString(userInput);
 	ifstream file(args[1]);
 	Logger* logger = Logger::getInstance();
-	TestShell* testShell = TestShell::getInstance(logger);
-	TestScript* testScript = TestScript::getInstance(testShell, logger);
+	TestShell* testShell = TestShell::getInstance();
+	TestScript* testScript = TestScript::getInstance(testShell);
 
 	if (!file.is_open()) {
 		cerr << "Error: Failed to open " << args[1] << " file for reading!" << endl;
