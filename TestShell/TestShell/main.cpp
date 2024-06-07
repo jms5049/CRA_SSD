@@ -6,6 +6,7 @@
 #include "Ssd.h"
 #include "TestShell.h"
 #include "TestScript.h"
+#include "Runner.h"
 using namespace std;
 
 bool isTestscript(string input) {
@@ -19,6 +20,14 @@ bool isTestscript(string input) {
 bool isTestshell(string input) {
 	vector<string> testShellCmds = { "read", "write", "exit", "help", "fullwrite", "fullread" };
 	for (auto& cmd : testShellCmds) {
+		if (input.find(cmd) == 0) return true;
+	}
+	return false;
+}
+
+bool isRunner(string input) {
+	vector<string> runnerCmds = { "runner" };
+	for (auto& cmd : runnerCmds) {
 		if (input.find(cmd) == 0) return true;
 	}
 	return false;
@@ -41,6 +50,8 @@ int main() {
 				testScript->testScriptApp(input);
 			else if (isTestshell(input))
 				testShell->inputParser(input);
+			else if (isRunner(input))
+				testRunner.runnerApp(input);
 			else
 				cout << "INVALID COMMAND : NOT supported Command." << endl;
 		}

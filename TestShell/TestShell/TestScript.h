@@ -18,5 +18,9 @@ private:
 	bool testApp2();
 	void writeAddrTest(string data);
 
+	bool testWrite10AndCompare();
+	bool testRead10AndCompare();
+
+	vector<string> splitString(const string& str);
 
 };

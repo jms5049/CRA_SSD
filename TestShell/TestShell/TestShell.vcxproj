@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Runner.cpp" />
     <ClCompile Include="Ssd.cpp" />
     <ClCompile Include="TestScript.cpp" />
     <ClCompile Include="TestShell.cpp" />
@@ -138,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="SsdApi.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="Runner.h" />
     <ClInclude Include="Ssd.h" />
     <ClInclude Include="TestScript.h" />
     <ClInclude Include="TestShell.h" />
