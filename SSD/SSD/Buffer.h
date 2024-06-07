@@ -6,7 +6,7 @@ class Buffer {
 public:
 	bool isCmd10InBuffer();
 	void addCmnToBuffer(string cmd);
-
+	void flushBuffer();
 private:
 	const string bufferFileName = "./buffer.txt";
 }; 

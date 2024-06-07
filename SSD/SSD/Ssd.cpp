@@ -40,7 +40,7 @@ void Ssd::readSsd(int LBAIndex) {
 }
 
 void Ssd::flush() {
-
+	ssd_buffer.flushBuffer();
 }
 
 void Ssd::writeSsd(int LBAIndex, string writeData) {
