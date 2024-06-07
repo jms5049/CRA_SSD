@@ -22,6 +22,36 @@
     <ClCompile Include="Runner.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Command\CommandFactory.cpp">
+      <Filter>소스 파일\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\ExitCommand.cpp">
+      <Filter>소스 파일\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\FullReadCommand.cpp">
+      <Filter>소스 파일\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\FullWriteCommand.cpp">
+      <Filter>소스 파일\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\HelpCommand.cpp">
+      <Filter>소스 파일\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\IoCommand.cpp">
+      <Filter>소스 파일\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\ReadCommand.cpp">
+      <Filter>소스 파일\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\WriteCommand.cpp">
+      <Filter>소스 파일\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\EraseCommand.cpp">
+      <Filter>소스 파일\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\EraseRangeCommand.cpp">
+      <Filter>소스 파일\Command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestShell.h">
@@ -39,6 +69,40 @@
     <ClInclude Include="Runner.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="ShellException.h" />
+    <ClInclude Include="Command\CommandFactory.h">
+      <Filter>헤더 파일\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\ExitCommand.h">
+      <Filter>헤더 파일\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\FullReadCommand.h">
+      <Filter>헤더 파일\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\FullWriteCommand.h">
+      <Filter>헤더 파일\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\HelpCommand.h">
+      <Filter>헤더 파일\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\ICommand.h">
+      <Filter>헤더 파일\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\IoCommand.h">
+      <Filter>헤더 파일\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\ReadCommand.h">
+      <Filter>헤더 파일\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\WriteCommand.h">
+      <Filter>헤더 파일\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\EraseCommand.h">
+      <Filter>헤더 파일\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\EraseRangeCommand.h">
+      <Filter>헤더 파일\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="헤더 파일">
@@ -49,6 +113,12 @@
     </Filter>
     <Filter Include="소스 파일">
       <UniqueIdentifier>{158d0289-eda1-4117-8bb7-ffbdade5608a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Command">
+      <UniqueIdentifier>{7e3c926b-ada2-4524-b8f0-d7bd9caf402a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Command">
+      <UniqueIdentifier>{8ee06c5c-d0d7-492f-9f4f-898d6d316f62}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,0 +1,16 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include "ICommand.h"
+#include "ExitCommand.h"
+
+void ExitCommand::verifyOptions()
+{
+	if (options.size() != 1) throw std::invalid_argument("Invalid Input Argument for Exit Command");
+}
+
+void ExitCommand::execute()
+{
+	exit(0);
+}

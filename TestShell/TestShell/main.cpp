@@ -2,8 +2,7 @@
 #include <string>
 #include <vector>
 
-#include "SsdApi.h"
-#include "Ssd.h"
+#include "Logger.h"
 #include "TestShell.h"
 #include "TestScript.h"
 #include "Runner.h"
@@ -35,8 +34,7 @@ bool isRunner(string input) {
 
 int main() {
 	Logger* logger = Logger::getInstance();
-	Ssd * ssd = Ssd::getInstance(logger);
-	TestShell* testShell = TestShell::getInstance(ssd, logger);
+	TestShell* testShell = TestShell::getInstance(logger);
 	TestScript* testScript = TestScript::getInstance(testShell, logger);
 	Runner testRunner;
 
@@ -50,7 +48,7 @@ int main() {
 			if (isTestscript(input))
 				testScript->testScriptApp(input);
 			else if (isTestshell(input))
-				testShell->inputParser(input);
+				testShell->executeCommand(input);
 			else if (isRunner(input))
 				testRunner.runnerApp(input);
 			else
