@@ -136,7 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SsdApi.h" />
-    <ClInclude Include="ShellException.h" />
     <ClInclude Include="Ssd.h" />
     <ClInclude Include="TestScript.h" />
     <ClInclude Include="TestShell.h" />
