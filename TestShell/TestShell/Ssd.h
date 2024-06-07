@@ -12,4 +12,5 @@ private:
 	std::string convertToWriteCmd(int lba, std::string& data);
 	std::string convertToReadCmd(int lba);
 	std::string readResultFile(const std::string& filepath);
+	void ExecuteSsdCmd(std::string& cmdOption);
 };
