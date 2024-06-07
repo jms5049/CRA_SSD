@@ -15,10 +15,10 @@ TestScript::TestScript() {
 void TestScript::testScriptApp(string userInput) {
 	vector<string> args = splitString(userInput);
 	if (args[0] == "testapp1") {
-		printf("TestApp1 result: %d \n", testApp1());
+		printf("TestApp1 result: %s \n", (testApp1() == true) ? "PASS" : "FAIL");
 	}
 	if (args[0] == "testapp2") {
-		printf("TestApp1 result: %d \n", testApp2());
+		printf("TestApp1 result: %s \n", (testApp2() == true) ? "PASS" : "FAIL");
 	}
 }
 
@@ -28,7 +28,7 @@ bool TestScript::testApp1() {
 	testShell->fullRead();
 	for (int addr = 0; addr < 100; addr++) {
 		string result = testShell->read(to_string(addr));
-		if (result != data) {
+		if (result != data + "\n") {
 			return false;
 		}
 	}
@@ -48,7 +48,7 @@ bool TestScript::testApp2() {
 	for (int addr = 0; addr < testAddr; addr++) {
 		testShell->read(to_string(addr));
 		string result = testShell->read(to_string(addr));
-		if (result != data) {
+		if (result != data + "\n") {
 			return false;
 		}
 	}
