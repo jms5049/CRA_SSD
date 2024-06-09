@@ -48,6 +48,10 @@ int main(int argc, char *argv[]) {
         if (size <= 0)  return 0;
         device.eraseSsd(lba, size);
     }
+
+    if (rwChecker == "F") {
+        device.flush();
+    }
     
     return 0;
 }
