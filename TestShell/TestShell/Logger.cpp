@@ -48,8 +48,9 @@ void Logger::fileWrite(tm* curTime, string funcName, string strLog) {
     ofstream logFile(filePath, ios::app);
     if (logFile.is_open() == false)  return;
 
-    logFile << put_time(curTime, "%Y-%m-%d %H:%M:%S") << " ";
-    logFile << left << setw(50) << funcName.c_str() << "\t";
+    logFile << "[";
+    logFile << put_time(curTime, "%Y.%m.%d %H:%M:%S") << "] ";
+    logFile << left << setw(40) << funcName.c_str() << "\t";
     logFile << strLog << endl;
     logFile.close();
 }
