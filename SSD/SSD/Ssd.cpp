@@ -11,6 +11,8 @@ using std::ofstream;
 using std::ifstream;
 using std::ios;
 
+extern vector<string> splitString(const string& str);
+
 string Ssd::getErrorMessage() {
 	return ErrorMessage;
 }
@@ -28,22 +30,11 @@ void Ssd::initializeResourceFile() {
 
 	nandFile.close();
 	resultFile.close();
+	ssd_buffer.flushBuffer();
 }
 
 string Ssd::readResult() {
 	return readTxtData(resultFileName);
-}
-
-static vector<string> splitString(const string& str) {
-	istringstream iss(str);
-	vector<string> tokens;
-	string token;
-	while (iss >> token) {
-		if (!token.empty()) {
-			tokens.push_back(token);
-		}
-	}
-	return tokens;
 }
 
 bool Ssd::checkBuffer(int LBAIndex) {
@@ -152,7 +143,7 @@ void Ssd::eraseNand(int LBAIndex, int size) {
 	if (LBAIndex + size > lbaSize)
 		size = lbaSize - LBAIndex;
 
-	int endSize = size >= maxEraseSize ? (maxEraseSize * writeDataSize) : (size * writeDataSize);
+	int endSize = size * writeDataSize;
 	updateAndWriteNandData(endSize, EraseSource);
 }
 

@@ -32,6 +32,16 @@ void Buffer::flushBuffer() {
 	file.close();
 }
 
+void Buffer::updateBuffer(vector<string> &newBuffer) {
+	ofstream file(bufferFileName, ios::trunc);
+	if (file.is_open() == false)  return;
+
+	for (auto cmd : newBuffer)
+		file << cmd << endl;
+
+	file.close();
+}
+
 vector<string> Buffer::readBuffer() {
 	vector<string> bufferData;
 	ifstream file(bufferFileName);
@@ -47,7 +57,7 @@ vector<string> Buffer::readBuffer() {
 	return bufferData;
 }
 
-static vector<string> splitString(const string& str) {
+vector<string> splitString(const string& str) {
 	istringstream iss(str);
 	vector<string> tokens;
 	string token;
@@ -59,52 +69,56 @@ static vector<string> splitString(const string& str) {
 	return tokens;
 }
 
+bool Buffer::isWriteErasable(string cmd, EraseRange target) {
+	vector<string> args = splitString(cmd);
+	int LBA = stoi(args[1]);
+	string LBAData = args[2];
+
+	if (target.start <= LBA && LBA < target.end)  return true;
+	
+	return false;
+}
+
+bool Buffer::isEraseMergeable(string cmd, EraseRange target, vector<string> newBuffer) {
+	vector<string> args = splitString(cmd);
+	int startIdx = stoi(args[1]);
+	int size = stoi(args[2]);
+	int endIdx = startIdx + size;
+
+	if (startIdx <= target.start && target.start <= endIdx && endIdx < target.end) {
+		size = target.end - startIdx;
+		newBuffer.push_back("E " + to_string(startIdx) + " " + to_string(size));
+		return true;
+	}
+
+	if (target.start <= startIdx && startIdx <= target.end && target.end < endIdx) {
+		startIdx = target.start;
+		size = endIdx - target.start;
+		newBuffer.push_back("E " + to_string(startIdx) + " " + to_string(size));
+		return true;
+	}
+
+	return false;
+}
+
 bool Buffer::isEraseMerged(int LBAIndex, int size) {
 	vector<string> buffer = readBuffer();
 	vector<string> newBuffer;
-	int targetStart = LBAIndex;
-	int targetEnd = LBAIndex + size;
+	EraseRange target = { LBAIndex , LBAIndex + size };
 	bool ret = false;
 
 	for (int i = 0; i < buffer.size(); i++) {
 		string cmd = buffer[i];
 
-		if (cmd[0] == 'W') {
-			vector<string> args = splitString(cmd);
-			int LBA = stoi(args[1]);
-			string LBAData = args[2];
-			if (targetStart <= LBA && LBA < targetEnd) {
-				continue;
-			}
-
-		}
-		else if (cmd[0] == 'E') {
-			vector<string> args = splitString(cmd);
-			int startIdx = stoi(args[1]);
-			int size = stoi(args[2]);
-			int endIdx = startIdx + size;
-
-			if (startIdx <= targetStart && targetStart <= endIdx && endIdx < targetEnd) {
-				size = targetEnd - startIdx;
-				newBuffer.push_back("E " + to_string(startIdx) + " " + to_string(size));
-				ret = true;
-				continue;
-			}
-			else if (targetStart <= startIdx && startIdx <= targetEnd && targetEnd < endIdx) {
-				startIdx = targetStart;
-				size = endIdx - targetStart;
-				newBuffer.push_back("E " + to_string(startIdx) + " " + to_string(size));
-				ret = true;
-				continue;
-			}
+		if (cmd[0] == 'W' && isWriteErasable(cmd, target) == true) 	continue;
+		if (cmd[0] == 'E' && isEraseMergeable(cmd, target, newBuffer) == true) {
+			ret = true;
+			continue;
 		}
 		newBuffer.push_back(cmd);
 	}
 
-	if (buffer.size() != newBuffer.size() || ret == true) {
-		flushBuffer();
-		for(auto &cmd : newBuffer)  addCmnToBuffer(cmd);
-	}
+	if (buffer.size() != newBuffer.size() || ret == true)  updateBuffer(newBuffer);
 
 	return ret;
 }
