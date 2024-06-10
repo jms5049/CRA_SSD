@@ -9,14 +9,6 @@
 #include "Runner.h"
 using namespace std;
 
-bool isTestscript(string input) {
-	vector<string> testScriptCmds = { "testapp1", "testapp2" , "Write10AndCompare", "Read10AndCompare" };
-	for (auto& cmd : testScriptCmds) {
-		if (input.find(cmd) == 0) return true;
-	}
-	return false;
-}
-
 bool isRunner(int argc, char* argv[]) {
 	if (argc != 2) return false;
 	if (access(argv[1], 0) == -1) return false;
@@ -40,7 +32,7 @@ int main(int argc, char* argv[]) {
 			getline(cin, input);
 
 			try {
-				if (isTestscript(input))
+				if (testScript->isSupportedTestScenario(input))
 					testScript->testScriptApp(input);
 				else if (testShell->isSupportedCommand(input))
 					testShell->executeCommand(input);
