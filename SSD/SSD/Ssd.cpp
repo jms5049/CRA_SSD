@@ -34,6 +34,18 @@ string Ssd::readResult() {
 	return readTxtData(resultFileName);
 }
 
+static vector<string> splitString(const string& str) {
+	istringstream iss(str);
+	vector<string> tokens;
+	string token;
+	while (iss >> token) {
+		if (!token.empty()) {
+			tokens.push_back(token);
+		}
+	}
+	return tokens;
+}
+
 bool Ssd::checkBuffer(int LbAIndex) {
 	vector<string> bufferData = ssd_buffer.readBuffer();
 	bool flag = false;
@@ -72,17 +84,6 @@ void Ssd::readSsd(int LBAIndex) {
 	}
 }
 
-static vector<string> splitString(const string& str) {
-	istringstream iss(str);
-	vector<string> tokens;
-	string token;
-	while (iss >> token) {
-		if (!token.empty()) {
-			tokens.push_back(token);
-		}
-	}
-	return tokens;
-}
 
 void Ssd::flush() {
 	vector<string> bufferData = ssd_buffer.readBuffer();
