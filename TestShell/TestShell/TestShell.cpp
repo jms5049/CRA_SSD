@@ -39,6 +39,7 @@ string TestShell::getResult() {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 bool TestShell::isSupportedCommand(string command)
 {
 	return commandFactory->isSupportedCommand(command);
@@ -46,6 +47,8 @@ bool TestShell::isSupportedCommand(string command)
 
 =======
 >>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
+=======
+>>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3
 void TestShell::inputParser(string userInput) {
 	vector<string> args = splitString(userInput);
 
@@ -63,4 +66,8 @@ vector<string> TestShell::splitString(const string& str) {
 		}
 	}
 	return tokens;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3

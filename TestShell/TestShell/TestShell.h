@@ -11,9 +11,12 @@ public:
 	void executeCommand(string userInput);
 	string getResult();
 <<<<<<< HEAD
+<<<<<<< HEAD
 	bool isSupportedCommand(string command);
 =======
 >>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
+=======
+>>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3
 
 private:
 	static TestShell* testShell;

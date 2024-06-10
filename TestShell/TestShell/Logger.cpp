@@ -8,7 +8,10 @@
 
 using namespace std;
 
-Logger::Logger(){
+string filePath = "../../latest.log";
+
+Logger::Logger() {
+    fileName = "../../latest.log";
 }
 
 Logger* Logger::logger = nullptr;
@@ -19,7 +22,7 @@ Logger* Logger::logger = nullptr;
     return logger;
 }
 
- void Logger::write(string funcName) {
+ void Logger::write(string funcName, string strLog) {
      auto now = chrono::system_clock::now();
      time_t currentTime = chrono::system_clock::to_time_t(now);
      tm currentTimeStruct;
@@ -31,11 +34,12 @@ Logger* Logger::logger = nullptr;
      fileWrite(&currentTimeStruct, funcName);
  }
 
- void Logger::fileWrite(tm* curTime, string funcName) {
-     ofstream logFile("../../", std::ios::app);
+ void Logger::fileWrite(tm* curTime, string funcName, string strLog) {
+     ofstream logFile(filePath, std::ios::app);
      if (logFile.is_open() == false)  return;
      logFile << put_time(curTime, "%Y-%m-%d %H:%M:%S") << " ";
-     logFile << left << setw(30) << funcName.c_str() << endl;
+     logFile << left << setw(30) << funcName.c_str() << "\t";
+     logFile << strLog << endl;
      logFile.close();
  }
 
@@ -44,7 +48,7 @@ Logger* Logger::logger = nullptr;
  // e.g. if(isOverflow) zipFIle("newFileName") <- newFileName should be stated as is in PPT
 
  bool Logger::isOverflow() {
-     ifstream logFile("latest.log", ios::binary | ios::ate);
+     ifstream logFile(filePath, ios::binary | ios::ate);
      int fileSize = logFile.tellg();
      logFile.close();
      if (fileSize >= (10*1024)) return true;
@@ -53,6 +57,6 @@ Logger* Logger::logger = nullptr;
 
  void Logger::zipFile(string* newFileName) {
      string newName = newFileName->append(".zip");
-     if(std::rename("latest.log", newName.c_str())) throw std::exception("Error Renaming");
+     if(std::rename(filePath.c_str(), newName.c_str())) throw std::exception("Error Renaming");
 
  }
