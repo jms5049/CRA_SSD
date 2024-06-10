@@ -11,7 +11,7 @@ Read10AndCompare::Read10AndCompare() : TestScenario() {
 }
 
 bool Read10AndCompare::runTest() {
-	log("runTest", "TS_Start_Fixed");
+	log("runTest", "TS_Start");
 	testShell->executeCommand(makeReadCommand(0));
 	string data = testShell->getResult();
 	string result;
