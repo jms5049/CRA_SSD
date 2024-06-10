@@ -11,7 +11,6 @@ using namespace std;
 string filePath = "../../latest.log";
 
 Logger::Logger() {
-    fileName = "../../latest.log";
 }
 
 Logger* Logger::logger = nullptr;

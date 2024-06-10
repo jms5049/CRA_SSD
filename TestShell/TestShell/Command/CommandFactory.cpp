@@ -13,13 +13,7 @@
 #include "ExitCommand.h"
 #include "EraseCommand.h"
 #include "EraseRangeCommand.h"
-<<<<<<< HEAD
-<<<<<<< HEAD
 #include "FlushCommand.h"
-=======
->>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
-=======
->>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3
 
 using std::string;
 using std::vector;
@@ -39,16 +33,8 @@ const vector<string> CommandFactory::supportedCommands = {
 	"fullwrite",
 	"fullread",
 	"erase",
-<<<<<<< HEAD
-<<<<<<< HEAD
 	"erase_range",
 	"flush"
-=======
-	"erase_range"
->>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
-=======
-	"erase_range"
->>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3
 };
 
 ICommand* CommandFactory::getCommand(vector<string>& commandAndOptions)
@@ -61,15 +47,8 @@ ICommand* CommandFactory::getCommand(vector<string>& commandAndOptions)
 
 bool CommandFactory::isSupportedCommand(std::string& command)
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	int commandOff = command.find(' ');
 	if (commandOff != -1) command = command.substr(0, commandOff);
-
-=======
->>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
-=======
->>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3
 	for (auto& curCommand : supportedCommands) {
 		if (command == curCommand) return true;
 	}
@@ -90,13 +69,7 @@ ICommand* CommandFactory::makeCommand(vector<string>& commandAndOptions)
 	if (commandName == "fullread") command = new FullReadCommand(commandAndOptions);
 	if (commandName == "erase") command = new EraseCommand(commandAndOptions);
 	if (commandName == "erase_range") command = new EraseRangeCommand(commandAndOptions);
-<<<<<<< HEAD
-<<<<<<< HEAD
 	if (commandName == "flush") command = new FlushCommand(commandAndOptions);
-=======
->>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
-=======
->>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3
 
 	return command;
 }

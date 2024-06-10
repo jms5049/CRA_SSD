@@ -12,9 +12,6 @@ public:
 protected:
 	void verifyWriteDataLength(std::string& strData);
 	void verifyWriteDataHexNum(std::string& writeData);
-<<<<<<< HEAD
-=======
 private:
 	void log();
->>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3
 };

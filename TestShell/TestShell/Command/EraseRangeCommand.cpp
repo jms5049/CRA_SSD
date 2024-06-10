@@ -3,10 +3,7 @@
 #include <vector>
 
 #include "../SsdApi.h"
-<<<<<<< HEAD
-=======
 #include "../Logger.h"
->>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3
 #include "ICommand.h"
 #include "IoCommand.h"
 #include "EraseCommand.h"
@@ -29,8 +26,6 @@ void EraseRangeCommand::execute()
 	int len = endIdx - startIdx;
 	if (len < 1) throw std::invalid_argument("Erasing size must be 1 to 100");
 	divideEraseRange(startIdx, len);
-<<<<<<< HEAD
-=======
 	log();
 }
 
@@ -42,5 +37,4 @@ void EraseRangeCommand::log()
 	strLog += options[1];
 	strLog += " " + options[2];
 	logger->write(className, strLog);
->>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3
 }

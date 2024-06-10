@@ -3,10 +3,7 @@
 #include <vector>
 
 #include "../SsdApi.h"
-<<<<<<< HEAD
-=======
 #include "../Logger.h"
->>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3
 #include "ICommand.h"
 #include "IoCommand.h"
 #include "EraseCommand.h"
@@ -25,11 +22,8 @@ void EraseCommand::execute()
 	if (iLba < 0 || iLba > 99) throw std::invalid_argument("Start index must be 0 to 99");
 	if (len < 1 || len > 100) throw std::invalid_argument("Erasing size must be 1 to 100");
 	divideEraseRange(iLba, len);
-<<<<<<< HEAD
-=======
 	Logger* logger = Logger::getInstance();
 	logger->write(__func__, startLba + " " + size);
->>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3
 }
 
 void EraseCommand::divideEraseRange(int iLba, int len)
@@ -48,8 +42,6 @@ void EraseCommand::divideEraseRange(int iLba, int len)
 		startIdx = startIdx + 10;
 	}
 	if (residual > 0) ssdApi->erase(startIdx, residual);
-<<<<<<< HEAD
-=======
 	log();
 }
 
@@ -61,5 +53,4 @@ void EraseCommand::log()
 	strLog += options[1];
 	strLog += " " + options[2];
 	logger->write(className, strLog);
->>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3
 }
