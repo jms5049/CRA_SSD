@@ -20,14 +20,27 @@ int stoiWithException(string target) {
     return intData;
 }
 
-int main(int argc, char *argv[]) {
-    // guard
-    if (argc < 3 || argc > 4) return 0;
-    string rwChecker = argv[1];
-    int lba = stoiWithException(argv[2]);
-    if (lba < 0 || lba > 99)  return 0;
+bool isParameterValid(int argc, char* argv[]) {
+    if (argc < 3 || argc > 4) return false;
     
+    int lba = stoiWithException(argv[2]);
+    if (lba < 0 || lba > 99)  return false;
+
+    return true;
+}
+
+int main(int argc, char *argv[]) {
+    if (argc < 2) return 0;
+
+    string rwChecker = argv[1];
+    int lba = 0;
     Ssd device;
+
+    if (rwChecker != "F") {
+        lba = stoiWithException(argv[2]);
+
+        if (isParameterValid(argc, argv) == false) return 0;
+    }
 
     if (rwChecker == "W") {
         string hexdata = argv[3];
@@ -39,6 +52,7 @@ int main(int argc, char *argv[]) {
         }
         device.writeSsd(lba, hexdata);
     }
+
     if (rwChecker == "R") {
         device.readSsd(lba);
     }
