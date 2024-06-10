@@ -5,7 +5,7 @@ using namespace std;
 class Runner {
 public:
 	Runner() {};
-	void RunnerApp(string userInput);
+	void runnerApp(string userInput);
 
 private:
 	string scriptFileName;

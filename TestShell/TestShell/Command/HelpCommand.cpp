@@ -20,8 +20,8 @@ void HelpCommand::execute()
 	if (command == "write") helpWrite();
 	else if (command == "read") helpRead();
 	else if (command == "exit") helpExit();
-	else if (command == "fullwrite") helpFullwrite();
-	else if (command == "fullread") helpFullread();
+	else if (command == "fullwrite") helpFullWrite();
+	else if (command == "fullread") helpFullRead();
 	else if (command == "erase") helpErase();
 	else if (command == "erase_range") helpEraseRange();
 	else if (command == "flush") helpFlush();
@@ -29,8 +29,8 @@ void HelpCommand::execute()
 		helpWrite();
 		helpRead();
 		helpExit();
-		helpFullwrite();
-		helpFullread();
+		helpFullWrite();
+		helpFullRead();
 		helpErase();
 		helpEraseRange();
 		helpFlush();
@@ -49,11 +49,11 @@ void HelpCommand::helpExit() {
 	printf("exit:\n\t you can exit the program \n");
 }
 
-void HelpCommand::helpFullwrite() {
+void HelpCommand::helpFullWrite() {
 	printf("fullwrite:\n\t you can write overall region at once \n\t fullwrite [value] => fullwrite 0xabcdffff \n");
 }
 
-void HelpCommand::helpFullread() {
+void HelpCommand::helpFullRead() {
 	printf("fullread:\n\t you can read overall region at once\n");
 }
 

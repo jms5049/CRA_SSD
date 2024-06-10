@@ -13,8 +13,8 @@ private:
 	void helpWrite();
 	void helpRead();
 	void helpExit();
-	void helpFullwrite();
-	void helpFullread();
+	void helpFullWrite();
+	void helpFullRead();
 	void helpErase();
 	void helpEraseRange();
 	void helpFlush();
