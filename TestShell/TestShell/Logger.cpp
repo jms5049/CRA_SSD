@@ -10,7 +10,14 @@
 
 using namespace std;
 
+#if _DEBUG
 string filePath = "../../latest.log";
+string newFileNameHeader = "../../until_";
+#else
+string filePath = "./Log/latest.log";
+string newFileNameHeader = "./Log/until_";
+#endif
+
 static string untilFileName;
 
 Logger::Logger() {
@@ -103,7 +110,7 @@ void Logger::changeFileToZip() {
 }
 
 void Logger::saveLogFileWithTime() {
-    string newFileName = "../../until_";
+    string newFileName = newFileNameHeader;
     newFileName += getNowFileName();
     newFileName += ".log";
 

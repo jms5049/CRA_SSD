@@ -9,7 +9,13 @@
 
 using std::string;
 
+#if _DEBUG
 const string Ssd::ssdLocation = "..\\..\\SSD\\";
+const string Ssd::ssdResultFile = "../../SSD/result.txt";
+#else
+const string Ssd::ssdLocation = ".\\";
+const string Ssd::ssdResultFile = "./SSD/result.txt";
+#endif
 
 Ssd::Ssd(){
 }
@@ -33,7 +39,7 @@ string Ssd::read(int lba)
 {
 	string readCmd = convertToReadCmd(lba);
 	executeSsdCmd(readCmd);
-	return readResultFile("../../SSD/result.txt");
+	return readResultFile(ssdResultFile);
 }
 
 void Ssd::erase(int lba, int size) {

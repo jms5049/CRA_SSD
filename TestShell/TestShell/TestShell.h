@@ -18,7 +18,7 @@ public:
 private:
 	static TestShell* testShell;
 	CommandFactory* commandFactory;
-	ICommand* iCommand;
+	ICommand* iCommand = nullptr;
 
 	TestShell();
 	void inputParser(string userInput);
