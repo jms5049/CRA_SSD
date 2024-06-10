@@ -15,6 +15,7 @@ static string untilFileName;
 
 Logger::Logger() {
     untilFileName = "";
+    ofstream file(filePath, ios::trunc); // 파일 열기, 기존 내용 삭제
 }
 
 Logger* Logger::logger = nullptr;
@@ -31,9 +32,6 @@ void Logger::write(string funcName, string strLog) {
     tm currentTimeStruct;
     localtime_s(&currentTimeStruct, &currentTime);
 
-    cout << "[" << put_time(&currentTimeStruct, "%Y-%m-%d %H:%M:%S") << "] ";
-    cout << left << setw(30) << funcName.c_str() << endl;
-
     fileWrite(&currentTimeStruct, funcName, strLog);
 }
 
@@ -44,7 +42,7 @@ void Logger::fileWrite(tm* curTime, string funcName, string strLog) {
     if (logFile.is_open() == false)  return;
 
     logFile << put_time(curTime, "%Y-%m-%d %H:%M:%S") << " ";
-    logFile << left << setw(30) << funcName.c_str() << "\t";
+    logFile << left << setw(50) << funcName.c_str() << "\t";
     logFile << strLog << endl;
     logFile.close();
 }
@@ -63,10 +61,9 @@ void Logger::checkOverflowAndSaveFile() {
 
         if (file.is_open()) {
             file.close(); // 파일 닫기
-            cout << "File initialized successfully." << endl;
         }
         else {
-            cerr << "Failed to open file." << endl;
+            cerr << filePath.c_str() << "Failed to open file." << endl;
         }
     }
 }
@@ -91,7 +88,7 @@ void Logger::copyFile(string sourceFileName, string targetFileName) {
 
     if (sourceFile && targetFile) {
         targetFile << sourceFile.rdbuf(); // 현재 파일의 내용을 새 파일로 복사
-        cout << "File copied successfully." << endl;
+        cout << targetFileName.c_str() << "File copied successfully." << endl;
     }
     else {
         cerr << "Failed to open files." << endl;
@@ -108,11 +105,8 @@ void Logger::changeFileToZip() {
 
     copyFile(untilFileName, newFileName);
 
-    if (DeleteFileA(untilFileName.c_str())) {
-        std::cout << "File deleted successfully." << std::endl;
-    }
-    else {
-        std::cerr << "Failed to delete file." << std::endl;
+    if (DeleteFileA(untilFileName.c_str()) == false) {
+        cerr << "Failed to delete file." << endl;
     }
 }
 

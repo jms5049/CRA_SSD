@@ -18,4 +18,6 @@ private:
 	std::string convertToEraseCmd(int lba, int size);
 	std::string readResultFile(const std::string& filepath);
 	void executeSsdCmd(std::string& cmdOption);
+
+	void log(std::string funcName, std::string logStr);
 };
