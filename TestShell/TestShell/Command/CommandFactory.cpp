@@ -45,6 +45,9 @@ ICommand* CommandFactory::getCommand(vector<string>& commandAndOptions)
 
 bool CommandFactory::isSupportedCommand(std::string& command)
 {
+	int commandOff = command.find(' ');
+	if (commandOff != -1) command = command.substr(0, commandOff);
+
 	for (auto& curCommand : supportedCommands) {
 		if (command == curCommand) return true;
 	}
