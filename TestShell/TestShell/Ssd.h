@@ -10,7 +10,7 @@ public:
 	void flush() override;
 
 private:
-	static const std::string SSD_LOCATION;
+	static const std::string ssdLocation;
 	static Ssd* ssd;
 	Ssd();
 	std::string convertToWriteCmd(int lba, std::string& data);
