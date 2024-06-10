@@ -103,10 +103,18 @@ void Ssd::executeSsdCmd(string& cmdOption) {
 	sei.lpVerb = "open";
 
 	DWORD result = ShellExecuteExA(&sei);
+	log(__func__, cmdOption.c_str());
 
 	if (sei.hProcess != NULL)
 	{
 		// 프로세스 종료까지 대기
 		WaitForSingleObject(sei.hProcess, INFINITE);
 	}
+}
+
+void Ssd::log(string funcName, string logStr) {
+	Logger* logger = Logger::getInstance();
+	string strLog = "[SSD]--------------------------------------------";
+	strLog += logStr;
+	logger->write(funcName, strLog);
 }

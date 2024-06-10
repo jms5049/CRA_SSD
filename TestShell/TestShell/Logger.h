@@ -9,7 +9,11 @@ private:
     Logger();
     static Logger* logger;
 
-    static void fileWrite(std::tm* curTime, std::string funcName, std::string strLog);
-    static void zipFile(std::string* newFileName);
-    static bool isOverflow();
+    void fileWrite(std::tm* curTime, std::string funcName, std::string strLog);
+    bool isOverflow();
+    void saveLogFileWithTime();
+    std::string getNowFileName();
+    void checkOverflowAndSaveFile();
+    void changeFileToZip();
+    void copyFile(std::string sourceFileName, std::string targetFileName);
 };
