@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "../SsdApi.h"
+#include "../Logger.h"
 #include "ICommand.h"
 #include "IoCommand.h"
 #include "FlushCommand.h"
@@ -15,4 +16,11 @@ void FlushCommand::verifyOptions()
 void FlushCommand::execute()
 {
 	ssdApi->flush();
+	log();
+}
+
+void FlushCommand::log() {
+	Logger* logger = Logger::getInstance();
+	string className = typeid(*this).name();
+	logger->write(className, options[0]);
 }

@@ -30,7 +30,7 @@ Logger* Logger::logger = nullptr;
      cout << "[" << put_time(&currentTimeStruct, "%Y-%m-%d %H:%M:%S") << "] ";
      cout << left << setw(30) << funcName.c_str() << endl;
 
-     fileWrite(&currentTimeStruct, funcName);
+     fileWrite(&currentTimeStruct, funcName, strLog);
  }
 
  void Logger::fileWrite(tm* curTime, string funcName, string strLog) {

@@ -116,7 +116,6 @@ string TestScript::makeReadCommand(int lba)
 }
 
 bool TestScript::testRead10AndCompare() {
-	log(__func__);
 	testShell->executeCommand(makeReadCommand(0));
 	string data = testShell->getResult();
 	string result;

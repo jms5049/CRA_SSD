@@ -15,7 +15,5 @@ private:
 	static const vector<string> supportedCommands;
 
 	CommandFactory() { };
-	bool isSupportedCommand(std::string& command);
-	bool isSupportedCommand(std::string& command);
 	ICommand* makeCommand(vector<string>& commandAndOptions);
 };

@@ -38,18 +38,18 @@ int main(int argc, char* argv[]) {
 			cout << "cmd > ";
 
 			getline(cin, input);
-		try {
-			if (isTestscript(input))
-				testScript->testScriptApp(input);
-			else if (isTestshell(input))
-				testShell->executeCommand(input);
-			else if (isRunner(input))
-				testRunner.runnerApp(input);
-			else
-				cout << "INVALID COMMAND : NOT supported Command." << endl;
-		}
-		catch (exception e) {
-			cout << "INVALID COMMAND : " << e.what() << endl;
+
+			try {
+				if (isTestscript(input))
+					testScript->testScriptApp(input);
+				else if (testShell->isSupportedCommand(input))
+					testShell->executeCommand(input);
+				else
+					cout << "INVALID COMMAND : NOT supported Command." << endl;
+			}
+			catch (exception e) {
+				cout << "INVALID COMMAND : " << e.what() << endl;
+			}
 		}
 	}
 }

@@ -49,6 +49,7 @@ bool CommandFactory::isSupportedCommand(std::string& command)
 {
 	int commandOff = command.find(' ');
 	if (commandOff != -1) command = command.substr(0, commandOff);
+
 	for (auto& curCommand : supportedCommands) {
 		if (command == curCommand) return true;
 	}
@@ -60,7 +61,7 @@ ICommand* CommandFactory::makeCommand(vector<string>& commandAndOptions)
 {
 	ICommand* command = nullptr;
 	string commandName = commandAndOptions[0];
-
+	printf("%s %s \n", __func__, commandName.c_str());
 	if (commandName == "read") command = new ReadCommand(commandAndOptions);
 	if (commandName == "write") command = new WriteCommand(commandAndOptions);
 	if (commandName == "exit") command = new ExitCommand(commandAndOptions);

@@ -22,7 +22,6 @@ void FullReadCommand::execute()
 	for (int idx = 0; idx < 100; idx++) {
 		cout << idx << " " << ssdApi->read(idx) << endl;
 	}
-}
 	log();
 }
 

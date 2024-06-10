@@ -8,4 +8,6 @@ public:
 
 	void verifyOptions() override;
 	void execute() override;
+private:
+	void log();
 };
