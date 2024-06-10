@@ -11,9 +11,9 @@ public:
 	string getErrorMessage();
 	void initializeResourceFile();
 	string readResult();
-	void readSsd(int LBAIndex);
-	void writeSsd(int LBAIndex, string writeData);
-	void eraseSsd(int LBAIndex, int size);
+	void readSsd(int lbaIndex);
+	void writeSsd(int lbaIndex, string writeData);
+	void eraseSsd(int lbaIndex, int size);
 	void flush();
 
 private:
@@ -27,14 +27,14 @@ private:
 
 	string nandData;
 	int startIndex;
-	Buffer ssd_buffer;
+	Buffer ssdBuffer;
 
 	string readTxtData(string filePath);
 	void writeTxtData(string filePath, string writeData);
-	void readNandDataAndUpdateStartIndex(int LBAIndex);
+	void readNandDataAndUpdateStartIndex(int lbaIndex);
 	void updateAndWriteNandData(int updateSize, string writeData);
 	void updateReadResult(string readData);
-	void writeNand(int LBAIndex, string writeData);
-	void eraseNand(int LBAIndex, int size);
-	bool checkBuffer(int LBAIndex);
+	void writeNand(int lbaIndex, string writeData);
+	void eraseNand(int lbaIndex, int size);
+	bool checkBuffer(int lbaIndex);
 };

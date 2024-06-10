@@ -1,9 +1,9 @@
-#include "Buffer.h"
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <sstream>
+#include "Buffer.h"
 using namespace std;
 
 bool Buffer::isCmd10InBuffer() {
@@ -87,24 +87,22 @@ bool Buffer::isEraseMergeable(string cmd, EraseRange target, vector<string> &new
 
 	if (startIdx <= target.start && target.start <= endIdx && endIdx < target.end) {
 		size = target.end - startIdx;
-		newBuffer.push_back("E " + to_string(startIdx) + " " + to_string(size));
-		return true;
 	}
-
-	if (target.start <= startIdx && startIdx <= target.end && target.end < endIdx) {
+	else if (target.start <= startIdx && startIdx <= target.end && target.end < endIdx) {
 		startIdx = target.start;
 		size = endIdx - target.start;
-		newBuffer.push_back("E " + to_string(startIdx) + " " + to_string(size));
-		return true;
 	}
-
-	return false;
+	else {
+		return false;
+	}
+	newBuffer.push_back("E " + to_string(startIdx) + " " + to_string(size));
+	return true;
 }
 
-bool Buffer::isEraseMerged(int LBAIndex, int size) {
+bool Buffer::isEraseMerged(int lbaIndex, int size) {
 	vector<string> buffer = readBuffer();
 	vector<string> newBuffer;
-	EraseRange target = { LBAIndex , LBAIndex + size };
+	EraseRange target = { lbaIndex , lbaIndex + size };
 	bool ret = false;
 
 	for (int i = 0; i < buffer.size(); i++) {
