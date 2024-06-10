@@ -12,6 +12,7 @@ public:
 	}
 
 	bool runTest() override {
+		log("runTest", "TS_Start");
 		const int testCnt = 30;
 		const int testAddr = 5;
 		string data;

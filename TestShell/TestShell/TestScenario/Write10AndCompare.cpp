@@ -12,6 +12,7 @@ public:
 	}
 
 	bool runTest() override {
+		log("runTest", "TS_Start");
 		string data;
 		data = "0xAAAABBBB";
 		

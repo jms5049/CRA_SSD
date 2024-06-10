@@ -14,7 +14,7 @@ public:
 	}
 
 	bool runTest() override {
-		log("Read10AndCompare", "TestScenarioRunning");
+		log("runTest", "TS_Start");
 		testShell->executeCommand(makeReadCommand(0));
 		string data = testShell->getResult();
 		string result;

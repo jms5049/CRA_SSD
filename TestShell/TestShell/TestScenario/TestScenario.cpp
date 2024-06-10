@@ -13,7 +13,6 @@ TestScenario::TestScenario()
 }
 
 void TestScenario::log(string funcName, string strLog) {
-	std::cout << "hi, this is TS " << std::endl;
 	Logger* loggerTS = Logger::getInstance();
 	string str = typeid(*this).name();
 	str += ".";

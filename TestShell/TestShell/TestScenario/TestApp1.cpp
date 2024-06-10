@@ -12,6 +12,7 @@ public:
 	}
 
 	bool runTest() override {
+		log("runTest", "TS_Start");
 		string data = "0x5A5A5A5A";
 		testShell->executeCommand("fullwrite " + data);
 		testShell->executeCommand("fullread");
