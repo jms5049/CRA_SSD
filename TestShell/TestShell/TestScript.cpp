@@ -86,8 +86,6 @@ void TestScript::writeAddrTest(string data) {
 	}
 }
 
-
-
 bool TestScript::testWrite10AndCompare() {
 	string data;
 	data = "0xAAAABBBB";
@@ -118,10 +116,7 @@ string TestScript::makeReadCommand(int lba)
 }
 
 bool TestScript::testRead10AndCompare() {
-<<<<<<< HEAD
 	log(__func__);
-=======
->>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3
 	testShell->executeCommand(makeReadCommand(0));
 	string data = testShell->getResult();
 	string result;

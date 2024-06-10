@@ -6,15 +6,7 @@
 #include "IoCommand.h"
 
 int IoCommand::verifyConvertLba(std::string& strLba, bool isEndLba) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-	verifyLbaLength(strLba, isEndLba);
-=======
 	verifyLbaLength(strLba, 2);
->>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
-=======
-	verifyLbaLength(strLba, 2);
->>>>>>> aa02a4fbcf27adcd458ac5e4f580e0451a299fc3
 	verityLbaOnlyNumbers(strLba);
 	return stoi(strLba);
 }
