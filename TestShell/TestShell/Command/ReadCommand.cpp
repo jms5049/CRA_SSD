@@ -22,12 +22,16 @@ void ReadCommand::execute()
 	string result = ssdApi->read(iLba);
 	cout << result << endl;
 	readResult = result;
-	log();
+	log(result);
 }
 
-void ReadCommand::log()
+void ReadCommand::log(string readValue)
 {
 	Logger* logger = Logger::getInstance();
 	string className = typeid(*this).name();
-	logger->write(className, options[1].c_str());
+	string strLog = "ADDR";
+	strLog += options[1].c_str();
+	strLog += "=>";
+	strLog += readValue;
+	logger->write(className, strLog);
 }

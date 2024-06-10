@@ -15,7 +15,7 @@ static string untilFileName;
 
 Logger::Logger() {
     untilFileName = "";
-    ofstream file(filePath, ios::trunc); // 파일 열기, 기존 내용 삭제
+    ofstream file(filePath, ios::trunc); // latest.log 초기화
 }
 
 Logger* Logger::logger = nullptr;
@@ -47,9 +47,6 @@ void Logger::fileWrite(tm* curTime, string funcName, string strLog) {
     logFile.close();
 }
 
-//To-Do :
-// Check isOverflow after every filewrite excuted and do zipFile if isOverflow returns true;
-// e.g. if(isOverflow) zipFIle("newFileName") <- newFileName should be stated as is in PPT
 void Logger::checkOverflowAndSaveFile() {
     if (isOverflow()) {
         if (untilFileName != "") {
@@ -75,11 +72,6 @@ bool Logger::isOverflow() {
 
     if (fileSize >= (10 * 1024)) return true;
     return false;
-}
-
-void Logger::zipFile(string* newFileName) {
-    string newName = newFileName->append(".zip");
-    if (rename(filePath.c_str(), newName.c_str())) throw exception("Error Renaming");
 }
 
 void Logger::copyFile(string sourceFileName, string targetFileName) {

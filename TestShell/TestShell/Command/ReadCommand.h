@@ -12,5 +12,5 @@ public:
 
 private:
 	string readResult;
-	void log();
+	void log(string readValue);
 };
