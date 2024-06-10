@@ -7,6 +7,7 @@ public:
 
 protected:
 	TestShell* testShell;
+	string name;
 
 	string makeWriteCommand(int lba, string data);
 	string makeReadCommand(int lba);

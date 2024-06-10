@@ -17,8 +17,14 @@ public:
 	void flush();
 
 private:
+#if _DEBUG
 	const string nandFlieName = "./nand.txt";
 	const string resultFileName = "./result.txt";
+#else
+	const string nandFlieName = "./SSD/nand.txt";
+	const string resultFileName = "./SSD/result.txt";
+#endif
+
 	const string ErrorMessage = "Nand file open error!";
 	const string EraseSource = "00000000";
 	const int nandCharSize = 800;

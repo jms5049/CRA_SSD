@@ -11,6 +11,7 @@ public:
 
 private:
 	static const std::string ssdLocation;
+	static const std::string ssdResultFile;
 	static Ssd* ssd;
 	Ssd();
 	std::string convertToWriteCmd(int lba, std::string& data);

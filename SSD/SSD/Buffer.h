@@ -17,7 +17,11 @@ public:
 	bool isEraseMerged(int lbaIndex, int size);
 
 private:
+#if _DEBUG
 	const string bufferFileName = "./buffer.txt";
+#else
+	const string bufferFileName = "./SSD/buffer.txt";
+#endif
 	void updateBuffer(vector<string>& newBuffer);
 	bool isWriteErasable(string cmd, EraseRange target);
 	bool isEraseMergeable(string cmd, EraseRange target, vector<string> &newBuffer);
