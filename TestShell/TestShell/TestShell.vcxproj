@@ -133,7 +133,10 @@
     <ClCompile Include="Command\EraseCommand.cpp" />
     <ClCompile Include="Command\EraseRangeCommand.cpp" />
     <ClCompile Include="Command\ExitCommand.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="Command\FlushCommand.cpp" />
+=======
+>>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
     <ClCompile Include="Command\FullReadCommand.cpp" />
     <ClCompile Include="Command\FullWriteCommand.cpp" />
     <ClCompile Include="Command\HelpCommand.cpp" />
@@ -153,7 +156,10 @@
     <ClInclude Include="Command\EraseCommand.h" />
     <ClInclude Include="Command\EraseRangeCommand.h" />
     <ClInclude Include="Command\ExitCommand.h" />
+<<<<<<< HEAD
     <ClInclude Include="Command\FlushCommand.h" />
+=======
+>>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
     <ClInclude Include="Command\FullReadCommand.h" />
     <ClInclude Include="Command\FullWriteCommand.h" />
     <ClInclude Include="Command\HelpCommand.h" />
@@ -163,6 +169,7 @@
     <ClInclude Include="Command\WriteCommand.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Runner.h" />
+    <ClInclude Include="ShellException.h" />
     <ClInclude Include="Ssd.h" />
     <ClInclude Include="TestScript.h" />
     <ClInclude Include="TestShell.h" />

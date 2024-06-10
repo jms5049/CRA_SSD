@@ -39,6 +39,7 @@ int main(int argc, char* argv[]) {
 
 			getline(cin, input);
 
+<<<<<<< HEAD
 			try {
 				if (isTestscript(input))
 					testScript->testScriptApp(input);
@@ -50,6 +51,20 @@ int main(int argc, char* argv[]) {
 			catch (exception e) {
 				cout << "INVALID COMMAND : " << e.what() << endl;
 			}
+=======
+		try {
+			if (isTestscript(input))
+				testScript->testScriptApp(input);
+			else if (isTestshell(input))
+				testShell->executeCommand(input);
+			else if (isRunner(input))
+				testRunner.runnerApp(input);
+			else
+				cout << "INVALID COMMAND : NOT supported Command." << endl;
+		}
+		catch (exception e) {
+			cout << "INVALID COMMAND : " << e.what() << endl;
+>>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
 		}
 	}
 }

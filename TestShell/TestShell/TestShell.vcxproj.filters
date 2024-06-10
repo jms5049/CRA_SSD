@@ -52,9 +52,12 @@
     <ClCompile Include="Command\EraseRangeCommand.cpp">
       <Filter>소스 파일\Command</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Command\FlushCommand.cpp">
       <Filter>소스 파일\Command</Filter>
     </ClCompile>
+=======
+>>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestShell.h">
@@ -72,6 +75,10 @@
     <ClInclude Include="Runner.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+<<<<<<< HEAD
+=======
+    <ClInclude Include="ShellException.h" />
+>>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
     <ClInclude Include="Command\CommandFactory.h">
       <Filter>헤더 파일\Command</Filter>
     </ClInclude>
@@ -105,9 +112,12 @@
     <ClInclude Include="Command\EraseRangeCommand.h">
       <Filter>헤더 파일\Command</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Command\FlushCommand.h">
       <Filter>헤더 파일\Command</Filter>
     </ClInclude>
+=======
+>>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
   </ItemGroup>
   <ItemGroup>
     <Filter Include="헤더 파일">

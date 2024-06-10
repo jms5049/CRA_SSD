@@ -40,11 +40,14 @@ string TestShell::getResult() {
 	return iCommand->getResult();
 }
 
+<<<<<<< HEAD
 bool TestShell::isSupportedCommand(string command)
 {
 	return commandFactory->isSupportedCommand(command);
 }
 
+=======
+>>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
 void TestShell::inputParser(string userInput) {
 	vector<string> args = splitString(userInput);
 

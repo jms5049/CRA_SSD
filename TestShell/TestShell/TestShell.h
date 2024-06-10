@@ -11,7 +11,10 @@ public:
 	static TestShell* getInstance(Logger* logger);
 	void executeCommand(string userInput);
 	string getResult();
+<<<<<<< HEAD
 	bool isSupportedCommand(string command);
+=======
+>>>>>>> 3595e5a (Master 반영 [gh pr checkout 57])
 
 private:
 	static TestShell* testShell;
