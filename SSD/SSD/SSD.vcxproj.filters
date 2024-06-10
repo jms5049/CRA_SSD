@@ -26,10 +26,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\nand.txt">
+    <Text Include="..\SSD_Test\buffer.txt">
       <Filter>리소스 파일</Filter>
     </Text>
-    <Text Include="..\result.txt">
+    <Text Include="..\SSD_Test\nand.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="..\SSD_Test\result.txt">
       <Filter>리소스 파일</Filter>
     </Text>
   </ItemGroup>

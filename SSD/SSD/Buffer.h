@@ -20,5 +20,5 @@ private:
 	const string bufferFileName = "./buffer.txt";
 	void updateBuffer(vector<string>& newBuffer);
 	bool isWriteErasable(string cmd, EraseRange target);
-	bool isEraseMergeable(string cmd, EraseRange target, vector<string> newBuffer);
+	bool isEraseMergeable(string cmd, EraseRange target, vector<string> &newBuffer);
 }; 

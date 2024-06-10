@@ -79,7 +79,7 @@ bool Buffer::isWriteErasable(string cmd, EraseRange target) {
 	return false;
 }
 
-bool Buffer::isEraseMergeable(string cmd, EraseRange target, vector<string> newBuffer) {
+bool Buffer::isEraseMergeable(string cmd, EraseRange target, vector<string> &newBuffer) {
 	vector<string> args = splitString(cmd);
 	int startIdx = stoi(args[1]);
 	int size = stoi(args[2]);
