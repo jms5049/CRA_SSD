@@ -9,10 +9,10 @@
 #include "TestShell.h"
 
 #include "TestScenario/TestScenario.h"
-#include "TestScenario/TestApp1.cpp"
-#include "TestScenario/TestApp2.cpp"
-#include "TestScenario/Write10AndCompare.cpp"
-#include "TestScenario/Read10AndCompare.cpp"
+#include "TestScenario/TestApp1.h"
+#include "TestScenario/TestApp2.h"
+#include "TestScenario/Write10AndCompare.h"
+#include "TestScenario/Read10AndCompare.h"
 
 using std::string;
 using std::vector;

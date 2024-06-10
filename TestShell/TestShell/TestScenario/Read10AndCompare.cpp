@@ -1,31 +1,27 @@
 #pragma once
 #include <string>
 #include "../TestShell.h"
-#include <typeinfo>
-
 #include "TestScenario.h"
+#include "Read10AndCompare.h"
 
 using std::string;
 
-class Read10AndCompare : public TestScenario {
-public:
-	Read10AndCompare() : TestScenario() {
-		// do nothing
-	}
+Read10AndCompare::Read10AndCompare() : TestScenario() {
+	// do nothing
+}
 
-	bool runTest() override {
-		log("runTest", "TS_Start");
+bool Read10AndCompare::runTest() {
+	log("runTest", "TS_Start_Fixed");
+	testShell->executeCommand(makeReadCommand(0));
+	string data = testShell->getResult();
+	string result;
+		
+	for (int cnt = 0; cnt < 10; cnt++) {
 		testShell->executeCommand(makeReadCommand(0));
-		string data = testShell->getResult();
-		string result;
+		result = testShell->getResult();
 		
-		for (int cnt = 0; cnt < 10; cnt++) {
-			testShell->executeCommand(makeReadCommand(0));
-			result = testShell->getResult();
-		
-			if (result != data) return false;
-		}
-		
-		return true;
+		if (result != data) return false;
 	}
-};
+		
+	return true;
+}

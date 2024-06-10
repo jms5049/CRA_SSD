@@ -126,6 +126,18 @@
     <ClInclude Include="TestScenario\TestScenario.h">
       <Filter>헤더 파일\TestScenario</Filter>
     </ClInclude>
+    <ClInclude Include="TestScenario\TestApp1.h">
+      <Filter>헤더 파일\TestScenario</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScenario\TestApp2.h">
+      <Filter>헤더 파일\TestScenario</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScenario\Write10AndCompare.h">
+      <Filter>헤더 파일\TestScenario</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScenario\Read10AndCompare.h">
+      <Filter>헤더 파일\TestScenario</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="헤더 파일">
