@@ -1,17 +1,16 @@
 #pragma once
 class TestScript {
 public:
-	static TestScript* getInstance(TestShell* testShell, Logger* logger);
+	static TestScript* getInstance(TestShell* testShell);
 	bool testScriptApp(string userInput);
 
 private:
 	static TestScript* testScript;
-	Logger* logger;
 	TestShell* testShell;
 	const int testCnt = 30;
 	const int testAddr = 5;
 
-	TestScript(TestShell* testShell, Logger* logger);
+	TestScript(TestShell* testShell);
 	vector<string> splitString(const string& str);
 
 	bool testApp1();
@@ -21,7 +20,7 @@ private:
 	bool testWrite10AndCompare();
 	bool testRead10AndCompare();
 
-	void log(string funcName);
+	void log(string funcName, string strLog);
 	string makeWriteCommand(int lba, string data);
 	string makeReadCommand(int lba);
 };

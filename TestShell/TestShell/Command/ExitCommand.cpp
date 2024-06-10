@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 
+#include "../Logger.h"
 #include "ICommand.h"
 #include "ExitCommand.h"
 
@@ -13,4 +14,11 @@ void ExitCommand::verifyOptions()
 void ExitCommand::execute()
 {
 	exit(0);
+	log();
+}
+
+void ExitCommand::log() {
+	Logger* logger = Logger::getInstance();
+	string className = typeid(*this).name();
+	logger->write(className, options[0]);
 }

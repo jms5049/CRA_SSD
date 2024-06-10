@@ -2,7 +2,6 @@
 
 #include "../SsdApi.h"
 #include "../Ssd.h"
-#include "../Logger.h"
 
 using std::string;
 using std::vector;
@@ -11,7 +10,7 @@ class ICommand {
 public:
 	ICommand(vector<string> options)
 		: options(options) {
-		ssdApi = Ssd::getInstance(Logger::getInstance());
+		ssdApi = Ssd::getInstance();
 	}
 
 	virtual void verifyOptions() = 0;

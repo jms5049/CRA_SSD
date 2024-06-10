@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "../SsdApi.h"
+#include "../Logger.h"
 #include "ICommand.h"
 #include "IoCommand.h"
 #include "ReadCommand.h"
@@ -21,4 +22,12 @@ void FullReadCommand::execute()
 	for (int idx = 0; idx < 100; idx++) {
 		cout << idx << " " << ssdApi->read(idx) << endl;
 	}
+	log();
+}
+
+void FullReadCommand::log()
+{
+	Logger* logger = Logger::getInstance();
+	string className = typeid(*this).name();
+	logger->write(className, " ");
 }

@@ -6,7 +6,6 @@
 #include <regex>
 #include <exception>
 
-#include "Logger.h"
 #include "TestShell.h"
 #include "Command/ICommand.h"
 #include "Command/CommandFactory.h"
@@ -15,16 +14,15 @@ using std::string;
 using std::regex;
 using std::regex_match;
 
-TestShell::TestShell(Logger* logger) {
-	this->logger = logger;
+TestShell::TestShell() {
 	commandFactory = CommandFactory::getCommandFactory();
 }
 
 TestShell* TestShell::testShell = nullptr;
-TestShell* TestShell::getInstance(Logger* logger)
+TestShell* TestShell::getInstance()
 {
 	if (testShell == nullptr) {
-		testShell = new TestShell(logger);
+		testShell = new TestShell();
 	}
 
 	return testShell;
