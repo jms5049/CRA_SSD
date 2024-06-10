@@ -36,5 +36,6 @@ private:
 	void updateAndWriteNandData(int updateSize, string writeData);
 	void updateReadResult(string readData);
 	void writeNand(int LBAIndex, string writeData);
+	void eraseNand(int LBAIndex, int size);
 	bool checkBuffer(int LBAIndex);
 };

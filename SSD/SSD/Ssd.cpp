@@ -98,7 +98,12 @@ void Ssd::flush() {
 			writeNand(LBA, writeData);
 		}
 		if (cmd.find("E") == 0) {
-			// Todo!!!!
+			vector<string> args = splitString(cmd);
+
+			int LBA = stoi(args[1]);
+			int size = stoi(args[2]);
+
+			eraseNand(LBA, size);
 		}
 	}
 
@@ -126,6 +131,21 @@ void Ssd::writeNand(int LBAIndex, string writeData) {
 }
 
 void Ssd::eraseSsd(int LBAIndex, int size) {
+	if (ssd_buffer.isEraseMerged(LBAIndex, size)) return;
+
+	string cmd = "E ";
+	cmd += to_string(LBAIndex);
+	cmd += " ";
+	cmd += to_string(size);
+
+	ssd_buffer.addCmnToBuffer(cmd);
+
+	if (ssd_buffer.isCmd10InBuffer()) {
+		flush();
+	}
+}
+
+void Ssd::eraseNand(int LBAIndex, int size) {
 	readNandDataAndUpdateStartIndex(LBAIndex);
 	if (nandData == ErrorMessage)  return;
 

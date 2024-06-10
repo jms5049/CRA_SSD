@@ -9,6 +9,7 @@ public:
 	void addCmnToBuffer(string cmd);
 	void flushBuffer();
 	vector<string> readBuffer();
+	bool isEraseMerged(int LBAIndex, int size);
 
 private:
 	const string bufferFileName = "./buffer.txt";
