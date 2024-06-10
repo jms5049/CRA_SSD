@@ -17,54 +17,54 @@ void HelpCommand::execute()
 	if (options.size() == 2)
 		command = options[1];
 
-	if (command == "write") help_write();
-	else if (command == "read") help_read();
-	else if (command == "exit") help_exit();
-	else if (command == "fullwrite") help_fullwrite();
-	else if (command == "fullread") help_fullread();
-	else if (command == "erase") help_erase();
-	else if (command == "erase_range") help_erase_range();
-	else if (command == "flush") help_flush();
+	if (command == "write") helpWrite();
+	else if (command == "read") helpRead();
+	else if (command == "exit") helpExit();
+	else if (command == "fullwrite") helpFullwrite();
+	else if (command == "fullread") helpFullread();
+	else if (command == "erase") helpErase();
+	else if (command == "erase_range") helpEraseRange();
+	else if (command == "flush") helpFlush();
 	else {
-		help_write();
-		help_read();
-		help_exit();
-		help_fullwrite();
-		help_fullread();
-		help_erase();
-		help_erase_range();
-		help_flush();
+		helpWrite();
+		helpRead();
+		helpExit();
+		helpFullwrite();
+		helpFullread();
+		helpErase();
+		helpEraseRange();
+		helpFlush();
 	}
 }
 
-void HelpCommand::help_write() {
+void HelpCommand::helpWrite() {
 	printf("write:\n\t write [address] [value] => write 3 0xaabbccdd\n");
 }
 
-void HelpCommand::help_read() {
+void HelpCommand::helpRead() {
 	printf("read:\n\t read [address] => read 3 \n");
 }
 
-void HelpCommand::help_exit() {
+void HelpCommand::helpExit() {
 	printf("exit:\n\t you can exit the program \n");
 }
 
-void HelpCommand::help_fullwrite() {
+void HelpCommand::helpFullwrite() {
 	printf("fullwrite:\n\t you can write overall region at once \n\t fullwrite [value] => fullwrite 0xabcdffff \n");
 }
 
-void HelpCommand::help_fullread() {
+void HelpCommand::helpFullread() {
 	printf("fullread:\n\t you can read overall region at once\n");
 }
 
-void HelpCommand::help_erase() {
+void HelpCommand::helpErase() {
 	printf("erase:\n\t erase [address] [size] => erase 3 5 \n");
 }
 
-void HelpCommand::help_erase_range() {
+void HelpCommand::helpEraseRange() {
 	printf("erase_range:\n\t erase_range [start address] [end address] => erase_range 0 5 \n");
 }
 
-void HelpCommand::help_flush() {
+void HelpCommand::helpFlush() {
 	printf("flush:\n\t flush all commands in buffer \n");
 }

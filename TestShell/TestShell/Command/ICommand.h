@@ -18,6 +18,6 @@ public:
 	virtual string getResult() { return string(); }
 
 protected:
-	SsdApi* ssdApi;
+	ssdApi* ssdApi;
 	vector<string> options;
 };

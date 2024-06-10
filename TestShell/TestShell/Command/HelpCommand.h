@@ -10,12 +10,12 @@ public:
 	void execute();
 
 private:
-	void help_write();
-	void help_read();
-	void help_exit();
-	void help_fullwrite();
-	void help_fullread();
-	void help_erase();
-	void help_erase_range();
-	void help_flush();
+	void helpWrite();
+	void helpRead();
+	void helpExit();
+	void helpFullwrite();
+	void helpFullread();
+	void helpErase();
+	void helpEraseRange();
+	void helpFlush();
 };

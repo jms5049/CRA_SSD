@@ -9,7 +9,7 @@
 
 using std::string;
 
-const string Ssd::SSD_LOCATION = "..\\..\\SSD\\";
+const string Ssd::ssdLocation = "..\\..\\SSD\\";
 
 Ssd::Ssd(){
 }
@@ -96,7 +96,7 @@ void Ssd::executeSsdCmd(string& cmdOption) {
 
 	sei.cbSize = sizeof(SHELLEXECUTEINFO);
 	sei.lpFile = "ssd.exe";
-	sei.lpDirectory = SSD_LOCATION.c_str();
+	sei.lpDirectory = ssdLocation.c_str();
 	sei.lpParameters = cmdOption.c_str();
 	sei.nShow = SW_HIDE;
 	sei.fMask = SEE_MASK_NOCLOSEPROCESS;

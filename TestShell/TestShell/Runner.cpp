@@ -12,7 +12,7 @@
 
 using namespace std;
 
-void Runner::runnerApp(string filename) {
+void Runner::RunnerApp(string filename) {
 	ifstream file(filename);
 	Logger* logger = Logger::getInstance();
 	TestShell* testShell = TestShell::getInstance();

@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
 	Runner testRunner;
 
 	if (isRunner(argc, argv)) {
-		testRunner.runnerApp(argv[1]);	// argv[1] 은 runner 파일명.
+		testRunner.RunnerApp(argv[1]);	// argv[1] 은 runner 파일명.
 	}
 	else {
 		while (1) {
