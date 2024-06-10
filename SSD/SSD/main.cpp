@@ -20,7 +20,7 @@ int stoiWithException(string target) {
     return intData;
 }
 
-bool isParameterValid(int argc, char* argv[]) {
+bool isIoParameterValid(int argc, char* argv[]) {
     if (argc < 3 || argc > 4) return false;
     
     int lba = stoiWithException(argv[2]);
@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
     if (rwChecker != "F") {
         lba = stoiWithException(argv[2]);
 
-        if (isParameterValid(argc, argv) == false) return 0;
+        if (isIoParameterValid(argc, argv) == false) return 0;
     }
 
     if (rwChecker == "W") {
