@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 #include "../SSD/Ssd.cpp"
+#include "../SSD/Buffer.cpp"
 using namespace testing;
 
 class SsdVirtualFixture : public Test {

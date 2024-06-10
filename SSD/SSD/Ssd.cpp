@@ -36,12 +36,31 @@ string Ssd::readResult() {
 
 bool Ssd::checkBuffer(int LbAIndex) {
 	vector<string> bufferData = ssd_buffer.readBuffer();
+	bool flag = false;
+	string ans = "";
 	for (int i = 0; i < bufferData.size(); i++) {
-		string temp = bufferData[i];
+		string cmd = bufferData[i];
+		if (cmd.find("W") == 0) {
+			vector<string> args = splitString(cmd);
+			int LBA = stoi(args[1]);
+			string LBAData = args[2];
+			if (LBA == LbAIndex) {
+				ans = LBAData;
+				flag = true;
+			}
+		}
+		if (cmd.find("E") == 0) {
+			vector<string> args = splitString(cmd);
+			int startIdx = stoi(args[1]);
+			int endIdx = stoi(args[2]);
+			if (LbAIndex >= startIdx && LbAIndex < endIdx) {
+				ans = "0x00000000";
+				flag = true;
+			}
+		}
 	}
-	bool check = 1;
-	updateReadResult("0x" + nandData.substr(startIndex, 8));
-	return true;
+	updateReadResult(ans);
+	return flag;
 }
 
 void Ssd::readSsd(int LBAIndex) {
