@@ -23,7 +23,8 @@ void HelpCommand::execute()
 	else if (command == "fullwrite") help_fullwrite();
 	else if (command == "fullread") help_fullread();
 	else if (command == "erase") help_erase();
-	else if (command == "earse_range") help_erase_range();
+	else if (command == "erase_range") help_erase_range();
+	else if (command == "flush") help_flush();
 	else {
 		help_write();
 		help_read();
@@ -32,6 +33,7 @@ void HelpCommand::execute()
 		help_fullread();
 		help_erase();
 		help_erase_range();
+		help_flush();
 	}
 }
 
@@ -60,5 +62,9 @@ void HelpCommand::help_erase() {
 }
 
 void HelpCommand::help_erase_range() {
-	printf("erase_range:\n\t erase_range [start address] [end address] => erase 0 5 \n");
+	printf("erase_range:\n\t erase_range [start address] [end address] => erase_range 0 5 \n");
+}
+
+void HelpCommand::help_flush() {
+	printf("flush:\n\t flush all commands in buffer \n");
 }
