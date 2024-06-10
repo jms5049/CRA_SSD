@@ -13,6 +13,7 @@
 #include "ExitCommand.h"
 #include "EraseCommand.h"
 #include "EraseRangeCommand.h"
+#include "FlushCommand.h"
 
 using std::string;
 using std::vector;
@@ -32,7 +33,8 @@ const vector<string> CommandFactory::supportedCommands = {
 	"fullwrite",
 	"fullread",
 	"erase",
-	"erase_range"
+	"erase_range",
+	"flush"
 };
 
 ICommand* CommandFactory::getCommand(vector<string>& commandAndOptions)
@@ -68,6 +70,7 @@ ICommand* CommandFactory::makeCommand(vector<string>& commandAndOptions)
 	if (commandName == "fullread") command = new FullReadCommand(commandAndOptions);
 	if (commandName == "erase") command = new EraseCommand(commandAndOptions);
 	if (commandName == "erase_range") command = new EraseRangeCommand(commandAndOptions);
+	if (commandName == "flush") command = new FlushCommand(commandAndOptions);
 
 	return command;
 }

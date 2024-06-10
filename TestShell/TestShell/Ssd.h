@@ -8,6 +8,7 @@ public:
 	void write(int lba, std::string data) override;
 	void erase(int lba, int size) override;
 	std::string read(int lba) override;
+	void flush() override;
 
 private:
 	static const std::string SSD_LOCATION;
