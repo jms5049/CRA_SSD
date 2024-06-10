@@ -10,7 +10,7 @@
 using namespace testing;
 using std::string;
 
-class SsdMock : public ssdApi {
+class SsdMock : public SsdApi {
 public:
 	MOCK_METHOD(string, read, (int lba), (override));
 	MOCK_METHOD(void, write, (int lba, string data), (override));

@@ -1,7 +1,7 @@
 #pragma once
 #include "SsdApi.h"
 
-class Ssd : public ssdApi {
+class Ssd : public SsdApi {
 public:
 	static Ssd* getInstance();
 	void write(int lba, std::string data) override;
