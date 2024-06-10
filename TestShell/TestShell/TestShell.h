@@ -1,4 +1,7 @@
 #pragma once
+#include <vector>
+#include <string>
+
 #include "SsdApi.h"
 using namespace std;
 
@@ -20,5 +23,4 @@ private:
 	TestShell();
 	void inputParser(string userInput);
 	vector<string> splitString(const string& str);
-	void help_fullread();
 };

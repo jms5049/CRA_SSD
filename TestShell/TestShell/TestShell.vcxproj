@@ -144,6 +144,11 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Runner.cpp" />
     <ClCompile Include="Ssd.cpp" />
+    <ClCompile Include="TestScenario\Read10AndCompare.cpp" />
+    <ClCompile Include="TestScenario\TestApp1.cpp" />
+    <ClCompile Include="TestScenario\TestApp2.cpp" />
+    <ClCompile Include="TestScenario\TestScenario.cpp" />
+    <ClCompile Include="TestScenario\Write10AndCompare.cpp" />
     <ClCompile Include="TestScript.cpp" />
     <ClCompile Include="TestShell.cpp" />
   </ItemGroup>
@@ -164,6 +169,11 @@
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Runner.h" />
     <ClInclude Include="Ssd.h" />
+    <ClInclude Include="TestScenario\Read10AndCompare.h" />
+    <ClInclude Include="TestScenario\TestApp1.h" />
+    <ClInclude Include="TestScenario\TestApp2.h" />
+    <ClInclude Include="TestScenario\TestScenario.h" />
+    <ClInclude Include="TestScenario\Write10AndCompare.h" />
     <ClInclude Include="TestScript.h" />
     <ClInclude Include="TestShell.h" />
   </ItemGroup>

@@ -5,20 +5,27 @@
 #include <iostream>
 
 #include "Logger.h"
-#include "TestShell.h"
 #include "TestScript.h"
+#include "TestShell.h"
+
+#include "TestScenario/TestScenario.h"
+#include "TestScenario/TestApp1.h"
+#include "TestScenario/TestApp2.h"
+#include "TestScenario/Write10AndCompare.h"
+#include "TestScenario/Read10AndCompare.h"
 
 using std::string;
+using std::vector;
 
-TestScript::TestScript(TestShell* testShell) {
-	this->testShell = testShell;
+TestScript::TestScript() {
+	// do nothing
 }
 
 TestScript* TestScript::testScript = nullptr;
-TestScript* TestScript::getInstance(TestShell* testShell)
+TestScript* TestScript::getInstance()
 {
 	if (testScript == nullptr) {
-		testScript = new TestScript(testShell);
+		testScript = new TestScript();
 	}
 
 	return testScript;
@@ -29,105 +36,32 @@ bool TestScript::testScriptApp(string userInput) {
 	bool result = false;
 
 	if (args[0] == "testapp1") {
-		result = testApp1();
+		TestScenario* test = new TestApp1();
+		result = test->runTest();
+		delete test;
 	}
+
 	if (args[0] == "testapp2") {
-		result = testApp2();
+		TestScenario* test = new TestApp2();
+		result = test->runTest();
+		delete test;
 	}
+
 	if (args[0] == "Write10AndCompare") {
-		result = testWrite10AndCompare();
+		TestScenario* test = new Write10AndCompare();
+		result = test->runTest();
+		delete test;
 	}
+
 	if (args[0] == "Read10AndCompare") {
-		result = testRead10AndCompare();
+		TestScenario* test = new Read10AndCompare();
+		result = test->runTest();
+		delete test;
 	}
 	string strRes = (result == true) ? "PASS" : "FAIL";
 	log(__func__, args[0] + "\t:" + strRes);
 
 	return result;
-}
-
-bool TestScript::testApp1() {
-	string data = "0x5A5A5A5A";
-	testShell->executeCommand("fullwrite " + data);
-	testShell->executeCommand("fullread");
-	for (int addr = 0; addr < 100; addr++) {
-		testShell->executeCommand(makeReadCommand(addr));
-		string result = testShell->getResult();
-		if (result != data) {
-			return false;
-		}
-	}
-	return true;
-}
-
-bool TestScript::testApp2() {
-	string data;
-	data = "0xAAAABBBB";
-	for (int cnt = 0; cnt < testCnt; cnt++) {
-		writeAddrTest(data);
-	}
-	data = "0x12345678";
-	writeAddrTest(data);
-
-	for (int addr = 0; addr < testAddr; addr++) {
-		testShell->executeCommand(makeReadCommand(addr));
-		string result = testShell->getResult();
-		if (result != data) {
-			return false;
-		}
-	}
-	return true;
-}
-
-void TestScript::writeAddrTest(string data) {
-	string writeCommand;
-	for (int addr = 0; addr < testAddr; addr++) {
-		testShell->executeCommand(makeWriteCommand(addr, data));
-	}
-}
-
-bool TestScript::testWrite10AndCompare() {
-	string data;
-	data = "0xAAAABBBB";
-
-	for (int cnt = 0; cnt < 10; cnt++)
-		testShell->executeCommand(makeWriteCommand(0, data));
-
-	testShell->executeCommand(makeReadCommand(0));
-	string result = testShell->getResult();
-
-	if (result != data) return false;
-	return true;
-}
-
-string TestScript::makeWriteCommand(int lba, string data)
-{
-	string result = "write ";
-	result += to_string(lba);
-	result += " " + data;
-	return result;
-}
-
-string TestScript::makeReadCommand(int lba)
-{
-	string result = "read ";
-	result += to_string(lba);
-	return result;
-}
-
-bool TestScript::testRead10AndCompare() {
-	testShell->executeCommand(makeReadCommand(0));
-	string data = testShell->getResult();
-	string result;
-
-	for (int cnt = 0; cnt < 10; cnt++) {
-		testShell->executeCommand(makeReadCommand(0));
-		result = testShell->getResult();
-
-		if (result != data) return false;
-	}
-
-	return true;
 }
 
 vector<string> TestScript::splitString(const string& str) {
