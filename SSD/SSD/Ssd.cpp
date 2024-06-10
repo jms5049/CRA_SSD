@@ -46,7 +46,7 @@ static vector<string> splitString(const string& str) {
 	return tokens;
 }
 
-bool Ssd::checkBuffer(int LbAIndex) {
+bool Ssd::checkBuffer(int LBAIndex) {
 	vector<string> bufferData = ssd_buffer.readBuffer();
 	for (int i = bufferData.size() - 1; i >= 0; i--) {
 		string cmd = bufferData[i];
