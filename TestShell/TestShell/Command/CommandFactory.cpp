@@ -61,7 +61,7 @@ ICommand* CommandFactory::makeCommand(vector<string>& commandAndOptions)
 {
 	ICommand* command = nullptr;
 	string commandName = commandAndOptions[0];
-	printf("%s %s \n", __func__, commandName.c_str());
+
 	if (commandName == "read") command = new ReadCommand(commandAndOptions);
 	if (commandName == "write") command = new WriteCommand(commandAndOptions);
 	if (commandName == "exit") command = new ExitCommand(commandAndOptions);
