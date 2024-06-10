@@ -45,6 +45,7 @@ bool TestShell::isSupportedCommand(string command)
 
 void TestShell::inputParser(string userInput) {
 	vector<string> args = splitString(userInput);
+	if (iCommand != nullptr) delete iCommand;	// 최소한의 메모리 누수 방지용. 다음 Command 수행 전 이전 Command delete
 
 	iCommand = commandFactory->getCommand(args);
 	if (iCommand == nullptr) throw std::invalid_argument("NOT supported Command.");
