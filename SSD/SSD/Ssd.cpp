@@ -30,22 +30,22 @@ void Ssd::initializeResourceFile() {
 
 	nandFile.close();
 	resultFile.close();
-	ssd_buffer.flushBuffer();
+	ssdBuffer.flushBuffer();
 }
 
 string Ssd::readResult() {
 	return readTxtData(resultFileName);
 }
 
-bool Ssd::checkBuffer(int LBAIndex) {
-	vector<string> bufferData = ssd_buffer.readBuffer();
+bool Ssd::checkBuffer(int lbaIndex) {
+	vector<string> bufferData = ssdBuffer.readBuffer();
 	for (int i = bufferData.size() - 1; i >= 0; i--) {
 		string cmd = bufferData[i];
 		if (cmd.find("W") == 0) {
 			vector<string> args = splitString(cmd);
 			int LBA = stoi(args[1]);
 			string LBAData = args[2];
-			if (LBA == LBAIndex) {
+			if (LBA == lbaIndex) {
 				updateReadResult(LBAData);
 				return true;
 			}
@@ -55,7 +55,7 @@ bool Ssd::checkBuffer(int LBAIndex) {
 			int startIdx = stoi(args[1]);
 			int size = stoi(args[2]);
 			int endIdx = startIdx + size;
-			if (LBAIndex >= startIdx && LBAIndex < endIdx) {
+			if (lbaIndex >= startIdx && lbaIndex < endIdx) {
 				updateReadResult("0x00000000");
 				return true;
 			}
@@ -64,9 +64,9 @@ bool Ssd::checkBuffer(int LBAIndex) {
 	return false;
 }
 
-void Ssd::readSsd(int LBAIndex) {
-	if (checkBuffer(LBAIndex) == false) {
-		readNandDataAndUpdateStartIndex(LBAIndex);
+void Ssd::readSsd(int lbaIndex) {
+	if (checkBuffer(lbaIndex) == false) {
+		readNandDataAndUpdateStartIndex(lbaIndex);
 		if (nandData == ErrorMessage)  return;
 
 		updateReadResult("0x" + nandData.substr(startIndex, 8));
@@ -75,7 +75,7 @@ void Ssd::readSsd(int LBAIndex) {
 
 
 void Ssd::flush() {
-	vector<string> bufferData = ssd_buffer.readBuffer();
+	vector<string> bufferData = ssdBuffer.readBuffer();
 
 	for (int i = 0; i < bufferData.size(); i++) {
 		string cmd = bufferData[i];
@@ -98,50 +98,50 @@ void Ssd::flush() {
 		}
 	}
 
-	ssd_buffer.flushBuffer();
+	ssdBuffer.flushBuffer();
 }
 
-void Ssd::writeSsd(int LBAIndex, string writeData) {
+void Ssd::writeSsd(int lbaIndex, string writeData) {
 	string cmd = "W ";
-	cmd += to_string(LBAIndex);
+	cmd += to_string(lbaIndex);
 	cmd += " ";
 	cmd += writeData;
 
-	ssd_buffer.addCmnToBuffer(cmd);
+	ssdBuffer.addCmnToBuffer(cmd);
 	
-	if (ssd_buffer.isCmd10InBuffer()) {
+	if (ssdBuffer.isCmd10InBuffer()) {
 		flush();
 	}
 }
 
-void Ssd::writeNand(int LBAIndex, string writeData) {
-	readNandDataAndUpdateStartIndex(LBAIndex);
+void Ssd::writeNand(int lbaIndex, string writeData) {
+	readNandDataAndUpdateStartIndex(lbaIndex);
 	if (nandData == ErrorMessage)  return;
 
 	updateAndWriteNandData(writeDataSize, writeData.substr(2, 8));
 }
 
-void Ssd::eraseSsd(int LBAIndex, int size) {
-	if (ssd_buffer.isEraseMerged(LBAIndex, size)) return;
+void Ssd::eraseSsd(int lbaIndex, int size) {
+	if (ssdBuffer.isEraseMerged(lbaIndex, size)) return;
 
 	string cmd = "E ";
-	cmd += to_string(LBAIndex);
+	cmd += to_string(lbaIndex);
 	cmd += " ";
 	cmd += to_string(size);
 
-	ssd_buffer.addCmnToBuffer(cmd);
+	ssdBuffer.addCmnToBuffer(cmd);
 
-	if (ssd_buffer.isCmd10InBuffer()) {
+	if (ssdBuffer.isCmd10InBuffer()) {
 		flush();
 	}
 }
 
-void Ssd::eraseNand(int LBAIndex, int size) {
-	readNandDataAndUpdateStartIndex(LBAIndex);
+void Ssd::eraseNand(int lbaIndex, int size) {
+	readNandDataAndUpdateStartIndex(lbaIndex);
 	if (nandData == ErrorMessage)  return;
 
-	if (LBAIndex + size > lbaSize)
-		size = lbaSize - LBAIndex;
+	if (lbaIndex + size > lbaSize)
+		size = lbaSize - lbaIndex;
 
 	int endSize = size * writeDataSize;
 	updateAndWriteNandData(endSize, EraseSource);
@@ -166,9 +166,9 @@ void Ssd::writeTxtData(string filePath, string writeData) {
 	file.close();
 }
 
-void Ssd::readNandDataAndUpdateStartIndex(int LBAIndex) {
+void Ssd::readNandDataAndUpdateStartIndex(int lbaIndex) {
 	nandData = readTxtData(nandFlieName);
-	startIndex = LBAIndex * writeDataSize;
+	startIndex = lbaIndex * writeDataSize;
 }
 
 void Ssd::updateAndWriteNandData(int updateSize, string writeData) {
