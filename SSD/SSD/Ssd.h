@@ -24,7 +24,6 @@ private:
 	const int nandCharSize = 800;
 	const int lbaSize = 100;
 	const int writeDataSize = 8;
-	const int maxEraseSize = 10;
 
 	string nandData;
 	int startIndex;
