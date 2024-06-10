@@ -31,37 +31,45 @@ TestScript* TestScript::getInstance()
 	return testScript;
 }
 
+const vector<string> TestScript::supportedScenarios = {
+	"testapp1",
+	"testapp2",
+	"Write10AndCompare",
+	"Read10AndCompare",
+};
+
+bool TestScript::isSupportedTestScenario(string testScenarioName) {
+	for (auto& curScenario : supportedScenarios) {
+		if (testScenarioName == curScenario) return true;
+	}
+
+	return false;
+}
+
 bool TestScript::testScriptApp(string userInput) {
 	vector<string> args = splitString(userInput);
 	bool result = false;
 
-	if (args[0] == "testapp1") {
-		TestScenario* test = new TestApp1();
-		result = test->runTest();
-		delete test;
+	TestScenario* runningTest = getTestScenario(args[0]);
+	
+	if (runningTest != nullptr) {
+		result = runningTest->runTest();
+		delete runningTest;
 	}
 
-	if (args[0] == "testapp2") {
-		TestScenario* test = new TestApp2();
-		result = test->runTest();
-		delete test;
-	}
-
-	if (args[0] == "Write10AndCompare") {
-		TestScenario* test = new Write10AndCompare();
-		result = test->runTest();
-		delete test;
-	}
-
-	if (args[0] == "Read10AndCompare") {
-		TestScenario* test = new Read10AndCompare();
-		result = test->runTest();
-		delete test;
-	}
 	string strRes = (result == true) ? "PASS" : "FAIL";
 	log(__func__, args[0] + "\t:" + strRes);
 
 	return result;
+}
+
+TestScenario* TestScript::getTestScenario(const string& scenarioName)
+{
+	if (scenarioName == "testapp1") return new TestApp1();
+	if (scenarioName == "testapp2") return new TestApp2();
+	if (scenarioName == "Write10AndCompare") return new Write10AndCompare();
+	if (scenarioName == "Read10AndCompare") return new Read10AndCompare();
+	return nullptr;
 }
 
 vector<string> TestScript::splitString(const string& str) {
