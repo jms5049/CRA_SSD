@@ -12,7 +12,10 @@ void HelpCommand::verifyOptions()
 
 void HelpCommand::execute()
 {
-	string command = options[1];
+	string command = "";
+
+	if (options.size() == 2)
+		command = options[1];
 
 	if (command == "write") help_write();
 	else if (command == "read") help_read();
