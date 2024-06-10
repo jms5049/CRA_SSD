@@ -46,33 +46,31 @@ static vector<string> splitString(const string& str) {
 	return tokens;
 }
 
-bool Ssd::checkBuffer(int LbAIndex) {
+bool Ssd::checkBuffer(int LBAIndex) {
 	vector<string> bufferData = ssd_buffer.readBuffer();
-	bool flag = false;
-	string ans = "";
-	for (int i = 0; i < bufferData.size(); i++) {
+	for (int i = bufferData.size() - 1; i >= 0; i--) {
 		string cmd = bufferData[i];
 		if (cmd.find("W") == 0) {
 			vector<string> args = splitString(cmd);
 			int LBA = stoi(args[1]);
 			string LBAData = args[2];
-			if (LBA == LbAIndex) {
-				ans = LBAData;
-				flag = true;
+			if (LBA == LBAIndex) {
+				updateReadResult(LBAData);
+				return true;
 			}
 		}
 		if (cmd.find("E") == 0) {
 			vector<string> args = splitString(cmd);
 			int startIdx = stoi(args[1]);
-			int endIdx = stoi(args[2]);
-			if (LbAIndex >= startIdx && LbAIndex < endIdx) {
-				ans = "0x00000000";
-				flag = true;
+			int size = stoi(args[2]);
+			int endIdx = startIdx + size;
+			if (LBAIndex >= startIdx && LBAIndex < endIdx) {
+				updateReadResult("0x00000000");
+				return true;
 			}
 		}
 	}
-	updateReadResult(ans);
-	return flag;
+	return false;
 }
 
 void Ssd::readSsd(int LBAIndex) {
