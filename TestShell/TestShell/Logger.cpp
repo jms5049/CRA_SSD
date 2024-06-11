@@ -8,6 +8,7 @@
 
 #include "Logger.h"
 
+
 using namespace std;
 
 #if _DEBUG
@@ -23,6 +24,7 @@ static string untilFileName;
 Logger::Logger() {
     untilFileName = "";
     ofstream file(filePath, ios::trunc); // latest.log 초기화
+    loggerLB = getLLInstance();
 }
 
 Logger* Logger::logger = nullptr;
@@ -34,12 +36,13 @@ Logger* Logger::getInstance() {
 }
 
 void Logger::write(string funcName, string strLog) {
-    auto now = chrono::system_clock::now();
-    time_t currentTime = chrono::system_clock::to_time_t(now);
-    tm currentTimeStruct;
-    localtime_s(&currentTimeStruct, &currentTime);
+    logWrite(loggerLB, funcName.c_str(), strLog.c_str());
+    //auto now = chrono::system_clock::now();
+    //time_t currentTime = chrono::system_clock::to_time_t(now);
+    //tm currentTimeStruct;
+    //localtime_s(&currentTimeStruct, &currentTime);
 
-    fileWrite(&currentTimeStruct, funcName, strLog);
+    //fileWrite(&currentTimeStruct, funcName, strLog);
 }
 
 void Logger::fileWrite(tm* curTime, string funcName, string strLog) {

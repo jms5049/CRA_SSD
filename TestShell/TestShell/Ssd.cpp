@@ -109,7 +109,7 @@ void Ssd::executeSsdCmd(string& cmdOption) {
 	sei.lpVerb = "open";
 
 	DWORD result = ShellExecuteExA(&sei);
-	log(__func__, cmdOption.c_str());
+	//log(__func__, cmdOption.c_str());
 
 	if (sei.hProcess != NULL)
 	{

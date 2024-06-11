@@ -9,12 +9,14 @@
 #include <iomanip>
 #include <ctime>
 #include <windows.h>
+#include <mutex>
+
 
 #include "LoggerLibrary.h"
 
 using namespace std;
 
-
+std::mutex mtx; // ¹ÂÅØ½º °´Ã¼ »ý¼º
 
 #if _DEBUG
 string filePath = "../../latest.log";
@@ -32,24 +34,25 @@ LoggerLibrary::LoggerLibrary() {
 }
 
 LoggerLibrary* LoggerLibrary::logger = nullptr;
-LoggerLibrary* LoggerLibrary::getInstance() {
-    if (logger == nullptr) {
-        logger = new LoggerLibrary();
+LoggerLibrary* getLLInstance() {
+    if (LoggerLibrary::logger == nullptr) {
+        LoggerLibrary::logger = new LoggerLibrary();
     }
-    return logger;
+    return LoggerLibrary::logger;
 }
 
-void logWrite(const char* funcName, const char* strLog) {
+void logWrite(LoggerLibrary* loggerLB, const char* funcName, const char* strLog) {
     auto now = chrono::system_clock::now();
     time_t currentTime = chrono::system_clock::to_time_t(now);
     tm currentTimeStruct;
     localtime_s(&currentTimeStruct, &currentTime);
 
-    LoggerLibrary* loggerTS = LoggerLibrary::getInstance();
-    loggerTS->fileWrite(&currentTimeStruct, funcName, strLog);
+    //LoggerLibrary* loggerTS = LoggerLibrary::getInstance();
+    loggerLB->fileWrite(&currentTimeStruct, funcName, strLog);
 }
 
 void LoggerLibrary::fileWrite(tm* curTime, string funcName, string strLog) {
+
     checkOverflowAndSaveFile();
 
     ofstream logFile(filePath, ios::app);
@@ -60,6 +63,7 @@ void LoggerLibrary::fileWrite(tm* curTime, string funcName, string strLog) {
     logFile << left << setw(40) << funcName.c_str() << "\t";
     logFile << strLog << endl;
     logFile.close();
+
 }
 
 void LoggerLibrary::checkOverflowAndSaveFile() {

@@ -6,6 +6,7 @@
 
 #include "Ssd.h"
 
+
 using std::string;
 using std::ofstream;
 using std::ifstream;
@@ -31,6 +32,7 @@ void Ssd::initializeResourceFile() {
 	nandFile.close();
 	resultFile.close();
 	ssdBuffer.flushBuffer();
+	logger = getLLInstance();
 }
 
 string Ssd::readResult() {
@@ -65,6 +67,9 @@ bool Ssd::checkBuffer(int lbaIndex) {
 }
 
 void Ssd::readSsd(int lbaIndex) {
+	string logStr = to_string(lbaIndex);
+	logWrite(logger,__func__, logStr.c_str());
+
 	if (checkBuffer(lbaIndex) == false) {
 		readNandDataAndUpdateStartIndex(lbaIndex);
 		if (nandData == ErrorMessage)  return;
@@ -106,7 +111,7 @@ void Ssd::writeSsd(int lbaIndex, string writeData) {
 	cmd += to_string(lbaIndex);
 	cmd += " ";
 	cmd += writeData;
-
+	logWrite(logger, __func__, cmd.c_str());
 	ssdBuffer.addCmnToBuffer(cmd);
 	
 	if (ssdBuffer.isCmd10InBuffer()) {
@@ -128,7 +133,7 @@ void Ssd::eraseSsd(int lbaIndex, int size) {
 	cmd += to_string(lbaIndex);
 	cmd += " ";
 	cmd += to_string(size);
-
+	logWrite(logger, __func__, cmd.c_str());
 	ssdBuffer.addCmnToBuffer(cmd);
 
 	if (ssdBuffer.isCmd10InBuffer()) {

@@ -12,13 +12,13 @@
 
 class LoggerLibrary {
 public:
-    static LoggerLibrary* getInstance();
+    //static LoggerLibrary* getInstance();
     //void write(std::string funcName, std::string strLog);
-    void fileWrite(std::tm* curTime, std::string funcName, std::string strLog);
-
-private:
     LoggerLibrary();
+    void fileWrite(std::tm* curTime, std::string funcName, std::string strLog);
     static LoggerLibrary* logger;
+private:
+
 
     bool isOverflow();
     void saveLogFileWithTime();
@@ -29,5 +29,6 @@ private:
 };
 
 extern "C" {
-    LOGGERLIBRARY_API void logWrite(const char* funcName, const char* strLog);
+    LOGGERLIBRARY_API LoggerLibrary* getLLInstance();
+    LOGGERLIBRARY_API void logWrite(LoggerLibrary* loggerLB, const char* funcName, const char* strLog);
 }

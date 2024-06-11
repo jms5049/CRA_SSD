@@ -14,8 +14,6 @@
 #include "TestScenario/Write10AndCompare.h"
 #include "TestScenario/Read10AndCompare.h"
 
-#include "LoggerLibrary.h"
-
 using std::string;
 using std::vector;
 
@@ -60,8 +58,7 @@ bool TestScript::testScriptApp(string userInput) {
 	}
 
 	string strRes = (result == true) ? "PASS" : "FAIL";
-	//log(__func__, args[0] + "\t:" + strRes);
-	logWrite(__func__, ("logDLL-"+ args[0] + "\t:" + strRes).c_str());
+	log(__func__, args[0] + "\t:" + strRes);
 	return result;
 }
 

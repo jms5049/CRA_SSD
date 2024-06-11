@@ -1,5 +1,5 @@
 #pragma once
-
+#include "LoggerLibrary.h"
 class Logger {
 public:
     static Logger* getInstance();
@@ -8,6 +8,7 @@ public:
 private:
     Logger();
     static Logger* logger;
+    LoggerLibrary* loggerLB = nullptr;
 
     void fileWrite(std::tm* curTime, std::string funcName, std::string strLog);
     bool isOverflow();

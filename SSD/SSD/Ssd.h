@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include "Buffer.h"
+#include "LoggerLibrary.h"
 
 using std::string;
 
@@ -34,6 +35,8 @@ private:
 	string nandData;
 	int startIndex;
 	Buffer ssdBuffer;
+
+	LoggerLibrary* logger = nullptr;
 
 	string readTxtData(string filePath);
 	void writeTxtData(string filePath, string writeData);
