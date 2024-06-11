@@ -68,7 +68,7 @@ void Logger::checkOverflowAndSaveFile() {
             file.close(); // 파일 닫기
         }
         else {
-            cerr << filePath.c_str() << "Failed to open file." << endl;
+            // cerr << filePath.c_str() << "Failed to open file." << endl;
         }
     }
 }
@@ -88,10 +88,10 @@ void Logger::copyFile(string sourceFileName, string targetFileName) {
 
     if (sourceFile && targetFile) {
         targetFile << sourceFile.rdbuf(); // 현재 파일의 내용을 새 파일로 복사
-        cout << targetFileName.c_str() << "File copied successfully." << endl;
+        // cout << targetFileName.c_str() << "File copied successfully." << endl;
     }
     else {
-        cerr << "Failed to open files." << endl;
+        // cerr << "Failed to open files." << endl;
     }
 
     sourceFile.close(); // 파일 닫기
@@ -106,7 +106,7 @@ void Logger::changeFileToZip() {
     copyFile(untilFileName, newFileName);
 
     if (DeleteFileA(untilFileName.c_str()) == false) {
-        cerr << "Failed to delete file." << endl;
+        // cerr << "Failed to delete file." << endl;
     }
 }
 

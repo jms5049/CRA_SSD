@@ -7,6 +7,8 @@
 #include "TestShell.h"
 #include "TestScript.h"
 #include "Runner.h"
+#include "Printer.h"
+
 using namespace std;
 
 bool isRunner(int argc, char* argv[]) {
@@ -22,6 +24,7 @@ int main(int argc, char* argv[]) {
 	Runner testRunner;
 
 	if (isRunner(argc, argv)) {
+		Printer::getInstance()->setIsRunner(true);
 		testRunner.runnerApp(argv[1]);	// argv[1] 은 runner 파일명.
 	}
 	else {

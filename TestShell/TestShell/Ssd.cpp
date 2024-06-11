@@ -6,6 +6,7 @@
 #include "Ssd.h"
 #include "SsdApi.h"
 #include "Logger.h"
+#include "Printer.h"
 
 using std::string;
 
@@ -57,7 +58,8 @@ string Ssd::readResultFile(const std::string& filepath) {
 	string content;
 	std::ifstream file(filepath);
 	if (!file.is_open()) {
-		std::cerr << "Error: Failed to open result.txt file for reading!" << std::endl;
+		string printOut = "Error: Failed to open result.txt file for reading!\n";
+		Printer::getInstance()->print(printOut);
 		return "";
 	}
 

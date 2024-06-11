@@ -4,6 +4,8 @@
 
 #include "../SsdApi.h"
 #include "../Logger.h"
+#include "../Printer.h"
+
 #include "ICommand.h"
 #include "IoCommand.h"
 #include "ReadCommand.h"
@@ -20,7 +22,11 @@ void FullReadCommand::verifyOptions()
 void FullReadCommand::execute()
 {
 	for (int idx = 0; idx < 100; idx++) {
-		cout << idx << " " << ssdApi->read(idx) << endl;
+		string readResult = ssdApi->read(idx);
+		std::string printStr = "" + std::to_string(idx);
+		printStr += " " + readResult;
+		printStr += "\n";
+		Printer::getInstance()->print(printStr);
 	}
 	log();
 }
