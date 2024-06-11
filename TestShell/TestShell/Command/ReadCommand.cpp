@@ -4,6 +4,8 @@
 
 #include "../SsdApi.h"
 #include "../Logger.h"
+#include "../Printer.h"
+
 #include "ICommand.h"
 #include "IoCommand.h"
 #include "ReadCommand.h"
@@ -20,7 +22,8 @@ void ReadCommand::execute()
 {
 	int iLba = verifyConvertLba(options[1]);
 	string result = ssdApi->read(iLba);
-	cout << result << endl;
+	string printOut = result + "\n";
+	Printer::getInstance()->print(printOut);
 	readResult = result;
 	log(result);
 }

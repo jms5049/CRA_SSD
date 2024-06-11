@@ -70,6 +70,12 @@
     <ClCompile Include="TestScenario\Read10AndCompare.cpp">
       <Filter>소스 파일\TestScenario</Filter>
     </ClCompile>
+    <ClCompile Include="Printer.h">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Printer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestShell.h">

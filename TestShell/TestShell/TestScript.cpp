@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "Logger.h"
+#include "Printer.h"
 #include "TestScript.h"
 #include "TestShell.h"
 
@@ -53,7 +54,14 @@ bool TestScript::testScriptApp(string userInput) {
 	TestScenario* runningTest = getTestScenario(args[0]);
 	
 	if (runningTest != nullptr) {
-		result = runningTest->runTest();
+		try {
+			result = runningTest->runTest();
+		}
+		catch (exception e) {
+			string printOut = "Error : ";
+			printOut += e.what();
+			Printer::getInstance()->print(printOut);
+		}
 		delete runningTest;
 	}
 
